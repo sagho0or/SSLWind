@@ -1,0 +1,23 @@
+export interface UserProfileResponseInterface {
+    id: number,
+    email: string,
+    mobile_number: string,
+    national_id: string,
+    full_name: string,
+    birth_date: string,
+    user_name: string,
+    avatar_id: string,
+    zip_code: string,
+    address: string,
+    phone_number: string,
+    fav_markets: any[],
+    last_name: string,
+    first_name: string,
+    identity_type: string,
+    referral_code: string,
+    kyc_level: number,
+    security_type: string,
+    withdraw_otp_type: string,
+    google_authenticator_verify: boolean,
+    email_verify: boolean
+}

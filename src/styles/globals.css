@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    direction: ltr;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.grecaptcha-badge {
+    width: 70px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    left: 4px !important;
+}
+
+.arrow{
+    height: 2px;
+    background-color: #D6D6D6;
+    position: relative;
+    background-image: linear-gradient(90deg, #ffffff 5px, #D6D6D6 0);
+    background-size: 10px 3px;
+    background-position: 0 100%;
+}
+.arrow:after{
+    border-color: transparent;
+    position: absolute;
+    content: " ";
+    display: inline-block;
+    left: -15px;
+    top: -5px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 12px solid #D6D6D6;
+    border-left: 12px solid transparent;
+}
+
+.css-1m8qzkt{
+    z-index: 1000;
+}
+
+
+/*style for FAQ*/
+.styles_faq-row-wrapper__3vA1D .styles_row-body__1NvUo .styles_faq-row__2YF3c {
+    border-top: #F2F2F2 10px solid;
+    border-bottom: none;
+    /*border-radius: 16px;*/
+}
