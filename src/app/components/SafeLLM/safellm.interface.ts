@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { ExchangeInterface } from './ExchangeTable/exchangeTable.interface';
 
 export interface SafeLLMInterface {
   isModalOpen: boolean;
@@ -8,6 +7,4 @@ export interface SafeLLMInterface {
   handleTabClick: (side: string)=>void;
   amountValue?: number;
   handleSearch: ()=>void;
-  exchangesList: ExchangeInterface[] | [];
-  selectedExchange: ExchangeInterface | null;
 }
