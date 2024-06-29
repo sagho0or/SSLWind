@@ -5,11 +5,11 @@ import Icons from '../../../../../../public/Icons';
 import IInput from '@/app/components/Common/Input';
 import IButton from '@/app/components/Common/Button';
 import {useDispatch} from 'react-redux';
-import {loginOtpLoading} from '@/store/auth/login/otp/actions';
 import isMobileView from "@/app/utils/isMobileView";
 import {resendOtpSmsLoading} from "@/store/auth/otp/resendOtpSms/action";
 import {useReCaptcha} from "next-recaptcha-v3";
 import { encode } from 'base-64';
+import { loginOtpLoading } from '@/store/auth/login/otp/slice';
 
 export default function MobileOtpForm(props: OTPFormProps) {
     const [otpCode, setOtpCode] = useState<string>('');

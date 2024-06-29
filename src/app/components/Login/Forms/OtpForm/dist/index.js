@@ -42,11 +42,11 @@ var Icons_1 = require("../../../../../../public/Icons");
 var Input_1 = require("@/app/components/Common/Input");
 var Button_1 = require("@/app/components/Common/Button");
 var react_redux_1 = require("react-redux");
-var actions_1 = require("@/store/auth/login/otp/actions");
 var isMobileView_1 = require("@/app/utils/isMobileView");
 var action_1 = require("@/store/auth/otp/resendOtpSms/action");
 var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var base_64_1 = require("base-64");
+var slice_1 = require("@/store/auth/login/otp/slice");
 function MobileOtpForm(props) {
     var _a = react_1.useState(''), otpCode = _a[0], setOtpCode = _a[1];
     var _b = react_1.useState(false), timerCompleted = _b[0], setTimerCompleted = _b[1];
@@ -56,7 +56,7 @@ function MobileOtpForm(props) {
     react_1.useEffect(function () {
         if (otpCode.length === 6) {
             // send otpCode api
-            dispatch(actions_1.loginOtpLoading({
+            dispatch(slice_1.loginOtpLoading({
                 code: otpCode,
                 mobile: props.mobile,
                 tracking_id: props.loginResponse.token

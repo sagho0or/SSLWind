@@ -1,11 +1,12 @@
 
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { LOGIN_OTP_LOADING, loginOtpFailure, loginOtpSuccess } from '@/store/auth/login/otp/actions';
 import errorHandling from '@/store/_utils/errorHandling';
 import { LoginOtpResponseInterface } from '@/store/auth/login/otp/loginOtpResponse.interface';
 import axiosInterceptorInstance from "@/store/axios";
+import { SagaInputActionInterface } from '@/store/_interfaces/sagaInputAction.interface';
+import { loginOtpFailure, loginOtpLoading, loginOtpSuccess } from './slice';
 
-function* ApiCall(action: any): Generator<any> {
+function* ApiCall(action: SagaInputActionInterface): Generator<any> {
   const dataForm = action.data;
   try {
     const response: any = yield call(axiosInterceptorInstance.post,
@@ -14,7 +15,7 @@ function* ApiCall(action: any): Generator<any> {
       {
         timeout: Number(process.env.API_TIME_OUT),
       },)
-    const successRes: LoginOtpResponseInterface = response?.data?.message;
+    const successRes: LoginOtpResponseInterface = response?.data;
     yield put(loginOtpSuccess(successRes))
   }catch (error: any){
     yield errorHandling(error, loginOtpFailure);
@@ -22,5 +23,5 @@ function* ApiCall(action: any): Generator<any> {
 }
 
 export default function* loginOtpSaga(){
-  yield takeLatest(LOGIN_OTP_LOADING, ApiCall);
+  yield takeLatest(loginOtpLoading.type, ApiCall);
 }

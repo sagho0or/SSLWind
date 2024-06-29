@@ -28,46 +28,46 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var effects_1 = require("redux-saga/effects");
-var slice_1 = require("./slice");
 var errorHandling_1 = require("@/store/_utils/errorHandling");
 var axios_1 = require("@/store/axios");
+var slice_1 = require("./slice");
 function ApiCall(action) {
-    var dataForm, response, error_1;
-    var _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var dataForm, response, successRes, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 dataForm = action.data;
-                _b.label = 1;
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 4, , 6]);
-                return [4 /*yield*/, effects_1.call(axios_1["default"].post, process.env.NEXT_PUBLIC_BASE_URL + "auth/login/", dataForm, {
+                _a.trys.push([1, 4, , 6]);
+                return [4 /*yield*/, effects_1.call(axios_1["default"].post, process.env.NEXT_PUBLIC_BASE_URL + "auth/login/verify/otp/", dataForm, {
                         timeout: Number(process.env.API_TIME_OUT)
                     })];
             case 2:
-                response = _b.sent();
-                return [4 /*yield*/, effects_1.put(slice_1.loginSuccess((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.message))];
+                response = _a.sent();
+                successRes = response === null || response === void 0 ? void 0 : response.data;
+                return [4 /*yield*/, effects_1.put(slice_1.loginOtpSuccess(successRes))];
             case 3:
-                _b.sent();
+                _a.sent();
                 return [3 /*break*/, 6];
             case 4:
-                error_1 = _b.sent();
-                return [4 /*yield*/, errorHandling_1["default"](error_1, slice_1.loginFailure)];
+                error_1 = _a.sent();
+                return [4 /*yield*/, errorHandling_1["default"](error_1, slice_1.loginOtpFailure)];
             case 5:
-                _b.sent();
+                _a.sent();
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }
-function loginSaga() {
+function loginOtpSaga() {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, effects_1.takeLatest(slice_1.loginLoading.type, ApiCall)];
+            case 0: return [4 /*yield*/, effects_1.takeLatest(slice_1.loginOtpLoading.type, ApiCall)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }
-exports["default"] = loginSaga;
+exports["default"] = loginOtpSaga;
