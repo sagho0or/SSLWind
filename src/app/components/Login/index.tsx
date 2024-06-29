@@ -2,7 +2,6 @@
 * For Login Responsive and WebProfile was really like each other so we dont have 2 files for them
 * */
 import React, { useEffect, useState } from 'react';
-import { loginLoading } from '@/store/auth/login/form/actions';
 import isMobileView from '@/app/utils/isMobileView';
 import MobileLoginForm from '@/app/components/Login/Forms/LoginForm';
 import MobileOtpForm from '@/app/components/Login/Forms/OtpForm';
@@ -12,6 +11,7 @@ import { useReCaptcha } from 'next-recaptcha-v3';
 import { encode } from 'base-64';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
+import { loginLoading } from '@/store/auth/login/form/slice';
 
 export default function LoginComponent() {
   const [step, setStep] = useState<number>(0);

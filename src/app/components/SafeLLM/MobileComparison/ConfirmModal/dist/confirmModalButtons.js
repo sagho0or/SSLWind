@@ -1,22 +1,10 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
 exports.ConfirmModalButtons = void 0;
 var react_1 = require("react");
 var react_countdown_1 = require("react-countdown");
 var Button_1 = require("@/app/components/Common/Button");
 var react_redux_1 = require("react-redux");
-var action_1 = require("@/store/comparison/postOrder/action");
 var react_cookie_1 = require("react-cookie");
 var navigation_1 = require("next/navigation");
 function ConfirmModalButtons(props) {
@@ -32,19 +20,10 @@ function ConfirmModalButtons(props) {
         timer = Date.now() + 50000;
         props.getExchanges();
     };
-    var onOrder = function () {
-        var _a;
-        var inputData = {
-            exchangeId: ((_a = props.selectedExchange) === null || _a === void 0 ? void 0 : _a.id) || null,
-            track_id: props.track_id,
-            cookie: cookie['auth-token']
-        };
-        dispatch(action_1.postOrderLoading(__assign({}, inputData)));
-    };
     return (React.createElement("div", { className: 'flex' },
         React.createElement(Button_1["default"], { style: 'secondaryOutline', onClick: function () { return props.setIsConfirmModalOpen(false); }, customStyle: 'flex-1 ml-2 font-semibold' }, "Cancel"),
         isLogin && props.side === 'BID' && !timerCompleted &&
-            React.createElement(Button_1["default"], { style: 'successSimple', onClick: onOrder, disabled: false, customStyle: 'font-semibold flex-auto' },
+            React.createElement(Button_1["default"], { style: 'successSimple', disabled: false, customStyle: 'font-semibold flex-auto' },
                 React.createElement("span", null,
                     "Ok ( ",
                     React.createElement(react_countdown_1["default"], { date: timer, className: 'ml-2', onComplete: function () { return setTimerCompleted(true); }, renderer: function (counterProps) {
@@ -52,7 +31,7 @@ function ConfirmModalButtons(props) {
                         } }),
                     React.createElement("span", null, " Seconds )"))),
         isLogin && !(props.side === 'BID') && !timerCompleted &&
-            React.createElement(Button_1["default"], { style: 'errorSimple', onClick: onOrder, disabled: false, customStyle: 'font-semibold flex-auto' },
+            React.createElement(Button_1["default"], { style: 'errorSimple', disabled: false, customStyle: 'font-semibold flex-auto' },
                 React.createElement("span", null,
                     "Confirm ( ",
                     React.createElement(react_countdown_1["default"], { date: timer, className: 'ml-2', onComplete: function () { return setTimerCompleted(true); }, renderer: function (counterProps) {

@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
                                        children,
+                                       ...props
                                    }: Readonly<{
     children: React.ReactNode;
+    initialProps: any; // Add this line to type the initialProps
 }>) {
 
     return (
@@ -36,7 +38,7 @@ export default function RootLayout({
 
         </head>
         <body>
-        <ReduxProvider>
+        <ReduxProvider initialProps={props}>
             <ReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}>
                 <IToastNotif/>
                 <ClientWrapper>{children}</ClientWrapper>
@@ -46,3 +48,4 @@ export default function RootLayout({
         </html>
     );
 }
+

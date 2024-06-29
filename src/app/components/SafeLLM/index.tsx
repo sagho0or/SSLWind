@@ -3,10 +3,8 @@ import isMobileView from '@/app/utils/isMobileView';
 import MobileComparison from '@/app/components/SafeLLM/MobileComparison';
 import WebComparison from '@/app/components/SafeLLM/WebComparison';
 import {lazy, Suspense, useEffect, useState} from 'react';
-import {getExchangesLoading} from '@/store/comparison/getExchanges/action';
 import {ExchangeInterface} from '@/app/components/SafeLLM/ExchangeTable/exchangeTable.interface';
 import {useDispatch, useSelector} from 'react-redux';
-import ConfirmModal from "@/app/components/SafeLLM/MobileComparison/ConfirmModal";
 import WebComparisonDescription from "@/app/components/SafeLLM/webDescription";
 import Loading from '@/app/loading';
 
@@ -33,11 +31,6 @@ export default function SafeLLM() {
         isExchangeVisible: false,
     };
 
-    const getExchanges = () => {
-        dispatch(getExchangesLoading({
-            market: market, side: side, amount: amountValue?.toString(),
-        }));
-    };
     const handleTabClick = (side: string) => {
         setSide(side);
         setAmountValue(initialState.amountValue);
@@ -58,7 +51,6 @@ export default function SafeLLM() {
 
     const handleSearch = () => {
         setIsExchangeVisible(false);
-        getExchanges();
     };
 
     useEffect(() => {
@@ -107,15 +99,6 @@ export default function SafeLLM() {
                                            side={side}/>
                         </Suspense>
                     </div> : ''
-
-            }
-            {isConfirmModalOpen &&
-                <ConfirmModal setIsConfirmModalOpen={setIsConfirmModalOpen}
-                              selectedExchange={selectedExchange}
-                              side={side}
-                              amountValue={amountValue}
-                              track_id={exchangesStates?.data.track_id}
-                              updateExchange={getExchanges}/>
 
             }
 

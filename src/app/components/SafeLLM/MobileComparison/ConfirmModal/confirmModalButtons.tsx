@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import IButton from '@/app/components/Common/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { postOrderLoading } from '@/store/comparison/postOrder/action';
 import { useCookies } from 'react-cookie';
-import { OrderInterface } from '@/store/comparison/postOrder/order.interface';
 import {
   ConfirmModalButtonsInterface
 } from '@/app/components/SafeLLM/MobileComparison/ConfirmModal/confirmModalButtons.interface';
@@ -28,17 +26,6 @@ export function ConfirmModalButtons(props: ConfirmModalButtonsInterface) {
     props.getExchanges();
   };
 
-  const onOrder = () => {
-    const inputData: OrderInterface = {
-      exchangeId: props.selectedExchange?.id || null,
-      track_id: props.track_id,
-      cookie: cookie['auth-token'],
-    };
-    dispatch(postOrderLoading({
-      ...inputData,
-    }));
-  };
-
 
   return (
     <div className={'flex'}>
@@ -49,7 +36,6 @@ export function ConfirmModalButtons(props: ConfirmModalButtonsInterface) {
 
       {isLogin && props.side === 'BID' && !timerCompleted &&
         <IButton style={'successSimple'}
-                 onClick={onOrder}
                  disabled={false}
                  customStyle={'font-semibold flex-auto'}
         >
@@ -67,7 +53,6 @@ export function ConfirmModalButtons(props: ConfirmModalButtonsInterface) {
       }
       {isLogin && !(props.side === 'BID') && !timerCompleted &&
         <IButton style={'errorSimple'}
-                 onClick={onOrder}
                  disabled={false}
                  customStyle={'font-semibold flex-auto'}
         >

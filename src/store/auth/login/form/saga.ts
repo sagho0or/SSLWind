@@ -1,9 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import {
-  LOGIN_LOADING,
-  loginSuccess,
-  loginFailure,
-} from './actions';
+import { loginLoading, loginSuccess, loginFailure } from './slice';
 import { SagaInputActionInterface } from '@/store/_interfaces/sagaInputAction.interface';
 import errorHandling from '@/store/_utils/errorHandling';
 import { useCookies } from 'react-cookie';
@@ -28,5 +24,6 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
 }
 
 export default function* loginSaga() {
-  yield takeLatest(LOGIN_LOADING, ApiCall);
+  yield takeLatest(loginLoading.type, ApiCall);
 }
+

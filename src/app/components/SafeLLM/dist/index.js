@@ -5,9 +5,7 @@ var isMobileView_1 = require("@/app/utils/isMobileView");
 var MobileComparison_1 = require("@/app/components/SafeLLM/MobileComparison");
 var WebComparison_1 = require("@/app/components/SafeLLM/WebComparison");
 var react_1 = require("react");
-var action_1 = require("@/store/comparison/getExchanges/action");
 var react_redux_1 = require("react-redux");
-var ConfirmModal_1 = require("@/app/components/SafeLLM/MobileComparison/ConfirmModal");
 var webDescription_1 = require("@/app/components/SafeLLM/webDescription");
 var loading_1 = require("@/app/loading");
 function SafeLLM() {
@@ -29,12 +27,6 @@ function SafeLLM() {
         selectedExchange: '',
         isExchangeVisible: false
     };
-    var getExchanges = function () {
-        dispatch(action_1.getExchangesLoading({
-            market: market, side: side,
-            amount: amountValue === null || amountValue === void 0 ? void 0 : amountValue.toString()
-        }));
-    };
     var handleTabClick = function (side) {
         setSide(side);
         setAmountValue(initialState.amountValue);
@@ -52,7 +44,6 @@ function SafeLLM() {
     };
     var handleSearch = function () {
         setIsExchangeVisible(false);
-        getExchanges();
     };
     react_1.useEffect(function () {
         if (exchangesStates.isDone) {
@@ -74,8 +65,6 @@ function SafeLLM() {
         isExchangeVisible && exchangesStates.isDone ?
             React.createElement("div", { className: isMobileView_1["default"] ? '' : 'm-auto w-3/4 mt-20' },
                 React.createElement(react_1.Suspense, { fallback: React.createElement(loading_1["default"], null) },
-                    React.createElement(ExchangeTable, { onClick: handleExchange, exchangeList: exchangesList, side: side }))) : '',
-        isConfirmModalOpen &&
-            React.createElement(ConfirmModal_1["default"], { setIsConfirmModalOpen: setIsConfirmModalOpen, selectedExchange: selectedExchange, side: side, amountValue: amountValue, track_id: exchangesStates === null || exchangesStates === void 0 ? void 0 : exchangesStates.data.track_id, updateExchange: getExchanges })));
+                    React.createElement(ExchangeTable, { onClick: handleExchange, exchangeList: exchangesList, side: side }))) : ''));
 }
 exports["default"] = SafeLLM;

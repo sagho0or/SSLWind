@@ -40,7 +40,6 @@ exports.__esModule = true;
 * For Login Responsive and WebProfile was really like each other so we dont have 2 files for them
 * */
 var react_1 = require("react");
-var actions_1 = require("@/store/auth/login/form/actions");
 var isMobileView_1 = require("@/app/utils/isMobileView");
 var LoginForm_1 = require("@/app/components/Login/Forms/LoginForm");
 var OtpForm_1 = require("@/app/components/Login/Forms/OtpForm");
@@ -50,6 +49,7 @@ var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var base_64_1 = require("base-64");
 var react_cookie_1 = require("react-cookie");
 var navigation_1 = require("next/navigation");
+var slice_1 = require("@/store/auth/login/form/slice");
 function LoginComponent() {
     var _a = react_1.useState(0), step = _a[0], setStep = _a[1];
     var _b = react_1.useState(''), mobile = _b[0], setMobile = _b[1];
@@ -78,7 +78,7 @@ function LoginComponent() {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 //api call for mobile number & password
-                dispatch(actions_1.loginLoading({
+                dispatch(slice_1.loginLoading({
                     mobile: mobileNumber,
                     password: base_64_1.encode(password)
                     // TODO

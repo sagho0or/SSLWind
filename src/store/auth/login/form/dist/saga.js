@@ -28,7 +28,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var effects_1 = require("redux-saga/effects");
-var actions_1 = require("./actions");
+var slice_1 = require("./slice");
 var errorHandling_1 = require("@/store/_utils/errorHandling");
 var axios_1 = require("@/store/axios");
 function ApiCall(action) {
@@ -46,13 +46,13 @@ function ApiCall(action) {
                     })];
             case 2:
                 response = _b.sent();
-                return [4 /*yield*/, effects_1.put(actions_1.loginSuccess((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.message))];
+                return [4 /*yield*/, effects_1.put(slice_1.loginSuccess((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.message))];
             case 3:
                 _b.sent();
                 return [3 /*break*/, 6];
             case 4:
                 error_1 = _b.sent();
-                return [4 /*yield*/, errorHandling_1["default"](error_1, actions_1.loginFailure)];
+                return [4 /*yield*/, errorHandling_1["default"](error_1, slice_1.loginFailure)];
             case 5:
                 _b.sent();
                 return [3 /*break*/, 6];
@@ -63,7 +63,7 @@ function ApiCall(action) {
 function loginSaga() {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, effects_1.takeLatest(actions_1.LOGIN_LOADING, ApiCall)];
+            case 0: return [4 /*yield*/, effects_1.takeLatest(slice_1.loginLoading.type, ApiCall)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
