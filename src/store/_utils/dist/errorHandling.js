@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -36,28 +27,30 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.GET = exports.POST = void 0;
-var server_1 = require("next/server");
-function POST(req) {
-    return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, data;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, req.json()];
-                case 1:
-                    _a = _b.sent(), email = _a.email, password = _a.password;
-                    data = {
-                        otpExpiresIn: 60,
-                        trackingId: 'abc123',
-                        otpRetryCount: 3
-                    };
-                    return [2 /*return*/, server_1.NextResponse.json({ message: 'Logged in successfully', data: data }, { status: 200 })];
-            }
-        });
+var effects_1 = require("redux-saga/effects");
+var react_hot_toast_1 = require("react-hot-toast");
+function errorHandling(error, failureAction) {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!error.response) return [3 /*break*/, 4];
+                return [4 /*yield*/, react_hot_toast_1["default"].error(error.response.data.error)];
+            case 1:
+                _a.sent();
+                if (!failureAction) return [3 /*break*/, 3];
+                return [4 /*yield*/, effects_1.put(failureAction())];
+            case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3: return [3 /*break*/, 6];
+            case 4:
+                if (!failureAction) return [3 /*break*/, 6];
+                return [4 /*yield*/, effects_1.put(failureAction())];
+            case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6: return [2 /*return*/];
+        }
     });
 }
-exports.POST = POST;
-function GET() {
-    return server_1.NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
-}
-exports.GET = GET;
+exports["default"] = errorHandling;

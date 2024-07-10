@@ -1,5 +1,4 @@
-import {all} from 'redux-saga/effects';
-import loginSaga from '@/store/auth/login/form/saga';
+import {all, fork} from 'redux-saga/effects';
 import registerMobileSaga from '@/store/auth/register/registerMobile/saga';
 import loginOtpSaga from '@/store/auth/login/otp/saga';
 import registerIdentitySaga from "@/store/auth/register/registerIdentity/saga";
@@ -14,29 +13,30 @@ import getAuthHistorySaga from "@/store/security/authHistory/saga";
 import change2FASaga from "@/store/security/change2FA/saga";
 import getOrderHistorySaga from "@/store/history/saga";
 import refreshTokenSaga from "@/store/auth/refreshToken/saga";
+import loginSaga from './auth/login/form/saga';
 
 function* rootSaga() {
     yield all([
-        getUserProfileSaga(),
+        // getUserProfileSaga(),
 
-        refreshTokenSaga(),
+        // refreshTokenSaga(),
 
-        loginSaga(),
+        fork(loginSaga),
         loginOtpSaga(),
-        resendOtpSmsSaga(),
+        // resendOtpSmsSaga(),
 
-        registerMobileSaga(),
-        registerOtpSaga(),
-        registerIdentitySaga(),
-        registerPasswordSaga(),
+        // registerMobileSaga(),
+        // registerOtpSaga(),
+        // registerIdentitySaga(),
+        // registerPasswordSaga(),
 
-        activeGASaga(),
-        change2FASaga(),
-        verifyTowFactorAuthenticationSaga(),
-        editPasswordSaga(),
-        getAuthHistorySaga(),
+        // activeGASaga(),
+        // change2FASaga(),
+        // verifyTowFactorAuthenticationSaga(),
+        // editPasswordSaga(),
+        // getAuthHistorySaga(),
 
-        getOrderHistorySaga(),
+        // getOrderHistorySaga(),
 
     ]);
 }

@@ -1,3 +1,4 @@
+// slice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { LoginInterface } from './login.interface';

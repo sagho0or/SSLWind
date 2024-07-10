@@ -18,30 +18,29 @@ import getOrderHistoryReducer from "@/store/history/reducer";
 import refreshTokenReducer from "@/store/auth/refreshToken/reducer";
 
 const rootReducer = combineReducers({
-    userProfile: getUserProfileReducer,
+    // userProfile: getUserProfileReducer,
 
-    refreshToken: refreshTokenReducer,
+    // refreshToken: refreshTokenReducer,
 
     login: loginReducer,
     loginOtp: LoginOtpReducer,
-    resendOtpSms:resendOtpSmsReducer,
+    // resendOtpSms:resendOtpSmsReducer,
 
-    registerMobile: registerMobileReducer,
-    registerOtp: registerOtpReducer,
-    registerIdentity: registerIdentityReducer,
-    registerPassword: registerPasswordReducer,
+    // registerMobile: registerMobileReducer,
+    // registerOtp: registerOtpReducer,
+    // registerIdentity: registerIdentityReducer,
+    // registerPassword: registerPasswordReducer,
     
-    activeGA: activeGAReducer,
-    change2FA: change2FAReducer,
-    verifyTwoFactorAuthentication: verifytwoFactorAuthenticationReducer,
-    editPassword: editPasswordReducer,
-    authHistory: getAuthHistoryReducer,
+    // activeGA: activeGAReducer,
+    // change2FA: change2FAReducer,
+    // verifyTwoFactorAuthentication: verifytwoFactorAuthenticationReducer,
+    // editPassword: editPasswordReducer,
+    // authHistory: getAuthHistoryReducer,
 
-    orderHistory: getOrderHistoryReducer,
+    // orderHistory: getOrderHistoryReducer,
 
 });
 
 export default rootReducer;
-export type RootState = ReturnType<typeof rootReducer>;
 
 

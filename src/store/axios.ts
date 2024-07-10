@@ -9,10 +9,15 @@ const axiosInterceptorInstance = axios.create({
 axiosInterceptorInstance.interceptors.response.use(
     response => response,
     error => {
+        
+        debugger;
         const status = error.response ? error.response.status : null;
         const cookies = new Cookies();
         const originalRequest = error.config;
-        if (status === 401 && !originalRequest._retry) {
+        const isLogged =  cookies.get('auth-refresh')
+        if (status === 401 && !originalRequest._retry && isLogged) {
+            
+            debugger;
             // Handle unauthorized access
             originalRequest._retry = true;
             cookies.remove('auth-token')
@@ -34,6 +39,7 @@ axiosInterceptorInstance.interceptors.response.use(
         } else if (status === 404) {
             // Handle not found errors
         } else if(status!== 401) {
+            debugger;
             // Handle other errors
             errorHandling(error)
         }

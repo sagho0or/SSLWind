@@ -41,12 +41,12 @@ var user_class_1 = require("@/app/components/Login/user.class");
 var server_1 = require("next/server");
 function POST(req) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, email, password, data;
+        var _a, code, email, trackingId, data;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, req.json()];
                 case 1:
-                    _a = _b.sent(), email = _a.email, password = _a.password;
+                    _a = _b.sent(), code = _a.code, email = _a.email, trackingId = _a.trackingId;
                     data = {
                         role: user_class_1.UserRole.Admin,
                         lastLogin: new Date(),
@@ -55,7 +55,13 @@ function POST(req) {
                         userId: 1,
                         refreshToken: 'mockRefreshAuthToken'
                     };
-                    return [2 /*return*/, server_1.NextResponse.json({ message: 'Logged in successfully', data: data }, { status: 200 })];
+                    if (code === '123456') {
+                        return [2 /*return*/, server_1.NextResponse.json({ message: 'Logged in successfully', data: data }, { status: 200 })];
+                    }
+                    else {
+                        return [2 /*return*/, server_1.NextResponse.json({ error: 'Incorrect OTP' }, { status: 401 })];
+                    }
+                    return [2 /*return*/];
             }
         });
     });

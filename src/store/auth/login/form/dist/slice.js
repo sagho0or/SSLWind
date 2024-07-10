@@ -13,6 +13,7 @@ var __assign = (this && this.__assign) || function () {
 var _a;
 exports.__esModule = true;
 exports.loginFailure = exports.loginSuccess = exports.loginLoading = void 0;
+// slice.ts
 var toolkit_1 = require("@reduxjs/toolkit");
 var next_redux_wrapper_1 = require("next-redux-wrapper");
 var initialState = {

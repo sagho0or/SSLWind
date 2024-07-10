@@ -28,40 +28,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var effects_1 = require("redux-saga/effects");
-var saga_1 = require("@/store/auth/login/form/saga");
-var saga_2 = require("@/store/auth/register/registerMobile/saga");
-var saga_3 = require("@/store/auth/login/otp/saga");
-var saga_4 = require("@/store/auth/register/registerIdentity/saga");
-var saga_5 = require("@/store/auth/register/registerPassword/saga");
-var saga_6 = require("./auth/register/registerOtp/saga");
-var saga_7 = require("@/store/auth/otp/resendOtpSms/saga");
-var saga_8 = require("@/store/userProfile/saga");
-var saga_9 = require("@/store/security/activeGA/saga");
-var saga_10 = require("@/store/security/verify/saga");
-var saga_11 = require("@/store/security/editPassword/saga");
-var saga_12 = require("@/store/security/authHistory/saga");
-var saga_13 = require("@/store/security/change2FA/saga");
-var saga_14 = require("@/store/history/saga");
-var saga_15 = require("@/store/auth/refreshToken/saga");
+var saga_1 = require("@/store/auth/login/otp/saga");
+var saga_2 = require("./auth/login/form/saga");
 function rootSaga() {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, effects_1.all([
-                    saga_8["default"](),
-                    saga_15["default"](),
+                    // getUserProfileSaga(),
+                    // refreshTokenSaga(),
+                    effects_1.fork(saga_2["default"]),
                     saga_1["default"](),
-                    saga_3["default"](),
-                    saga_7["default"](),
-                    saga_2["default"](),
-                    saga_6["default"](),
-                    saga_4["default"](),
-                    saga_5["default"](),
-                    saga_9["default"](),
-                    saga_13["default"](),
-                    saga_10["default"](),
-                    saga_11["default"](),
-                    saga_12["default"](),
-                    saga_14["default"](),
                 ])];
             case 1:
                 _a.sent();

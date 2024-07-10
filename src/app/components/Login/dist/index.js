@@ -64,16 +64,17 @@ function LoginComponent() {
     var router = navigation_1.useRouter();
     react_1.useEffect(function () {
         if (loginStates.isDone) {
-            setLoginResponse(loginStates.response);
+            setLoginResponse(loginStates.response.data);
             setStep(1);
         }
     }, [loginStates]);
     react_1.useEffect(function () {
         if (loginOtpStates.isDone) {
             var user = user_class_1.User.getInstance();
-            user.updateUser(loginOtpStates.response);
-            setCookie("auth-token", loginOtpStates.response.token);
-            setCookie("auth-refresh", loginOtpStates.response.refresh_token);
+            debugger;
+            user.updateUser(loginOtpStates.response.data);
+            setCookie("auth-token", loginOtpStates.response.data.token);
+            setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
             router.push('/');
         }
     }, [loginOtpStates]);
@@ -81,6 +82,8 @@ function LoginComponent() {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 //api call for mobile number & password
+                console.log('email', email);
+                console.log('password', password);
                 dispatch(slice_1.loginLoading({
                     email: email,
                     password: base_64_1.encode(password)

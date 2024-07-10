@@ -7,8 +7,9 @@ import { useCookies } from 'react-cookie';
 import axiosInterceptorInstance from "@/store/axios";
 
 function* ApiCall(action: SagaInputActionInterface): Generator<any> {
-  const dataForm = action.data;
-  console.log('dataFormdataFormdat',dataForm);
+
+  const dataForm = action.payload;
+  console.log('dataFormdataFormdat', action);
   try {
     const response: any = yield call(
         axiosInterceptorInstance.post,
@@ -19,7 +20,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
       },
     );
 
-    yield put(loginSuccess(response?.data?.message));
+    yield put(loginSuccess(response?.data));
   } catch (error: any) {
     yield errorHandling(error, loginFailure);
   }

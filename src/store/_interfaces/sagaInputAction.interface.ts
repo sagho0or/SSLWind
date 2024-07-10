@@ -1,4 +1,4 @@
 export interface SagaInputActionInterface{
-  data:object;
+  payload:any;
   type: string;
 }

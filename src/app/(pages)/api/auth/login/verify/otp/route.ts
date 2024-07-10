@@ -3,7 +3,7 @@ import { UserDto, UserRole } from '@/app/components/Login/user.class';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-    const { email, password } = await req.json();
+    const { code, email, trackingId } = await req.json();
 
     const data : UserDto = { 
         role: UserRole.Admin,
@@ -13,7 +13,12 @@ export async function POST(req: NextRequest) {
         userId: 1,
         refreshToken : 'mockRefreshAuthToken'
     }
-    return NextResponse.json({ message: 'Logged in successfully', data }, { status: 200 });
+    if (code === '123456') {
+        return NextResponse.json({ message: 'Logged in successfully', data }, { status: 200 });
+      } else {
+        return NextResponse.json({ error: 'Incorrect OTP' }, { status: 401 });
+
+      }
 
 }
 

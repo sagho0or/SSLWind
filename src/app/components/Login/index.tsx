@@ -30,22 +30,25 @@ export default function LoginComponent() {
 
   useEffect(() => {
     if(loginStates.isDone){
-      setLoginResponse(loginStates.response);
+      setLoginResponse(loginStates.response.data);
       setStep(1)
     }
   }, [loginStates]);
   useEffect(() => {
     if(loginOtpStates.isDone){
       const user = User.getInstance();
-      user.updateUser(loginOtpStates.response);
-      setCookie("auth-token", loginOtpStates.response.token);
-      setCookie("auth-refresh", loginOtpStates.response.refresh_token);
+      debugger;
+      user.updateUser(loginOtpStates.response.data);
+      setCookie("auth-token", loginOtpStates.response.data.token);
+      setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
       router.push('/');
     }
   }, [loginOtpStates]);
 
   async function acceptMobileForm(email: string, password: string) {
     //api call for mobile number & password
+    console.log('email',email);
+    console.log('password',password);
     dispatch(loginLoading({
       email: email,
       password: encode(password)
