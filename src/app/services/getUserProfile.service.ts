@@ -1,6 +1,17 @@
-import store from "@/store/store";
+import {AppStore} from "@/store/store";
 import {getUserProfileLoading} from "@/store/userProfile/action";
 import {Cookies} from "react-cookie";
+import { configureStore } from '@reduxjs/toolkit';
+import rootSaga from '@/store/saga';
+import rootReducer from '@/store/rootReducer';
+import createSagaMiddleware from 'redux-saga';
+
+const sagaMiddleware = createSagaMiddleware();
+const store: AppStore = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware),
+});
+sagaMiddleware.run(rootSaga);
 
 function getUserProfileService(reload:boolean){
     return new Promise((resolve, reject) => {

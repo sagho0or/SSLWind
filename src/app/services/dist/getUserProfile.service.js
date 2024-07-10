@@ -1,8 +1,17 @@
 "use strict";
 exports.__esModule = true;
-var store_1 = require("@/store/store");
 var action_1 = require("@/store/userProfile/action");
 var react_cookie_1 = require("react-cookie");
+var toolkit_1 = require("@reduxjs/toolkit");
+var saga_1 = require("@/store/saga");
+var rootReducer_1 = require("@/store/rootReducer");
+var redux_saga_1 = require("redux-saga");
+var sagaMiddleware = redux_saga_1["default"]();
+var store = toolkit_1.configureStore({
+    reducer: rootReducer_1["default"],
+    middleware: function (getDefaultMiddleware) { return getDefaultMiddleware().concat(sagaMiddleware); }
+});
+sagaMiddleware.run(saga_1["default"]);
 function getUserProfileService(reload) {
     return new Promise(function (resolve, reject) {
         var cookies = new react_cookie_1.Cookies();
@@ -12,9 +21,9 @@ function getUserProfileService(reload) {
         }
         var localItem = localStorage.getItem('userProfile') || "";
         function getUserProfileFunc() {
-            store_1["default"].dispatch(action_1.getUserProfileLoading());
-            store_1["default"].subscribe(function () {
-                var value = store_1["default"].getState().userProfile;
+            store.dispatch(action_1.getUserProfileLoading());
+            store.subscribe(function () {
+                var value = store.getState().userProfile;
                 if (value && value.isDone && value.response) {
                     localStorage.setItem('userProfile', JSON.stringify(value.response));
                     resolve(value.response);
