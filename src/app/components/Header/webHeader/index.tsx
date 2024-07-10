@@ -34,8 +34,8 @@ export default function Header() {
     return (
         <div className={"fixed w-full z-50"}>
             <div className={"flex justify-between items-center h-18 bg-white px-16"}>
-                <Link href={"/"} className={''}>
-                    <img src={"/safell.png"} alt={"SafeLLM"} />
+                <Link href={"/"} className={'h-full flex'} >
+                    <img src={"/safellm.svg"} alt={"SafeLLM"} />
 
                 </Link>
                 <HeaderItems/>

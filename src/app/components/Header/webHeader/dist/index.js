@@ -27,8 +27,8 @@ function Header() {
     }, []);
     return (react_1["default"].createElement("div", { className: "fixed w-full z-50" },
         react_1["default"].createElement("div", { className: "flex justify-between items-center h-18 bg-white px-16" },
-            react_1["default"].createElement(link_1["default"], { href: "/", className: '' },
-                react_1["default"].createElement("img", { src: "/safell.png", alt: "SafeLLM" })),
+            react_1["default"].createElement(link_1["default"], { href: "/", className: 'h-full flex' },
+                react_1["default"].createElement("img", { src: "/safellm.svg", alt: "SafeLLM" })),
             react_1["default"].createElement(headerItems_1["default"], null),
             isLogin ?
                 react_1["default"].createElement("div", { className: 'flex gap-6 items-center justify-center' },

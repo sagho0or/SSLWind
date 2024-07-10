@@ -8,7 +8,7 @@ import ClientWrapper from "./clientWrapper";
 import 'react-tooltip/dist/react-tooltip.css'
 
 export const metadata: Metadata = {
-    title: 'Safe LLM',
+    title: 'SafeLLM Wind',
     description: 'SafeLLM framework in the development of large language models for the provision of safe and trust-inducing responses in offshore wind maintenance',
 };
 

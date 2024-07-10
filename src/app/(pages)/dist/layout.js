@@ -9,7 +9,7 @@ var toast_notif_1 = require("@/app/utils/toast-notif");
 var clientWrapper_1 = require("./clientWrapper");
 require("react-tooltip/dist/react-tooltip.css");
 exports.metadata = {
-    title: 'Safe LLM',
+    title: 'SafeLLM Wind',
     description: 'SafeLLM framework in the development of large language models for the provision of safe and trust-inducing responses in offshore wind maintenance'
 };
 function RootLayout(_a) {

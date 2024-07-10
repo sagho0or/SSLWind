@@ -18,7 +18,7 @@ export default function WebComparison(props: SafeLLMInterface) {
                 <div className={"h-full w-full bg-[url('/images/comparison-bg-pattern.svg')] bg-no-repeat"}>
                     <div className={"w-8/12 max-w-275 mx-auto pt-8"}>
                         <div className={"w-1/2"}>
-                            <h1 className={'text-5xl font-bold my-5 text-primary'}>Safe LLM</h1>
+                            <h1 className={'text-5xl font-bold my-5 text-primary'}>SafeLLM Wind</h1>
                             <h4 className={'text-xl font-medium '}>Lorem Ipsum</h4>
                             <p className={"text-secondary-10 mt-5"}>description alaki</p>
                         </div>

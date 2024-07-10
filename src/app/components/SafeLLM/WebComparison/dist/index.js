@@ -14,7 +14,7 @@ function WebComparison(props) {
             React.createElement("div", { className: "h-full w-full bg-[url('/images/comparison-bg-pattern.svg')] bg-no-repeat" },
                 React.createElement("div", { className: "w-8/12 max-w-275 mx-auto pt-8" },
                     React.createElement("div", { className: "w-1/2" },
-                        React.createElement("h1", { className: 'text-5xl font-bold my-5 text-primary' }, "Safe LLM"),
+                        React.createElement("h1", { className: 'text-5xl font-bold my-5 text-primary' }, "SafeLLM Wind"),
                         React.createElement("h4", { className: 'text-xl font-medium ' }, "Lorem Ipsum"),
                         React.createElement("p", { className: "text-secondary-10 mt-5" }, "description alaki"))))),
         React.createElement("div", { className: "absolute w-full top-[505px] " },
