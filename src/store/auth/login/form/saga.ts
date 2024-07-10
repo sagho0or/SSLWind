@@ -8,6 +8,7 @@ import axiosInterceptorInstance from "@/store/axios";
 
 function* ApiCall(action: SagaInputActionInterface): Generator<any> {
   const dataForm = action.data;
+  console.log('dataFormdataFormdat',dataForm);
   try {
     const response: any = yield call(
         axiosInterceptorInstance.post,

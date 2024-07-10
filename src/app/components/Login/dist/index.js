@@ -40,7 +40,6 @@ exports.__esModule = true;
 * For Login Responsive and WebProfile was really like each other so we dont have 2 files for them
 * */
 var react_1 = require("react");
-var actions_1 = require("@/store/auth/login/form/actions");
 var isMobileView_1 = require("@/app/utils/isMobileView");
 var LoginForm_1 = require("@/app/components/Login/Forms/LoginForm");
 var OtpForm_1 = require("@/app/components/Login/Forms/OtpForm");
@@ -50,11 +49,13 @@ var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var base_64_1 = require("base-64");
 var react_cookie_1 = require("react-cookie");
 var navigation_1 = require("next/navigation");
+var slice_1 = require("@/store/auth/login/form/slice");
+var user_class_1 = require("./user.class");
 function LoginComponent() {
     var _a = react_1.useState(0), step = _a[0], setStep = _a[1];
-    var _b = react_1.useState(''), mobile = _b[0], setMobile = _b[1];
+    var _b = react_1.useState(''), email = _b[0], setEmail = _b[1];
     var _c = react_1.useState(''), password = _c[0], setPassword = _c[1];
-    var _d = react_1.useState({}), loginResponse = _d[0], setLoginResponse = _d[1];
+    var _d = react_1.useState(), loginResponse = _d[0], setLoginResponse = _d[1];
     var _e = react_cookie_1.useCookies(['auth-token', 'auth-refresh']), cookies = _e[0], setCookie = _e[1], removeCookie = _e[2];
     var loginStates = react_redux_1.useSelector(function (state) { return state.login; });
     var loginOtpStates = react_redux_1.useSelector(function (state) { return state.loginOtp; });
@@ -69,22 +70,24 @@ function LoginComponent() {
     }, [loginStates]);
     react_1.useEffect(function () {
         if (loginOtpStates.isDone) {
+            var user = user_class_1.User.getInstance();
+            user.updateUser(loginOtpStates.response);
             setCookie("auth-token", loginOtpStates.response.token);
             setCookie("auth-refresh", loginOtpStates.response.refresh_token);
             router.push('/');
         }
     }, [loginOtpStates]);
-    function acceptMobileForm(mobileNumber, password) {
+    function acceptMobileForm(email, password) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 //api call for mobile number & password
-                dispatch(actions_1.loginLoading({
-                    mobile: mobileNumber,
+                dispatch(slice_1.loginLoading({
+                    email: email,
                     password: base_64_1.encode(password)
                     // TODO
                     //recaptcha_response: await executeRecaptcha("form_submit"),
                 }));
-                setMobile(mobileNumber);
+                setEmail(email);
                 setPassword(password);
                 return [2 /*return*/];
             });
@@ -101,8 +104,8 @@ function LoginComponent() {
                 react_1["default"].createElement("h1", { className: "text-xl font-bold  " + (isMobileView_1["default"] ? 'text-center' : '') }, "Login to SafeLLMWind ")),
             step == 0 ?
                 react_1["default"].createElement(LoginForm_1["default"], { confirmFunction: acceptMobileForm }) :
-                step == 1 ?
-                    react_1["default"].createElement(OtpForm_1["default"], { mobile: mobile, backFunc: backFunc, password: password, loginResponse: loginResponse }) :
+                step == 1 && loginResponse ?
+                    react_1["default"].createElement(OtpForm_1["default"], { email: email, backFunc: backFunc, password: password, loginResponse: loginResponse }) :
                     ''),
         (step == 0 && isMobileView_1["default"]) ?
             react_1["default"].createElement(mobileMenu_1["default"], null)

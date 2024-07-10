@@ -36,26 +36,32 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.handler = void 0;
-function handler(req, res) {
+exports.GET = exports.POST = void 0;
+var user_class_1 = require("@/app/components/Login/user.class");
+var server_1 = require("next/server");
+function POST(req) {
     return __awaiter(this, void 0, void 0, function () {
         var _a, email, password, data;
         return __generator(this, function (_b) {
-            if (req.method === 'POST') {
-                _a = req.body, email = _a.email, password = _a.password;
-                data = {
-                    otpExpiresIn: 60,
-                    trackingId: 'abc123',
-                    otpRetryCount: 3
-                };
-                res.status(200).json({ message: 'Logged in successfully', data: data });
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, req.json()];
+                case 1:
+                    _a = _b.sent(), email = _a.email, password = _a.password;
+                    data = {
+                        role: user_class_1.UserRole.Admin,
+                        lastLogin: new Date(),
+                        token: 'mockAuthToken',
+                        email: 'user@example.com',
+                        userId: 1,
+                        refreshToken: 'mockRefreshAuthToken'
+                    };
+                    return [2 /*return*/, server_1.NextResponse.json({ message: 'Logged in successfully', data: data }, { status: 200 })];
             }
-            else {
-                res.setHeader('Allow', ['POST']);
-                res.status(405).end("Method " + req.method + " Not Allowed");
-            }
-            return [2 /*return*/];
         });
     });
 }
-exports.handler = handler;
+exports.POST = POST;
+function GET() {
+    return server_1.NextResponse.json({ message: 'Method not allowed' }, { status: 405 });
+}
+exports.GET = GET;

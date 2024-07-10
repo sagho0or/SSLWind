@@ -7,31 +7,31 @@ import Icons from '../../../../../../public/Icons';
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 
 export default function MobileLoginForm(props: LoginFormProps) {
-  const [mobileNumber, setMobileNumber] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>();
   const [password, setPassword] = useState<string>('');
   const [inputType, setInputType] = useState('password');
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setMobileNumber(value);
-    const mobileRegex = /^(\+98|0)?9\d{9}$/;
-    setIsValid(mobileRegex.test(value));
+    setEmail(value);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValid(emailRegex.test(value));
   }
   function loginFunc(event: React.MouseEvent){
     event.preventDefault();
-    props.confirmFunction(mobileNumber, password);
+    props.confirmFunction(email, password);
   }
 
   return (
     <form autoComplete={'off'}>
       <div className={'mt-10'}>
-        <IInput inputId={'mobileNumber'}
+        <IInput inputId={'email'}
                 label={'Email'}
-                value={mobileNumber}
+                value={email}
                 onChange={handleInputChange}
                 style={'secondaryOutline'}
-                type={'number'} />
+                type={'email'} />
       </div>
       <div className={'my-10 relative'}>
         <span
@@ -58,18 +58,6 @@ export default function MobileLoginForm(props: LoginFormProps) {
           <span>Don't have an account?</span>
           <Link href={'/register'}
                 className={'text-primary mr-2 cursor-pointer'}>Register</Link>
-        </div>
-        <div className={"mt-5"}>
-          <GoogleOAuthProvider clientId="385994786159-cdn5f72dqkuhjoc1p6ibiv8kpg0vb2jm.apps.googleusercontent.com">
-            <GoogleLogin
-                onSuccess={credentialResponse => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log('Login Failed');
-                }}
-            />
-          </GoogleOAuthProvider>
         </div>
       </div>
     </form>

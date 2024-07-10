@@ -1,6 +1,6 @@
 export interface registerResendOtpRequestInterface {
   password: string;
-  mobile: string;
+  email: string;
   //TODO
   //recaptcha_response: string;
 }

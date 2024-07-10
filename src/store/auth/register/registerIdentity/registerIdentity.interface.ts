@@ -3,7 +3,7 @@ export interface registerIdentityRequestInterface {
   discount_code: string | null;
   referral_code: string | null;
   national_id: string;
-  tracking_id: string;
+  trackingId: string;
   mobile: string;
 }
 

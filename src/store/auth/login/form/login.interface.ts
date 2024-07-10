@@ -1,5 +1,5 @@
 export interface LoginInterface{
-  mobile: string,
+  email: string,
   password: string,
   //TODO
   //recaptcha_response : string

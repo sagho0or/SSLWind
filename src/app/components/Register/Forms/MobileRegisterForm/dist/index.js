@@ -44,7 +44,6 @@ var react_redux_1 = require("react-redux");
 var action_1 = require("@/store/auth/register/registerMobile/action");
 var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var loading_1 = require("@/app/utils/loading");
-var google_1 = require("@react-oauth/google");
 function MobileRegisterForm(props) {
     var _a = react_1.useState(props.mobile), mobileNumber = _a[0], setMobileNumber = _a[1];
     var _b = react_1.useState(!!props.mobile), isValid = _b[0], setIsValid = _b[1];
@@ -82,18 +81,6 @@ function MobileRegisterForm(props) {
                 react_1["default"].createElement(loading_1["default"], null)
                 :
                     react_1["default"].createElement("span", { className: 'text-center' }, 'Submit')),
-            react_1["default"].createElement("div", null,
-                react_1["default"].createElement("div", { className: "flex items-center my-5" },
-                    react_1["default"].createElement("div", { className: "flex-grow h-0.5 bg-secondary-02" }),
-                    react_1["default"].createElement("div", { className: "text-lg text-secondary-10 text-center mx-5" }, "or"),
-                    react_1["default"].createElement("div", { className: "flex-grow h-0.5 bg-secondary-02" }))),
-            react_1["default"].createElement("div", null,
-                react_1["default"].createElement(google_1.GoogleOAuthProvider, { clientId: "385994786159-cdn5f72dqkuhjoc1p6ibiv8kpg0vb2jm.apps.googleusercontent.com" },
-                    react_1["default"].createElement(google_1.GoogleLogin, { onSuccess: function (credentialResponse) {
-                            console.log(credentialResponse);
-                        }, onError: function () {
-                            console.log('Login Failed');
-                        } }))),
             react_1["default"].createElement("div", { className: 'mt-5' },
                 react_1["default"].createElement(link_1["default"], { href: '/login', className: 'text-primary mr-2 cursor-pointer' }, "Login")))));
 }

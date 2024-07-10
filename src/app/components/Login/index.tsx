@@ -2,7 +2,6 @@
 * For Login Responsive and WebProfile was really like each other so we dont have 2 files for them
 * */
 import React, { useEffect, useState } from 'react';
-import { loginLoading } from '@/store/auth/login/form/actions';
 import isMobileView from '@/app/utils/isMobileView';
 import MobileLoginForm from '@/app/components/Login/Forms/LoginForm';
 import MobileOtpForm from '@/app/components/Login/Forms/OtpForm';
@@ -12,12 +11,15 @@ import { useReCaptcha } from 'next-recaptcha-v3';
 import { encode } from 'base-64';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
+import { loginLoading } from '@/store/auth/login/form/slice';
+import { User, UserDto } from './user.class';
+import { LoginResponse } from './Forms/OtpForm/OTPFormProps.interface';
 
 export default function LoginComponent() {
   const [step, setStep] = useState<number>(0);
-  const [mobile, setMobile] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loginResponse, setLoginResponse] = useState<any>({});
+  const [loginResponse, setLoginResponse] = useState<LoginResponse>();
   const [cookies, setCookie, removeCookie] = useCookies(['auth-token','auth-refresh']);
 
   const loginStates = useSelector((state: any) => state.login);
@@ -34,21 +36,23 @@ export default function LoginComponent() {
   }, [loginStates]);
   useEffect(() => {
     if(loginOtpStates.isDone){
+      const user = User.getInstance();
+      user.updateUser(loginOtpStates.response);
       setCookie("auth-token", loginOtpStates.response.token);
       setCookie("auth-refresh", loginOtpStates.response.refresh_token);
       router.push('/');
     }
   }, [loginOtpStates]);
 
-  async function acceptMobileForm(mobileNumber: string, password: string) {
+  async function acceptMobileForm(email: string, password: string) {
     //api call for mobile number & password
     dispatch(loginLoading({
-      mobile: mobileNumber,
+      email: email,
       password: encode(password)
       // TODO
       //recaptcha_response: await executeRecaptcha("form_submit"),
     }));
-    setMobile(mobileNumber);
+    setEmail(email);
     setPassword(password)
   }
 
@@ -66,8 +70,8 @@ export default function LoginComponent() {
         {
           step == 0 ?
             <MobileLoginForm confirmFunction={acceptMobileForm} /> :
-            step == 1 ?
-              <MobileOtpForm mobile={mobile}
+            step == 1 && loginResponse?
+              <MobileOtpForm email={email}
                              backFunc={backFunc}
                              password = {password}
                              loginResponse={loginResponse}  /> :

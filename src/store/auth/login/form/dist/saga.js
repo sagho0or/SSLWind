@@ -38,6 +38,7 @@ function ApiCall(action) {
         switch (_b.label) {
             case 0:
                 dataForm = action.data;
+                console.log('dataFormdataFormdat', dataForm);
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 4, , 6]);

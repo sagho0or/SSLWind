@@ -66,25 +66,6 @@ export default function MobileRegisterForm(props: MobileRegisterFormInterface) {
                     }
 
                 </IButton>
-                <div>
-                    <div className="flex items-center my-5">
-                        <div className="flex-grow h-0.5 bg-secondary-02"></div>
-                        <div className="text-lg text-secondary-10 text-center mx-5">or</div>
-                        <div className="flex-grow h-0.5 bg-secondary-02"></div>
-                    </div>
-                </div>
-                <div>
-                    <GoogleOAuthProvider clientId="385994786159-cdn5f72dqkuhjoc1p6ibiv8kpg0vb2jm.apps.googleusercontent.com">
-                        <GoogleLogin
-                            onSuccess={credentialResponse => {
-                                console.log(credentialResponse);
-                            }}
-                            onError={() => {
-                                console.log('Login Failed');
-                            }}
-                        />
-                    </GoogleOAuthProvider>
-                </div>
                 <div className={'mt-5'}>
                     <Link href={'/login'}
                           className={'text-primary mr-2 cursor-pointer'}>Login</Link>

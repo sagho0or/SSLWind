@@ -24,8 +24,8 @@ export default function MobileOtpForm(props: OTPFormProps) {
             // send otpCode api
             dispatch(loginOtpLoading({
                 code: otpCode,
-                mobile: props.mobile,
-                tracking_id: props.loginResponse.token
+                email: props.email,
+                trackingId: props.loginResponse.trackingId
             }))
         }
     }, [otpCode]);
@@ -33,7 +33,7 @@ export default function MobileOtpForm(props: OTPFormProps) {
     async function resendOtp() {
         //resend otp api
         dispatch(resendOtpSmsLoading({
-            mobile: props.mobile,
+            email: props.email,
             password:encode(props.password)
             //TODO
             //recaptcha_response: await executeRecaptcha("form_submit"),
@@ -56,7 +56,7 @@ export default function MobileOtpForm(props: OTPFormProps) {
                         onChange={(e: ChangeEvent<HTMLInputElement>) =>
                             setOtpCode(e.target.value)}
                         style={'secondaryOutline'}
-                        helper={`Enter the 6-digit code sent to the email ${props.mobile}.`}/>
+                        helper={`Enter the 6-digit code sent to the email ${props.email}.`}/>
             </div>
             <IButton style={'primarySimple'}
                      disabled={!timerCompleted} onClick={resendOtp}>

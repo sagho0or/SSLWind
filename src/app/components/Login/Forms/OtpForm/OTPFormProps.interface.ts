@@ -1,9 +1,11 @@
 export interface OTPFormProps {
-  mobile: string;
+  email: string;
   password: string;
-  loginResponse: {
-    token: string,
-    type: string
-  };
+  loginResponse: LoginResponse;
   backFunc: ()=>void
+}
+export interface LoginResponse {
+  otpExpiresIn: number,
+  trackingId: string,
+  otpRetryCount: number
 }

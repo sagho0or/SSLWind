@@ -27,7 +27,7 @@ export default function PasswordRegisterForm(props: PasswordRegisterFormInterfac
       password: btoa(password),
       re_password: btoa(confirmPassword),
       mobile: props.mobile,
-      tracking_id: props.registerIdentityResponse.token
+      trackingId: props.registerIdentityResponse.token
     }))
   }
 

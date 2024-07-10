@@ -58,8 +58,8 @@ function MobileOtpForm(props) {
             // send otpCode api
             dispatch(slice_1.loginOtpLoading({
                 code: otpCode,
-                mobile: props.mobile,
-                tracking_id: props.loginResponse.token
+                email: props.email,
+                trackingId: props.loginResponse.trackingId
             }));
         }
     }, [otpCode]);
@@ -68,7 +68,7 @@ function MobileOtpForm(props) {
             return __generator(this, function (_a) {
                 //resend otp api
                 dispatch(action_1.resendOtpSmsLoading({
-                    mobile: props.mobile,
+                    email: props.email,
                     password: base_64_1.encode(props.password)
                     //TODO
                     //recaptcha_response: await executeRecaptcha("form_submit"),
@@ -86,7 +86,7 @@ function MobileOtpForm(props) {
         React.createElement("div", { className: 'my-10 relative' },
             React.createElement(Input_1["default"], { inputId: 'OtpInput', label: 'OTP Code', type: 'text', value: otpCode, onChange: function (e) {
                     return setOtpCode(e.target.value);
-                }, style: 'secondaryOutline', helper: "Enter the 6-digit code sent to the email " + props.mobile + "." })),
+                }, style: 'secondaryOutline', helper: "Enter the 6-digit code sent to the email " + props.email + "." })),
         React.createElement(Button_1["default"], { style: 'primarySimple', disabled: !timerCompleted, onClick: resendOtp }, timerCompleted ?
             React.createElement("span", { className: 'text-center' }, "Retry ")
             :

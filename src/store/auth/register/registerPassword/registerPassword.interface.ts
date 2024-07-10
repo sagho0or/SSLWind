@@ -2,7 +2,7 @@ export interface registerPasswordRequestInterface {
   password: string;
   re_password: string;
   mobile: string;
-  tracking_id: string;
+  trackingId: string;
 }
 
 export interface registerPasswordResponseInterface {

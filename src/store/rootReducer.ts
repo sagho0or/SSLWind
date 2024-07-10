@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import loginReducer from '@/store/auth/login/form/reducer';
+import loginReducer from '@/store/auth/login/form/slice';
 import registerMobileReducer from '@/store/auth/register/registerMobile/reducer';
-import LoginOtpReducer from '@/store/auth/login/otp/reducer';
+import LoginOtpReducer from '@/store/auth/login/otp/slice';
 import registerOtpReducer from './auth/register/registerOtp/reducer';
 import registerIdentityReducer from './auth/register/registerIdentity/reducer';
 import registerPasswordReducer from "@/store/auth/register/registerPassword/reducer";

@@ -1,6 +1,6 @@
 export interface registerOtpRequestInterface {
   code: string;
-  tracking_id: string;
+  trackingId: string;
   mobile: string;
 }
 

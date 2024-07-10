@@ -23,7 +23,7 @@ function PasswordRegisterForm(props) {
             password: btoa(password),
             re_password: btoa(confirmPassword),
             mobile: props.mobile,
-            tracking_id: props.registerIdentityResponse.token
+            trackingId: props.registerIdentityResponse.token
         }));
     }
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
