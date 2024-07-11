@@ -62,3 +62,31 @@ input[type=number] {
     border-bottom: none;
     /*border-radius: 16px;*/
 }
+
+  
+.hide-scrollbar::-webkit-scrollbar {
+display: none;
+}
+
+.hide-scrollbar {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
+
+.scrollable-content::-webkit-scrollbar {
+width: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+background: #888; 
+border-radius: 10px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+  

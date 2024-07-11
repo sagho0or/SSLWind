@@ -38,7 +38,7 @@ export default function WebProfileComponent() {
                         <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={userProfile?.first_name} width={72}
                              height={72}/>
                     </div>
-                    <ul className={"flex flex-row justify-between items-center w-full mr-4"}>
+                    <ul className={"flex flex-row justify-between items-center w-full ml-4"}>
                         {
                             personalData.map(({title, desc}, index) =>
                                 (<li key={`personal-data-${index}`}>
@@ -69,16 +69,13 @@ export default function WebProfileComponent() {
                             </tbody>
                         </table>
                     </div>
-                    <div className={"mr-4 w-1/3"}>
+                    <div className={"ml-4 w-1/3"}>
                         <div className={"bg-secondary-01 rounded-xl  p-8"}>
                             <Link className={"flex justify-between"} href={`/KYC/${userProfile?.kyc_level?userProfile?.kyc_level+1:''}`}>
                                 <h3 className={"font-semibold text-xl"}>Role</h3>
                                 <div
                                     className={"inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm"}>
-                                    {`Access Level ${
-                                        userProfile?.kyc_level == 1 ? 'one' :
-                                            userProfile?.kyc_level == 2 ? 'Two' :
-                                                userProfile?.kyc_level == 3 ? 'Three' : ''}`}
+                                    {`Access Level`}
                                 </div>
                             </Link>
                         </div>

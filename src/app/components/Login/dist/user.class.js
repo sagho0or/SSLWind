@@ -28,6 +28,14 @@ var User = /** @class */ (function () {
     User.prototype.displayInfo = function () {
         return "User " + this.userId + ": " + this.email + ", Role: " + this.role + ", Last Login: " + this.lastLogin;
     };
+    User.prototype.clearUser = function () {
+        this.role = UserRole.Guest;
+        this.lastLogin = new Date();
+        this.token = '';
+        this.email = '';
+        this.userId = 0;
+        this.refreshToken = '';
+    };
     return User;
 }());
 exports.User = User;

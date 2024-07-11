@@ -68,7 +68,7 @@ export default function MobileRegisterForm(props: MobileRegisterFormInterface) {
                 </IButton>
                 <div className={'mt-5'}>
                     <Link href={'/login'}
-                          className={'text-primary mr-2 cursor-pointer'}>Login</Link>
+                          className={'text-primary ml-2 cursor-pointer'}>Login</Link>
                 </div>
             </div>
         </form>

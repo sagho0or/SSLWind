@@ -1,4 +1,4 @@
-import {ToggleButtonInterface} from "@/app/components/Comparison/MobileComparison/ToggleButton/toggleButton.interface";
+import { ToggleButtonInterface } from "./toggleButton.interface";
 
 export default function ToggleButton(props: ToggleButtonInterface) {
      return (
@@ -9,7 +9,7 @@ export default function ToggleButton(props: ToggleButtonInterface) {
                  onClick={() => {
                    props.handleTabClick('BID');
                  }}
-             >خرید
+             >Yes
              </div>
              <div
                  className={`w-1/2 p-2 cursor-pointer 
@@ -18,7 +18,7 @@ export default function ToggleButton(props: ToggleButtonInterface) {
                    props.handleTabClick('ASK');
                  }}
              >
-                 فروش
+                 No
              </div>
          </div>
      )

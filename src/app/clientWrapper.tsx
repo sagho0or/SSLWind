@@ -22,7 +22,6 @@ export default function ClientWrapper({children}: { children: ReactNode }) {
                         <Header/>
                         <div className={"pt-20 h-screen "}>
                             {children}
-                            <Footer />
                         </div>
                     </>}
             </>

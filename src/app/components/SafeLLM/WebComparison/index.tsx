@@ -1,6 +1,8 @@
 'use client'
 import IButton from "@/app/components/Common/Button";
 import {SafeLLMInterface} from '@/app/components/SafeLLM/safellm.interface';
+import { useCookies } from "react-cookie";
+import DefaultLayer from "../../defaultLayer";
 
 export default function WebComparison(props: SafeLLMInterface) {
     function handleKeyDownEvent(event: any) {
@@ -10,8 +12,11 @@ export default function WebComparison(props: SafeLLMInterface) {
         }
     }
 
+    const [cookie] = useCookies();
+    const isLogin = !!cookie['auth-token'];
+
     return (
-        <>
+        <DefaultLayer showFooter={true}>
             <div
                 className="bg-gradient-to-b from-primary-002 from-0% to-white to-75% ... h-130
                 ">
@@ -26,7 +31,8 @@ export default function WebComparison(props: SafeLLMInterface) {
                     </div>
                 </div>
             </div>
-
+            {!isLogin && 
+            
             <div className={"absolute w-full top-[505px] "}>
                 <div className={'flex gap-x-5 items-center justify-between relative bottom-16 bg-white ' +
                     'h-44 w-3/4 max-w-275 mx-auto px-8 rounded-2xl rounded-t-none rounded-l-2xl shadow-2xl'}>
@@ -39,6 +45,7 @@ export default function WebComparison(props: SafeLLMInterface) {
                     </IButton>
                 </div>
             </div>
-        </>
+            }
+        </DefaultLayer>
     )
 }

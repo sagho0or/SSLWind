@@ -7,6 +7,7 @@ export class User implements UserDto {
   refreshToken : string;
 
   private static instance: User;
+  
 
   private constructor(role: UserRole, lastLogin: Date, token: string, email: string, userId: number, refreshToken: string) {
     this.role = role;
@@ -35,6 +36,15 @@ export class User implements UserDto {
 
   public displayInfo(): string {
     return `User ${this.userId}: ${this.email}, Role: ${this.role}, Last Login: ${this.lastLogin}`;
+  }
+  
+  public clearUser(): void {
+    this.role = UserRole.Guest;
+    this.lastLogin = new Date();
+    this.token = '';
+    this.email = '';
+    this.userId = 0;
+    this.refreshToken = '';
   }
 }
 export interface UserDto {

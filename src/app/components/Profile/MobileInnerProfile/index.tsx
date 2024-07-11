@@ -8,16 +8,16 @@ export default function MobileInnerProfile({userProfile, setShowInnerProfile}:
 { userProfile: UserProfileResponseInterface, setShowInnerProfile: (a:boolean)=>void }) {
 
     const personalData = [
-        {title: "نام و نام خانوادگی", desc: userProfile?.full_name},
-        {title: "تاریخ تولد", desc: userProfile?.birth_date?moment(userProfile?.birth_date).locale('fa').format('YYYY/MM/DD'):''},
-        {title: "کدملی", desc: userProfile?.national_id},
-        {title: "شماره تلفن", desc: userProfile?.mobile_number},
-        {title: "ایمیل", desc: userProfile?.email}
+        {title: "Full name", desc: userProfile?.full_name},
+        {title: "Birth Date", desc: userProfile?.birth_date?moment(userProfile?.birth_date).locale('fa').format('YYYY/MM/DD'):''},
+        {title: "NationalID", desc: userProfile?.national_id},
+        {title: "PhoneNumber", desc: userProfile?.mobile_number},
+        {title: "Email", desc: userProfile?.email}
     ];
     const additionalData = [
-        {title: "کد پستی", desc: `${userProfile?.zip_code ? userProfile?.zip_code : "------------"}`},
-        {title: "آدرس", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
-        {title: "تلفن ثابت", desc: `${userProfile?.phone_number ? userProfile?.phone_number : "------------"}`},
+        {title: "Postal code", desc: `${userProfile?.zip_code ? userProfile?.zip_code : "------------"}`},
+        {title: "Address", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
+        {title: "Phone", desc: `${userProfile?.phone_number ? userProfile?.phone_number : "------------"}`},
     ]
 
 
@@ -28,10 +28,10 @@ export default function MobileInnerProfile({userProfile, setShowInnerProfile}:
                 <Icons name={'left-arrow-key'}/>
             </div>
             <div className={"mt-12"}>
-                <h3 className={"font-semibold text-xl text-center"}>حساب کاربری</h3>
+                <h3 className={"font-semibold text-xl text-center"}>Account</h3>
                 <ul className={"mt-4 "}>
                     <li className={'flex justify-between items-center p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                        <p >آواتار</p>
+                        <p >Photo</p>
                         <div className={'rounded-full w-12 h-12'}>
                             <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={'maryam'} width={48}
                                  height={48}/>
@@ -49,7 +49,7 @@ export default function MobileInnerProfile({userProfile, setShowInnerProfile}:
             </div>
             <div className={'w-full h-3 bg-secondary-02'}/>
             <div className={"pt-4"}>
-                <h3 className={"font-semibold text-xl"}>اطلاعات تکمیلی</h3>
+                <h3 className={"font-semibold text-xl"}>Information</h3>
                 <ul>
                     {
                         additionalData.map(({title, desc}, index) =>

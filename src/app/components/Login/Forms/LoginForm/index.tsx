@@ -57,7 +57,7 @@ export default function MobileLoginForm(props: LoginFormProps) {
         <div className={'mt-5'}>
           <span>Don't have an account?</span>
           <Link href={'/register'}
-                className={'text-primary mr-2 cursor-pointer'}>Register</Link>
+                className={'text-primary ml-2 cursor-pointer'}>Register</Link>
         </div>
       </div>
     </form>

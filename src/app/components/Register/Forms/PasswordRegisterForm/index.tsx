@@ -71,20 +71,20 @@ export default function PasswordRegisterForm(props: PasswordRegisterFormInterfac
         <div>
           <div className={'flex mb-2'}>
             <Icons name={checkPasswordFormat(password).hasCapitalAndSmall? 'register-password-check' : 'register-password-close'} />
-            <p className={'mr-2' + ' ' +
+            <p className={'ml-2' + ' ' +
                 `${checkPasswordFormat(password).hasCapitalAndSmall? 'text-success' : 'text-error'}`}>At least one uppercase and one lowercase letter </p>
           </div>
           <div className={'flex mb-2'}>
             <Icons name={checkPasswordFormat(password).hasSpecialCharacters? 'register-password-check' : 'register-password-close'} />
-            <p className={'mr-2' + ' ' + `${checkPasswordFormat(password).hasSpecialCharacters? 'text-success' : 'text-error'}`}>At least one special character, allowed characters: !@#$%^&*</p>
+            <p className={'ml-2' + ' ' + `${checkPasswordFormat(password).hasSpecialCharacters? 'text-success' : 'text-error'}`}>At least one special character, allowed characters: !@#$%^&*</p>
           </div>
           <div className={'flex mb-2'}>
             <Icons name={checkPasswordFormat(password).hasNumber? 'register-password-check' : 'register-password-close'} />
-            <p className={'mr-2' + ' ' + `${checkPasswordFormat(password).hasNumber? 'text-success' : 'text-error'}`}>At least one number</p>
+            <p className={'ml-2' + ' ' + `${checkPasswordFormat(password).hasNumber? 'text-success' : 'text-error'}`}>At least one number</p>
           </div>
           <div className={'flex mb-2'}>
             <Icons name={checkPasswordFormat(password).hasMinimumCharacterRequired? 'register-password-check' :'register-password-close'} />
-            <p className={'mr-2' + ' ' + `${checkPasswordFormat(password).hasMinimumCharacterRequired? 'text-success' : 'text-error'}`}>At least 8 characters</p>
+            <p className={'ml-2' + ' ' + `${checkPasswordFormat(password).hasMinimumCharacterRequired? 'text-success' : 'text-error'}`}>At least 8 characters</p>
           </div>
         </div>
         

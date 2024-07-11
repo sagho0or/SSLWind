@@ -14,8 +14,13 @@ export default function MobileProfileComponent() {
     const Router = useRouter();
 
     useEffect(() => {
+        console.log(userProfile);
+        debugger;
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
+            
+        console.log(userProfile);
+        debugger;
         })
     }, []);
 
@@ -40,80 +45,38 @@ export default function MobileProfileComponent() {
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} onClick={() => setShowInnerProfile(true)}>
                                     <Icons name={'profile-account'}/>
-                                    <p className={'mr-3'}>حساب کاربری</p>
-                                </a>
-                                <Icons name={'direction-left-gray'}/>
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/addCard'}>
-                                    <Icons name={'profile-bank-card'}/>
-                                    <p className={'mr-3'}>کارت بانکی</p>
-                                </a>
-                                <Icons name={'direction-left-gray'}/>
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'}
-                                   href={`/KYC/${userProfile?.kyc_level ? userProfile?.kyc_level + 1 : 0}`}>
-                                    <Icons name={'profile-KYC'}/>
-                                    <p className={'mr-3'}>احراز هویت</p>
-                                </a>
-                                <a className={'flex'} href={''}>
-                                    <div className={'text-error bg-error-01 py-1 px-2 rounded-lg ml-2'}>
-                            <span
-                                className={'text-xs'}>سطح {
-                                userProfile?.kyc_level == 1 ? 'یک' :
-                                    userProfile?.kyc_level == 2 ? 'دو' :
-                                        userProfile?.kyc_level == 3 ? 'سه' : ''}</span>
-                                    </div>
-                                    <Icons name={'direction-left-gray'}/>
-                                </a>
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/referral'}>
-                                    <Icons name={'profile-Referral'}/>
-                                    <p className={'mr-3'}>دعوت از دوستان</p>
+                                    <p className={'ml-3'}>Profle</p>
                                 </a>
                                 <Icons name={'direction-left-gray'}/>
                             </li>
                         </ul>
                         <div className={'w-full h-3 bg-secondary-02'}/>
-                        {/*<ul>*/}
-                        {/*    <li className={'flex justify-between p-4 border-b-2 border-secondary-02'}>*/}
-                        {/*        <a className={'flex flex-1'} href={''}>*/}
-                        {/*            <Icons name={'profile-dark-mode'}/>*/}
-                        {/*            <p className={'mr-3'}>صفحه نمایش تاریک</p>*/}
-                        {/*        </a>*/}
-                        {/*        <input type="checkbox" value="" className="sr-only peer" disabled/>*/}
-                        {/*        <div*/}
-                        {/*            className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>*/}
-                        {/*    </li>*/}
-                        {/*</ul>*/}
                         <div className={'w-full h-3 bg-secondary-02'}/>
                         <ul>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} href={'/security'}>
                                     <Icons name={'profile-security'}/>
-                                    <p className={'mr-3'}>امنیت</p>
+                                    <p className={'ml-3'}>Security</p>
                                 </a>
                                 <Icons name={'direction-left-gray'}/>
                             </li>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} href={''}>
                                     <Icons name={'profile-support'}/>
-                                    <p className={'mr-3'}>پشتیبانی</p>
+                                    <p className={'ml-3'}>Support</p>
                                 </a>
                                 <Icons name={'direction-left-gray'}/>
                             </li>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} href={'/faq'}>
                                     <Icons name={'profile-faq'}/>
-                                    <p className={'mr-3'}>سوالات متداول</p>
+                                    <p className={'ml-3'}>FAQ</p>
                                 </a>
                                 <Icons name={'direction-left-gray'}/>
                             </li>
                             <li className={'flex p-4 cursor-pointer'} onClick={logoutFuc}>
                                 <Icons name={'profile-logout'}/>
-                                <p className={'mr-3'}>خروج</p>
+                                <p className={'ml-3'}>Logout</p>
                             </li>
                         </ul>
                     </>

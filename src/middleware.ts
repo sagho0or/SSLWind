@@ -4,7 +4,9 @@ import {NextRequest, NextResponse} from "next/server";
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const isPublicPath = path === "/login" || path === "/register" || path === "/faq";
+    
     const token = request.cookies.get("auth-token")?.value || ""; // check if the token exists
+    debugger;
     if (isPublicPath && token.length > 0) {
         // redirect them to their profile page
         return NextResponse.redirect(new URL("/", request.nextUrl));
@@ -18,7 +20,6 @@ export function middleware(request: NextRequest) {
 export const config = {
     matcher: ["/login",
         "/register",
-        "/deposit",
         "/history/:step",
         "/profile",
         "/security",

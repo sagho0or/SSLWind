@@ -82,6 +82,6 @@ function MobileRegisterForm(props) {
                 :
                     react_1["default"].createElement("span", { className: 'text-center' }, 'Submit')),
             react_1["default"].createElement("div", { className: 'mt-5' },
-                react_1["default"].createElement(link_1["default"], { href: '/login', className: 'text-primary mr-2 cursor-pointer' }, "Login")))));
+                react_1["default"].createElement(link_1["default"], { href: '/login', className: 'text-primary ml-2 cursor-pointer' }, "Login")))));
 }
 exports["default"] = MobileRegisterForm;

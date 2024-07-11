@@ -45,17 +45,17 @@ function PasswordRegisterForm(props) {
             react_1["default"].createElement("div", null,
                 react_1["default"].createElement("div", { className: 'flex mb-2' },
                     react_1["default"].createElement(Icons_1["default"], { name: checkPasswordFormat_1["default"](password).hasCapitalAndSmall ? 'register-password-check' : 'register-password-close' }),
-                    react_1["default"].createElement("p", { className: 'mr-2' + ' ' +
+                    react_1["default"].createElement("p", { className: 'ml-2' + ' ' +
                             ("" + (checkPasswordFormat_1["default"](password).hasCapitalAndSmall ? 'text-success' : 'text-error')) }, "At least one uppercase and one lowercase letter ")),
                 react_1["default"].createElement("div", { className: 'flex mb-2' },
                     react_1["default"].createElement(Icons_1["default"], { name: checkPasswordFormat_1["default"](password).hasSpecialCharacters ? 'register-password-check' : 'register-password-close' }),
-                    react_1["default"].createElement("p", { className: 'mr-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasSpecialCharacters ? 'text-success' : 'text-error')) }, "At least one special character, allowed characters: !@#$%^&*")),
+                    react_1["default"].createElement("p", { className: 'ml-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasSpecialCharacters ? 'text-success' : 'text-error')) }, "At least one special character, allowed characters: !@#$%^&*")),
                 react_1["default"].createElement("div", { className: 'flex mb-2' },
                     react_1["default"].createElement(Icons_1["default"], { name: checkPasswordFormat_1["default"](password).hasNumber ? 'register-password-check' : 'register-password-close' }),
-                    react_1["default"].createElement("p", { className: 'mr-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasNumber ? 'text-success' : 'text-error')) }, "At least one number")),
+                    react_1["default"].createElement("p", { className: 'ml-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasNumber ? 'text-success' : 'text-error')) }, "At least one number")),
                 react_1["default"].createElement("div", { className: 'flex mb-2' },
                     react_1["default"].createElement(Icons_1["default"], { name: checkPasswordFormat_1["default"](password).hasMinimumCharacterRequired ? 'register-password-check' : 'register-password-close' }),
-                    react_1["default"].createElement("p", { className: 'mr-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasMinimumCharacterRequired ? 'text-success' : 'text-error')) }, "At least 8 characters"))),
+                    react_1["default"].createElement("p", { className: 'ml-2' + ' ' + ("" + (checkPasswordFormat_1["default"](password).hasMinimumCharacterRequired ? 'text-success' : 'text-error')) }, "At least 8 characters"))),
             react_1["default"].createElement("div", { className: (isMobileView_1["default"] ? 'absolute bottom-0' : 'mt-4') + " w-full" },
                 react_1["default"].createElement(Button_1["default"], { style: 'primarySimple', disabled: !password || !confirmPassword || password !== confirmPassword
                         || Object.values(checkPasswordFormat_1["default"](password)).includes(false), onClick: sendPasswordFunc },

@@ -31,7 +31,7 @@ function WebProfileComponent() {
             react_1["default"].createElement("div", { className: 'bg-secondary-01 rounded-xl flex p-8' },
                 react_1["default"].createElement("div", { className: 'rounded-full w-18 h-18' },
                     react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatar_id) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.first_name, width: 72, height: 72 })),
-                react_1["default"].createElement("ul", { className: "flex flex-row justify-between items-center w-full mr-4" }, personalData.map(function (_a, index) {
+                react_1["default"].createElement("ul", { className: "flex flex-row justify-between items-center w-full ml-4" }, personalData.map(function (_a, index) {
                     var title = _a.title, desc = _a.desc;
                     return (react_1["default"].createElement("li", { key: "personal-data-" + index },
                         react_1["default"].createElement("p", { className: "text-secondary mb-2" }, title),
@@ -50,12 +50,10 @@ function WebProfileComponent() {
                                     react_1["default"].createElement(Button_1["default"], { style: "primarySimple", customStyle: "h-10", onClick: function () {
                                         } }, "Save"))));
                         })))),
-                react_1["default"].createElement("div", { className: "mr-4 w-1/3" },
+                react_1["default"].createElement("div", { className: "ml-4 w-1/3" },
                     react_1["default"].createElement("div", { className: "bg-secondary-01 rounded-xl  p-8" },
                         react_1["default"].createElement(link_1["default"], { className: "flex justify-between", href: "/KYC/" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) ? (userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) + 1 : '') },
                             react_1["default"].createElement("h3", { className: "font-semibold text-xl" }, "Role"),
-                            react_1["default"].createElement("div", { className: "inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm" }, "Access Level " + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) == 1 ? 'one' :
-                                (userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) == 2 ? 'Two' :
-                                    (userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) == 3 ? 'Three' : '')))))))));
+                            react_1["default"].createElement("div", { className: "inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm" }, "Access Level"))))))));
 }
 exports["default"] = WebProfileComponent;
