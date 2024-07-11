@@ -33,7 +33,8 @@ export default function LoginComponent() {
       setLoginResponse(loginStates.response.data);
       setStep(1)
     }
-  }, [loginStates]);
+  }, [loginStates.isDone]);
+
   useEffect(() => {
     if(loginOtpStates.isDone){
       const user = User.getInstance();
@@ -43,7 +44,7 @@ export default function LoginComponent() {
       setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
       router.push('/');
     }
-  }, [loginOtpStates]);
+  }, [loginOtpStates.isDone]);
 
   async function acceptMobileForm(email: string, password: string) {
     //api call for mobile number & password

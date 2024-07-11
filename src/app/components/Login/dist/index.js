@@ -67,7 +67,7 @@ function LoginComponent() {
             setLoginResponse(loginStates.response.data);
             setStep(1);
         }
-    }, [loginStates]);
+    }, [loginStates.isDone]);
     react_1.useEffect(function () {
         if (loginOtpStates.isDone) {
             var user = user_class_1.User.getInstance();
@@ -77,7 +77,7 @@ function LoginComponent() {
             setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
             router.push('/');
         }
-    }, [loginOtpStates]);
+    }, [loginOtpStates.isDone]);
     function acceptMobileForm(email, password) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
