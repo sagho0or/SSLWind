@@ -4,7 +4,7 @@ import {UserProfileResponseInterface} from "@/store/userProfile/interface";
 import getUserProfileService from "@/app/services/getUserProfile.service";
 import IButton from "@/app/components/Common/Button";
 import Link from "next/link";
-import moment from "jalali-moment";
+import moment from 'moment';
 
 export default function WebProfileComponent() {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
@@ -12,20 +12,18 @@ export default function WebProfileComponent() {
 
     const personalData = [
         {title: "Full Name", desc: userProfile?.full_name},
-        {title: "Date of Birth", desc: userProfile?.birth_date?moment(userProfile?.birth_date).locale('fa').format('YYYY/MM/DD'):''},
+        {title: "Date of Birth", desc: userProfile?.birth_date?moment(userProfile?.birth_date).format('YYYY/MM/DD'):''},
         {title: "Phone Number", desc: userProfile?.mobile_number},
         {title: "Email", desc: userProfile?.email}
     ];
     const additionalData = [
-        {title: "Postal Code", desc: `${userProfile?.zip_code ? userProfile?.zip_code : "------------"}`},
+        {title: "Postal Code", desc: `${userProfile?.postal_code ? userProfile?.postal_code : "------------"}`},
         {title: "Address", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
     ]
 
     useEffect(() => {
         getUserProfileService(true).then((res: any) => {
             setUserProfile(res);
-            console.log('kyc', userProfile?.kyc_level)
-            console.log('kyc res', res?.kyc_level)
         })
 
     }, []);
@@ -71,13 +69,12 @@ export default function WebProfileComponent() {
                     </div>
                     <div className={"ml-4 w-1/3"}>
                         <div className={"bg-secondary-01 rounded-xl  p-8"}>
-                            <Link className={"flex justify-between"} href={`/KYC/${userProfile?.kyc_level?userProfile?.kyc_level+1:''}`}>
+                            
                                 <h3 className={"font-semibold text-xl"}>Role</h3>
                                 <div
                                     className={"inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm"}>
                                     {`Access Level`}
                                 </div>
-                            </Link>
                         </div>
                     </div>
 

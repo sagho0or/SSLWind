@@ -4,26 +4,23 @@ var react_1 = require("react");
 var Sidebar_1 = require("@/app/components/Sidebar");
 var getUserProfile_service_1 = require("@/app/services/getUserProfile.service");
 var Button_1 = require("@/app/components/Common/Button");
-var link_1 = require("next/link");
-var jalali_moment_1 = require("jalali-moment");
+var moment_1 = require("moment");
 function WebProfileComponent() {
     var _a = react_1.useState(true), isSidebarOpen = _a[0], setIsSidebarOpen = _a[1];
     var _b = react_1.useState(), userProfile = _b[0], setUserProfile = _b[1];
     var personalData = [
         { title: "Full Name", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name },
-        { title: "Date of Birth", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date) ? jalali_moment_1["default"](userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date).locale('fa').format('YYYY/MM/DD') : '' },
+        { title: "Date of Birth", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date) ? moment_1["default"](userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date).format('YYYY/MM/DD') : '' },
         { title: "Phone Number", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.mobile_number },
         { title: "Email", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.email }
     ];
     var additionalData = [
-        { title: "Postal Code", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.zip_code) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.zip_code : "------------") },
+        { title: "Postal Code", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.postal_code) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.postal_code : "------------") },
         { title: "Address", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.address) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.address : "------------") },
     ];
     react_1.useEffect(function () {
         getUserProfile_service_1["default"](true).then(function (res) {
             setUserProfile(res);
-            console.log('kyc', userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level);
-            console.log('kyc res', res === null || res === void 0 ? void 0 : res.kyc_level);
         });
     }, []);
     return (react_1["default"].createElement(Sidebar_1["default"], { isSidebarOpen: isSidebarOpen, setIsSidebarOpen: setIsSidebarOpen },
@@ -52,8 +49,7 @@ function WebProfileComponent() {
                         })))),
                 react_1["default"].createElement("div", { className: "ml-4 w-1/3" },
                     react_1["default"].createElement("div", { className: "bg-secondary-01 rounded-xl  p-8" },
-                        react_1["default"].createElement(link_1["default"], { className: "flex justify-between", href: "/KYC/" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) ? (userProfile === null || userProfile === void 0 ? void 0 : userProfile.kyc_level) + 1 : '') },
-                            react_1["default"].createElement("h3", { className: "font-semibold text-xl" }, "Role"),
-                            react_1["default"].createElement("div", { className: "inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm" }, "Access Level"))))))));
+                        react_1["default"].createElement("h3", { className: "font-semibold text-xl" }, "Role"),
+                        react_1["default"].createElement("div", { className: "inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm" }, "Access Level")))))));
 }
 exports["default"] = WebProfileComponent;

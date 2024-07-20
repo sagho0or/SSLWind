@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var store_1 = require("@/store/store");
-var action_1 = require("@/store/userProfile/action");
+var slice_1 = require("@/store/userProfile/slice");
 var react_cookie_1 = require("react-cookie");
 function getUserProfileService(reload) {
     return new Promise(function (resolve, reject) {
@@ -12,12 +12,23 @@ function getUserProfileService(reload) {
         }
         var localItem = localStorage.getItem('userProfile') || "";
         function getUserProfileFunc() {
-            store_1["default"].dispatch(action_1.getUserProfileLoading());
-            store_1["default"].subscribe(function () {
+            store_1["default"].dispatch(slice_1.getUserProfileLoading());
+            debugger;
+            var unsubscribe = store_1["default"].subscribe(function () {
                 var value = store_1["default"].getState().userProfile;
-                if (value && value.isDone && value.response) {
-                    localStorage.setItem('userProfile', JSON.stringify(value.response));
-                    resolve(value.response);
+                if (value.isDone) {
+                    unsubscribe();
+                    if (value.data) {
+                        localStorage.setItem('userProfile', JSON.stringify(value.data));
+                        resolve(value.data);
+                    }
+                    else {
+                        reject('Failed to fetch user profile');
+                    }
+                }
+                else if (value.hasError) {
+                    unsubscribe();
+                    reject('Error fetching user profile');
                 }
             });
         }

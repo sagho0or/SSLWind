@@ -14,14 +14,13 @@ export default function MobileProfileComponent() {
     const Router = useRouter();
 
     useEffect(() => {
-        console.log(userProfile);
-        debugger;
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
-            
-        console.log(userProfile);
-        debugger;
-        })
+            console.log(userProfile);
+        }).catch((error) => {
+            console.error("Error fetching user profile:", error);
+            debugger;
+        });
     }, []);
 
     function logoutFuc(){
@@ -35,7 +34,7 @@ export default function MobileProfileComponent() {
                     <>
                         <div className={'h-40 flex flex-col justify-center items-center'}>
                             <div className={'rounded-full w-12 h-12'}>
-                                <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={'maryam'} width={48}
+                                <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={userProfile?.full_name} width={48}
                                      height={48}/>
                             </div>
                             <p className={'text-md font-semibold mt-4'}>{userProfile?.full_name}</p>

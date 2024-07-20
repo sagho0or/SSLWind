@@ -34,7 +34,7 @@ function EditPassword(_a) {
         }));
     }
     react_1.useEffect(function () {
-        if (editPasswordStates.isDone) {
+        if (editPasswordStates === null || editPasswordStates === void 0 ? void 0 : editPasswordStates.isDone) {
             react_hot_toast_1["default"].success('Password has been changed successfully');
         }
     }, [editPasswordStates]);

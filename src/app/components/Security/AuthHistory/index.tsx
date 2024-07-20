@@ -44,8 +44,8 @@ export default function AuthHistory() {
         }));
     }, []);
     useEffect(() => {
-        console.log('authHistoryState', authHistoryState.response.items)
-        setAuthHistoryList(authHistoryState.response.items)
+        console.log('authHistoryState', authHistoryState?.response.items)
+        setAuthHistoryList(authHistoryState?.response.items)
     }, [authHistoryState]);
     return (
         <div className={`bg-secondary-01 px-3 py-6 ${isMobileView ? 'flex justify-between' : 'rounded-xl space-y-6'}`}
@@ -95,10 +95,10 @@ export default function AuthHistory() {
 
                 </table>
             }
-            <Pagination total={authHistoryState.response.total}
+            {/* <Pagination total={authHistoryState.response.total}
                         limit={limit}
                         offset={offset}
-                        callBack={paginationCallBack}/>
+                        callBack={paginationCallBack}/> */}
         </div>
     )
 }

@@ -1,23 +1,26 @@
 import Icons from "../../../../../public/Icons";
-import React from "react";
+import React, { useEffect } from "react";
 import {UserProfileResponseInterface} from "@/store/userProfile/interface";
-import moment from "jalali-moment";
+import moment from 'moment';
 import IButton from "@/app/components/Common/Button";
 
 export default function MobileInnerProfile({userProfile, setShowInnerProfile}:
 { userProfile: UserProfileResponseInterface, setShowInnerProfile: (a:boolean)=>void }) {
 
+    useEffect(() => {
+        console.log(userProfile);
+        debugger;
+    }, []);
+
     const personalData = [
         {title: "Full name", desc: userProfile?.full_name},
-        {title: "Birth Date", desc: userProfile?.birth_date?moment(userProfile?.birth_date).locale('fa').format('YYYY/MM/DD'):''},
-        {title: "NationalID", desc: userProfile?.national_id},
+        {title: "Birth Date", desc: userProfile?.birth_date?moment(userProfile?.birth_date).format('YYYY/MM/DD'):''},
         {title: "PhoneNumber", desc: userProfile?.mobile_number},
         {title: "Email", desc: userProfile?.email}
     ];
     const additionalData = [
-        {title: "Postal code", desc: `${userProfile?.zip_code ? userProfile?.zip_code : "------------"}`},
+        {title: "Postal code", desc: `${userProfile?.postal_code ? userProfile?.postal_code : "------------"}`},
         {title: "Address", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
-        {title: "Phone", desc: `${userProfile?.phone_number ? userProfile?.phone_number : "------------"}`},
     ]
 
 
@@ -33,7 +36,7 @@ export default function MobileInnerProfile({userProfile, setShowInnerProfile}:
                     <li className={'flex justify-between items-center p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                         <p >Photo</p>
                         <div className={'rounded-full w-12 h-12'}>
-                            <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={'maryam'} width={48}
+                            <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={userProfile?.full_name} width={48}
                                  height={48}/>
                         </div>
                     </li>

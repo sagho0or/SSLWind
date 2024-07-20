@@ -39,7 +39,7 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
     }
 
     useEffect(() => {
-        if (editPasswordStates.isDone) {
+        if (editPasswordStates?.isDone) {
             toast.success('Password has been changed successfully')
         }
     }, [editPasswordStates]);

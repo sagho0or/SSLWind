@@ -7,7 +7,6 @@ var react_redux_1 = require("react-redux");
 var action_1 = require("@/store/security/authHistory/action");
 var moment_1 = require("moment");
 var navigation_1 = require("next/navigation");
-var Pagination_1 = require("@/app/components/Common/Pagination");
 function AuthHistory() {
     var _a = react_1.useState(), authHistoryList = _a[0], setAuthHistoryList = _a[1];
     var _b = react_1.useState(0), offset = _b[0], setOffset = _b[1];
@@ -36,8 +35,8 @@ function AuthHistory() {
         }));
     }, []);
     react_1.useEffect(function () {
-        console.log('authHistoryState', authHistoryState.response.items);
-        setAuthHistoryList(authHistoryState.response.items);
+        console.log('authHistoryState', authHistoryState === null || authHistoryState === void 0 ? void 0 : authHistoryState.response.items);
+        setAuthHistoryList(authHistoryState === null || authHistoryState === void 0 ? void 0 : authHistoryState.response.items);
     }, [authHistoryState]);
     return (React.createElement("div", { className: "bg-secondary-01 px-3 py-6 " + (isMobileView_1["default"] ? 'flex justify-between' : 'rounded-xl space-y-6'), onClick: function () {
             if (isMobileView_1["default"]) {
@@ -71,7 +70,6 @@ function AuthHistory() {
                             React.createElement("td", { className: "" },
                                 React.createElement("p", null, moment_1["default"](item.created_at).format('HH:mm - YYYY/MM/DD'))),
                             React.createElement("td", { className: "" }, item.ip));
-                    }))),
-        React.createElement(Pagination_1["default"], { total: authHistoryState.response.total, limit: limit, offset: offset, callBack: paginationCallBack })));
+                    })))));
 }
 exports["default"] = AuthHistory;

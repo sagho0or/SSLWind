@@ -1,12 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import loginReducer from '@/store/auth/login/form/slice';
+import getUserProfileReducer from '@/store/userProfile/slice';
 import registerMobileReducer from '@/store/auth/register/registerMobile/reducer';
 import LoginOtpReducer from '@/store/auth/login/otp/slice';
 import registerOtpReducer from './auth/register/registerOtp/reducer';
 import registerIdentityReducer from './auth/register/registerIdentity/reducer';
 import registerPasswordReducer from "@/store/auth/register/registerPassword/reducer";
 import resendOtpSmsReducer from "@/store/auth/otp/resendOtpSms/reducer";
-import getUserProfileReducer from "@/store/userProfile/reducer";
 import verifytwoFactorAuthenticationReducer
     from "@/store/security/verify/reducer";
 import activeGAReducer
@@ -18,7 +18,7 @@ import getOrderHistoryReducer from "@/store/history/reducer";
 import refreshTokenReducer from "@/store/auth/refreshToken/reducer";
 
 const rootReducer = combineReducers({
-    // userProfile: getUserProfileReducer,
+    userProfile: getUserProfileReducer,
 
     // refreshToken: refreshTokenReducer,
 

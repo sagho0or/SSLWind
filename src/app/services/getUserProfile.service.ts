@@ -1,5 +1,5 @@
 import store from "@/store/store";
-import {getUserProfileLoading} from "@/store/userProfile/action";
+import { getUserProfileLoading } from "@/store/userProfile/slice";
 import {Cookies} from "react-cookie";
 
 function getUserProfileService(reload:boolean){
@@ -13,14 +13,23 @@ function getUserProfileService(reload:boolean){
 
         function getUserProfileFunc() {
             store.dispatch(getUserProfileLoading());
-            store.subscribe(() => {
-                const value = store.getState().userProfile;
-                if (value && value.isDone && value.response) {
-                    localStorage.setItem('userProfile', JSON.stringify(value.response));
-                    resolve(value.response);
+      debugger;
+            const unsubscribe = store.subscribe(() => {
+              const value = store.getState().userProfile;
+              if (value.isDone) {
+                unsubscribe();
+                if (value.data) {
+                  localStorage.setItem('userProfile', JSON.stringify(value.data));
+                  resolve(value.data);
+                } else {
+                  reject('Failed to fetch user profile');
                 }
+              } else if (value.hasError) {
+                unsubscribe();
+                reject('Error fetching user profile');
+              }
             });
-        }
+          }
 
         if(reload){
             localStorage.removeItem('userProfile');

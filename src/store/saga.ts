@@ -17,7 +17,7 @@ import loginSaga from './auth/login/form/saga';
 
 function* rootSaga() {
     yield all([
-        // getUserProfileSaga(),
+        getUserProfileSaga(),
 
         // refreshTokenSaga(),
 

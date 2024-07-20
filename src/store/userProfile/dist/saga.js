@@ -28,22 +28,47 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var effects_1 = require("redux-saga/effects");
-var saga_1 = require("@/store/auth/login/otp/saga");
-var saga_2 = require("@/store/userProfile/saga");
-var saga_3 = require("./auth/login/form/saga");
-function rootSaga() {
+var react_cookie_1 = require("react-cookie");
+var errorHandling_1 = require("@/store/_utils/errorHandling");
+var axios_1 = require("@/store/axios");
+var slice_1 = require("./slice");
+function ApiCall(action) {
+    var cookies, response, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, effects_1.all([
-                    saga_2["default"](),
-                    // refreshTokenSaga(),
-                    effects_1.fork(saga_3["default"]),
-                    saga_1["default"](),
-                ])];
+            case 0:
+                cookies = new react_cookie_1.Cookies();
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 4, , 6]);
+                return [4 /*yield*/, effects_1.call(axios_1["default"].get, process.env.NEXT_PUBLIC_BASE_URL + "user/account/userprofile", {
+                        timeout: Number(process.env.API_TIME_OUT),
+                        headers: { authorization: "Bearer " + cookies.get('auth-token') }
+                    })];
+            case 2:
+                response = _a.sent();
+                return [4 /*yield*/, effects_1.put((slice_1.getUserProfileSuccess(response.data.data)))];
+            case 3:
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 4:
+                error_1 = _a.sent();
+                return [4 /*yield*/, errorHandling_1["default"](error_1, slice_1.getUserProfileFailure)];
+            case 5:
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}
+function getUserProfileSaga() {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, effects_1.takeLatest(slice_1.getUserProfileLoading.type, ApiCall)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }
-exports["default"] = rootSaga;
+exports["default"] = getUserProfileSaga;
