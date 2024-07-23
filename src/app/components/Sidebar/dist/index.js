@@ -37,6 +37,14 @@ function Sidebar(props) {
             badge: null
         },
         {
+            label: 'chatbot',
+            path: '/chat',
+            iconName: 'chat',
+            hoverIconName: 'chat-filled',
+            hasDivider: false,
+            badge: null
+        },
+        {
             label: 'Support',
             path: '/',
             iconName: 'headphones',
@@ -66,7 +74,7 @@ function Sidebar(props) {
     };
     return (react_1["default"].createElement("div", { className: isMobileView_1["default"] ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative' },
         props.isSidebarOpen ?
-            react_1["default"].createElement("div", { className: 'fixed z-40 w-80 h-screen-120 bg-white overflow-y-scroll scrollable-content hide-scrollbar' },
+            react_1["default"].createElement("div", { className: 'fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar' },
                 react_1["default"].createElement("div", { className: "min-h-[660px] h-full " + (isMobileView_1["default"] ?
                         'relative'
                         : 'bg-secondary-01 rounded-xl') },

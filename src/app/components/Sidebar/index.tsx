@@ -44,6 +44,14 @@ export default function Sidebar(props: SidebarInterface) {
             badge: null
         },
         {
+            label: 'chatbot',
+            path: '/chat',
+            iconName: 'chat',
+            hoverIconName: 'chat-filled',
+            hasDivider: false,
+            badge: null
+        },
+        {
             label: 'Support',
             path: '/',
             iconName: 'headphones',
@@ -78,67 +86,67 @@ export default function Sidebar(props: SidebarInterface) {
 
             {
                 props.isSidebarOpen ?
-                    <div className={'fixed z-40 w-80 h-screen-120 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
-                         }>
+                    <div className={'fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
+                    }>
                         <div className={`min-h-[660px] h-full ${isMobileView ?
                             'relative'
                             : 'bg-secondary-01 rounded-xl'}`}
                         >
                             <div className={`w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500`}
-                            onClick={() => handleModalOverlayClick(false)}>
-                            <Icons name='close' />
-                        </div>
-
-                        <aside id="separator-sidebar"
-                            className={`h-full min-h-[660px] z-40 transition-transform sm:translate-x-0 
-                           ${isMobileView ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '}`}
-                            aria-label="Sidebar">
-                            <div className="py-4 overflow-y-auto text-secondary-17 divide-y-2">
-                                <ul className={"h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" + ' ' +
-                                    isMobileView ? '' : 'scrollbar-hide"'}>
-                                    {
-                                        items.map(item => (
-                                            <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
-                                                key={item.label}>
-                                                <a href={`${item.path}`}
-                                                    className={itemsStyle + ' ' +
-                                                        ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
-                                                    <div className={'group-hover:hidden'}>
-                                                        <Icons name={item.iconName} />
-                                                    </div>
-                                                    <div className={'hidden group-hover:block'}>
-                                                        <Icons name={item.hoverIconName} />
-                                                    </div>
-                                                    <span className="ms-3 group-hover:font-semibold">{item.label}</span>
-                                                </a>
-                                            </li>
-                                        ))
-                                    }
-
-                                    {isLogin &&
-                                        <li className={`fixed bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
-                                            onClick={() => logoutFunc()}>
-                                            <Icons name={'logout'} />
-                                            <span className="ms-3">Logout</span>
-                                        </li>
-                                    }
-                                </ul>
+                                onClick={() => handleModalOverlayClick(false)}>
+                                <Icons name='close' />
                             </div>
-                        </aside>
-                    </div>
+
+                            <aside id="separator-sidebar"
+                                className={`h-full min-h-[660px] z-40 transition-transform sm:translate-x-0 
+                           ${isMobileView ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '}`}
+                                aria-label="Sidebar">
+                                <div className="py-4 overflow-y-auto text-secondary-17 divide-y-2">
+                                    <ul className={"h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" + ' ' +
+                                        isMobileView ? '' : 'scrollbar-hide"'}>
+                                        {
+                                            items.map(item => (
+                                                <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
+                                                    key={item.label}>
+                                                    <a href={`${item.path}`}
+                                                        className={itemsStyle + ' ' +
+                                                            ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
+                                                        <div className={'group-hover:hidden'}>
+                                                            <Icons name={item.iconName} />
+                                                        </div>
+                                                        <div className={'hidden group-hover:block'}>
+                                                            <Icons name={item.hoverIconName} />
+                                                        </div>
+                                                        <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+                                                    </a>
+                                                </li>
+                                            ))
+                                        }
+
+                                        {isLogin &&
+                                            <li className={`fixed bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
+                                                onClick={() => logoutFunc()}>
+                                                <Icons name={'logout'} />
+                                                <span className="ms-3">Logout</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
                     </div>
                     :
 
-    <div onClick={() => handleModalOverlayClick(true)}
-        className="absolute w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-        <Icons name='menu' />
-    </div>
-}
-<div className={!isMobileView ? 
-        props.isSidebarOpen ? "sm:w-screen-390 float-right w-full" : 'w-full float-right' 
-        : 'w-full' }>
-    {props.children}
-</div>
+                    <div onClick={() => handleModalOverlayClick(true)}
+                        className="absolute w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                        <Icons name='menu' />
+                    </div>
+            }
+            <div className={!isMobileView ?
+                props.isSidebarOpen ? "sm:w-screen-390 float-right w-full" : 'w-full float-right'
+                : 'w-full'}>
+                {props.children}
+            </div>
         </div >
 
 

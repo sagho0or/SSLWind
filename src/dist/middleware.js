@@ -28,5 +28,5 @@ exports.config = {
         "/profile",
         "/security",
         "/faq",
-        "/newThread",]
+        "/chat",]
 };

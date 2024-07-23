@@ -25,5 +25,5 @@ export const config = {
         "/profile",
         "/security",
         "/faq",
-        "/newThread",],
+        "/chat",],
 };

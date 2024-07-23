@@ -107,6 +107,33 @@ export default function Icons(props: IconsProps) {
                         strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
             )
+        case 'chat':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    <path
+                        d="M3.85288 8.95043C4.50437 6.17301 6.67301 4.00437 9.45043 3.35288C11.4563 2.88237 13.5437 2.88237 15.5496 3.35288C18.327 4.00437 20.4956 6.17301 21.1471 8.95044C21.6176 10.9563 21.6176 13.0437 21.1471 15.0496C20.4956 17.827 18.327 19.9956 15.5496 20.6471C13.5437 21.1176 11.4563 21.1176 9.45043 20.6471C6.67301 19.9956 4.50437 17.827 3.85288 15.0496C3.38237 13.0437 3.38237 10.9563 3.85288 8.95043Z"
+                        stroke="#858585" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M9.37915 15.1208V10.9597M15.6208 15.1208V12M12.5 14.0805V8.87915" stroke="#858585"
+                        strokeWidth="1.5" strokeLinecap="round" />
+                    <circle cx="8.5" cy="10.5" r="1.5" fill="#858585" />
+                    <circle cx="16.5" cy="10.5" r="1.5" fill="#858585" />
+                    <path d="M10 17C10.6667 16 13.3333 16 14 17" stroke="#858585" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+            )
+        case 'chat-filled':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                    <path
+                        d="M3.85288 8.95043C4.50437 6.17301 6.67301 4.00437 9.45043 3.35288C11.4563 2.88237 13.5437 2.88237 15.5496 3.35288C18.327 4.00437 20.4956 6.17301 21.1471 8.95044C21.6176 10.9563 21.6176 13.0437 21.1471 15.0496C20.4956 17.827 18.327 19.9956 15.5496 20.6471C13.5437 21.1176 11.4563 21.1176 9.45043 20.6471C6.67301 19.9956 4.50437 17.827 3.85288 15.0496C3.38237 13.0437 3.38237 10.9563 3.85288 8.95043Z"
+                        stroke="#00B4FF" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M9.37915 15.1208V10.9597M15.6208 15.1208V12M12.5 14.0805V8.87915" stroke="#00B4FF"
+                        strokeWidth="1.5" strokeLinecap="round" />
+                    <circle cx="8.5" cy="10.5" r="1.5" fill="#00B4FF" />
+                    <circle cx="16.5" cy="10.5" r="1.5" fill="#00B4FF" />
+                    <path d="M10 17C10.6667 16 13.3333 16 14 17" stroke="#00B4FF" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+            )
+
         case 'chart-twoTone':
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -241,19 +268,19 @@ export default function Icons(props: IconsProps) {
         case 'menu':
             return (
                 <svg
-                width="20" height="21" viewBox="0 0 24 24"
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+                    width="20" height="21" viewBox="0 0 24 24"
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+                </svg>
             )
         case 'register-password-check':
             return (

@@ -3,6 +3,7 @@ import loginReducer from '@/store/auth/login/form/slice';
 import getUserProfileReducer from '@/store/userProfile/slice';
 import registerMobileReducer from '@/store/auth/register/registerMobile/reducer';
 import LoginOtpReducer from '@/store/auth/login/otp/slice';
+import ChatReducer from '@/store/chat/new/slice';
 import registerOtpReducer from './auth/register/registerOtp/reducer';
 import registerIdentityReducer from './auth/register/registerIdentity/reducer';
 import registerPasswordReducer from "@/store/auth/register/registerPassword/reducer";
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
 
     login: loginReducer,
     loginOtp: LoginOtpReducer,
+    chat: ChatReducer,
     // resendOtpSms:resendOtpSmsReducer,
 
     // registerMobile: registerMobileReducer,

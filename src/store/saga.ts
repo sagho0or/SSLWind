@@ -14,6 +14,7 @@ import change2FASaga from "@/store/security/change2FA/saga";
 import getOrderHistorySaga from "@/store/history/saga";
 import refreshTokenSaga from "@/store/auth/refreshToken/saga";
 import loginSaga from './auth/login/form/saga';
+import chatSaga from './chat/new/saga';
 
 function* rootSaga() {
     yield all([
@@ -23,6 +24,8 @@ function* rootSaga() {
 
         fork(loginSaga),
         loginOtpSaga(),
+        
+        chatSaga(),
         // resendOtpSmsSaga(),
 
         // registerMobileSaga(),
