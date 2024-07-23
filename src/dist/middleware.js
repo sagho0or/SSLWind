@@ -23,6 +23,7 @@ exports.middleware = middleware;
 exports.config = {
     matcher: ["/login",
         "/forgotPassword",
+        "/register",
         "/history/:step",
         "/profile",
         "/security",
