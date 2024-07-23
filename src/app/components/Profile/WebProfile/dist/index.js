@@ -27,7 +27,7 @@ function WebProfileComponent() {
         react_1["default"].createElement("div", null,
             react_1["default"].createElement("div", { className: 'bg-secondary-01 rounded-xl flex p-8' },
                 react_1["default"].createElement("div", { className: 'rounded-full w-18 h-18' },
-                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatar_id) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.first_name, width: 72, height: 72 })),
+                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.first_name, width: 72, height: 72 })),
                 react_1["default"].createElement("ul", { className: "flex flex-row justify-between items-center w-full ml-4" }, personalData.map(function (_a, index) {
                     var title = _a.title, desc = _a.desc;
                     return (react_1["default"].createElement("li", { key: "personal-data-" + index },

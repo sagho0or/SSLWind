@@ -4,7 +4,7 @@ export interface UserProfileResponseInterface {
     mobile_number: string,
     full_name: string,
     birth_date: string,
-    avatar_id: string,
+    imageUrl: string,
     postal_code: string,
     address: string,
     last_name: string,

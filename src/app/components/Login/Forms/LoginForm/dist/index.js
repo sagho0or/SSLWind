@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
 var react_1 = require("react");
-var link_1 = require("next/link");
 var Input_1 = require("@/app/components/Common/Input");
 var Button_1 = require("@/app/components/Common/Button");
 var Icons_1 = require("../../../../../../public/Icons");
@@ -32,9 +31,6 @@ function MobileLoginForm(props) {
                 react_1["default"].createElement(Icons_1["default"], { name: 'password' }))),
         react_1["default"].createElement("div", { className: 'mt-10' },
             react_1["default"].createElement(Button_1["default"], { style: 'primarySimple', disabled: !isValid || !password, onClick: loginFunc },
-                react_1["default"].createElement("span", { className: 'text-center' }, "Login")),
-            react_1["default"].createElement("div", { className: 'mt-5' },
-                react_1["default"].createElement("span", null, "Don't have an account?"),
-                react_1["default"].createElement(link_1["default"], { href: '/register', className: 'text-primary ml-2 cursor-pointer' }, "Register")))));
+                react_1["default"].createElement("span", { className: 'text-center' }, "Login")))));
 }
 exports["default"] = MobileLoginForm;

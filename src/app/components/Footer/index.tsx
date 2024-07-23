@@ -18,7 +18,6 @@ export default function Footer() {
                 <div className="col-span-1 ">
                     <h3 className={'font-bold py-5'}>More Information</h3>
                     <div>
-                        <p className="text-secondary-10"><Link href={'/about'}>How to register</Link></p>
                         <p className="text-secondary-10"><Link href={'/faq'}>Faq</Link></p>
                     </div>
                 </div>

@@ -19,8 +19,6 @@ function Footer() {
                 react_1["default"].createElement("h3", { className: 'font-bold py-5' }, "More Information"),
                 react_1["default"].createElement("div", null,
                     react_1["default"].createElement("p", { className: "text-secondary-10" },
-                        react_1["default"].createElement(link_1["default"], { href: '/about' }, "How to register")),
-                    react_1["default"].createElement("p", { className: "text-secondary-10" },
                         react_1["default"].createElement(link_1["default"], { href: '/faq' }, "Faq")))),
             react_1["default"].createElement("div", { className: "col-span-1" },
                 react_1["default"].createElement("div", { className: 'container mx-auto flex w-full p-2 justify-center' },

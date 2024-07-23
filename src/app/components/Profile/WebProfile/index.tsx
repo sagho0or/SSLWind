@@ -33,7 +33,7 @@ export default function WebProfileComponent() {
             <div>
                 <div className={'bg-secondary-01 rounded-xl flex p-8'}>
                     <div className={'rounded-full w-18 h-18'}>
-                        <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={userProfile?.first_name} width={72}
+                        <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.first_name} width={72}
                              height={72}/>
                     </div>
                     <ul className={"flex flex-row justify-between items-center w-full ml-4"}>

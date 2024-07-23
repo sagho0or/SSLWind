@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
         mobile_number: '00447471358135',
         full_name: 'Saghar Fadaei',
         birth_date: '1989-02-01',
-        avatar_id: '1dW1',
+        imageUrl: '',
         postal_code: 'LS17 222',
         address: 'Leeds',
         last_name: 'Fadaei',

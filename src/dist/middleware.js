@@ -6,7 +6,7 @@ var server_1 = require("next/server");
 function middleware(request) {
     var _a;
     var path = request.nextUrl.pathname;
-    var isPublicPath = path === "/login" || path === "/register" || path === "/faq";
+    var isPublicPath = path === "/login" || path === "/forgotPassword" || path === "/faq";
     var token = ((_a = request.cookies.get("auth-token")) === null || _a === void 0 ? void 0 : _a.value) || ""; // check if the token exists
     debugger;
     if (isPublicPath && token.length > 0) {
@@ -22,7 +22,7 @@ exports.middleware = middleware;
 // See "Matching Paths" below to learn more
 exports.config = {
     matcher: ["/login",
-        "/register",
+        "/forgotPassword",
         "/history/:step",
         "/profile",
         "/security",

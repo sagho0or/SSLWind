@@ -28,7 +28,7 @@ function MobileProfileComponent() {
         react_1["default"].createElement(react_1["default"].Fragment, null,
             react_1["default"].createElement("div", { className: 'h-40 flex flex-col justify-center items-center' },
                 react_1["default"].createElement("div", { className: 'rounded-full w-12 h-12' },
-                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatar_id) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name, width: 48, height: 48 })),
+                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name) || 'User Avatar', width: 48, height: 48, onError: function (e) { e.currentTarget.src = '/images/avatar.svg'; }, loading: "lazy" })),
                 react_1["default"].createElement("p", { className: 'text-md font-semibold mt-4' }, userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name)),
             react_1["default"].createElement("div", { className: 'w-full h-3 bg-secondary-02' }),
             react_1["default"].createElement("ul", null,

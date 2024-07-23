@@ -48,7 +48,7 @@ export default function Header() {
                         <div className={'flex items-center'}>
                             <div className={'rounded-full w-9 h-9'}>
                                 <Link href={"/profile"}>
-                                    <img src={userProfile?.avatar_id || '/images/avatar.svg'} alt={userProfile?.first_name} width={36}
+                                    <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.first_name} width={36}
                                          height={36}/>
                                 </Link>
                             </div>
@@ -56,7 +56,7 @@ export default function Header() {
                     </div>
                     : <Link href={"/login"}>
                         <IButton style={'primarySimple'}>
-                            <p>Login | Register</p>
+                            <p>Login</p>
                         </IButton>
                     </Link>
                 }
