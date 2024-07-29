@@ -1,6 +1,5 @@
 import Icons from "../../../../../public/Icons";
 import React, { useEffect } from "react";
-import moment from 'moment';
 import IButton from "@/app/components/Common/Button";
 
 export default function MobileInnerChat({ setShowInnerProfile}:

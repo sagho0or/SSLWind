@@ -11,6 +11,7 @@ var react_1 = require("react");
 var Sidebar_1 = require("@/app/components/Sidebar");
 var react_redux_1 = require("react-redux");
 var slice_1 = require("@/store/chat/new/slice");
+var react_markdown_1 = require("react-markdown");
 function WebChatComponent() {
     var _a = react_1.useState(true), isSidebarOpen = _a[0], setIsSidebarOpen = _a[1];
     var _b = react_1.useState(""), userInput = _b[0], setUserInput = _b[1];
@@ -37,8 +38,8 @@ function WebChatComponent() {
     return (react_1["default"].createElement(Sidebar_1["default"], { isSidebarOpen: isSidebarOpen, setIsSidebarOpen: setIsSidebarOpen },
         react_1["default"].createElement("div", { className: "flex flex-col min-h-[660px]" },
             react_1["default"].createElement("div", { className: "flex-grow p-4 overflow-y-auto" },
-                messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") },
-                    react_1["default"].createElement("span", { className: "inline-block p-2 rounded " + (message.role === "user" ? "bg-blue-500 text-white" : "bg-gray-300") }, message.content))); }),
+                messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") }, message.role === "user" ? (react_1["default"].createElement("span", { className: "inline-block p-2 rounded bg-blue-500 text-white" }, message.content)) : (react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-gray-300" },
+                    react_1["default"].createElement(react_markdown_1["default"], null, message.content))))); }),
                 react_1["default"].createElement("div", { ref: messagesEndRef })),
             react_1["default"].createElement("div", { className: "p-4 border-t border-gray-300" },
                 react_1["default"].createElement("input", { type: "text", value: userInput, onChange: function (e) { return setUserInput(e.target.value); }, className: "w-full p-2 border border-gray-300 rounded", placeholder: "Type your message..." }),
