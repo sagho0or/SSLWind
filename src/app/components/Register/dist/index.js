@@ -8,7 +8,6 @@ var navigation_1 = require("next/navigation");
 var isMobileView_1 = require("@/app/utils/isMobileView");
 var MobileRegisterForm_1 = require("@/app/components/Register/Forms/MobileRegisterForm");
 var PasswordRegisterForm_1 = require("@/app/components/Register/Forms/PasswordRegisterForm");
-var mobileMenu_1 = require("@/app/components/Header/mobileMenu");
 function RegisterComponent() {
     var _a = react_1.useState(0), step = _a[0], setStep = _a[1];
     var _b = react_1.useState(''), mobile = _b[0], setMobile = _b[1];
@@ -52,9 +51,6 @@ function RegisterComponent() {
                 react_1["default"].createElement(MobileRegisterForm_1["default"], { mobile: mobile, setMobile: setMobile }) :
                 step == 1 ?
                     react_1["default"].createElement(PasswordRegisterForm_1["default"], { mobile: mobile, backFunc: backFunc, registerIdentityResponse: registerIdentityResponse })
-                    : ''),
-        (step == 0 && isMobileView_1["default"]) ?
-            react_1["default"].createElement(mobileMenu_1["default"], null)
-            : ''));
+                    : '')));
 }
 exports["default"] = RegisterComponent;

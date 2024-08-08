@@ -12,7 +12,7 @@ function ClientWrapper(_a) {
     }, []);
     return (react_1["default"].createElement(react_1["default"].Fragment, null, load &&
         react_1["default"].createElement(react_1["default"].Fragment, null, isMobileView_1["default"] ?
-            react_1["default"].createElement("div", { className: 'min-h-screen' }, children)
+            react_1["default"].createElement("div", { className: 'min-h-screen flex flex-col' }, children)
             :
                 react_1["default"].createElement(react_1["default"].Fragment, null,
                     react_1["default"].createElement(webHeader_1["default"], null),

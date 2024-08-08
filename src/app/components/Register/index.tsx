@@ -6,7 +6,6 @@ import {useRouter, useSearchParams} from 'next/navigation';
 import isMobileView from '@/app/utils/isMobileView';
 import MobileRegisterForm from '@/app/components/Register/Forms/MobileRegisterForm';
 import PasswordRegisterForm from '@/app/components/Register/Forms/PasswordRegisterForm';
-import BottomMenu from '@/app/components/Header/mobileMenu';
 import {registerMobileResponseInterface} from '@/store/auth/register/registerMobile/registerMobile.interface';
 import {registerOtpResponseInterface} from '@/store/auth/register/registerOtp/registerOtp.interface';
 import {registerIdentityResponseInterface} from '@/store/auth/register/registerIdentity/registerIdentity.interface';
@@ -67,11 +66,6 @@ export default function RegisterComponent() {
                             : ''
                 }
             </div>
-            {
-                (step == 0 && isMobileView) ?
-                    <BottomMenu/>
-                    : ''
-            }
         </>
     );
 }

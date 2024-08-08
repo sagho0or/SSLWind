@@ -20,15 +20,16 @@ function MobileInnerProfile(_a) {
         { title: "Address", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.address) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.address : "------------") },
     ];
     return (react_1["default"].createElement(react_1["default"].Fragment, null,
-        react_1["default"].createElement("div", { onClick: function () { return setShowInnerProfile(false); }, className: 'absolute top-10 cursor-pointer' },
-            react_1["default"].createElement(Icons_1["default"], { name: 'left-arrow-key' })),
-        react_1["default"].createElement("div", { className: "mt-12" },
-            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center" }, "Account"),
+        react_1["default"].createElement("div", { className: "fixed pt-3 pb-3 w-full bg-white" },
+            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center" }, "Profle"),
+            react_1["default"].createElement("div", { onClick: function () { return setShowInnerProfile(false); }, className: 'absolute top-4 left-2 cursor-pointer' },
+                react_1["default"].createElement(Icons_1["default"], { name: 'right-arrow-key' }))),
+        react_1["default"].createElement("div", { className: "mt-8" },
             react_1["default"].createElement("ul", { className: "mt-4 " },
                 react_1["default"].createElement("li", { className: 'flex justify-between items-center p-4 border-b-2 border-secondary-02 cursor-pointer' },
                     react_1["default"].createElement("p", null, "Photo"),
                     react_1["default"].createElement("div", { className: 'rounded-full w-12 h-12' },
-                        react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.avatar_id) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name, width: 48, height: 48 }))),
+                        react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name, width: 48, height: 48 }))),
                 personalData.map(function (_a, index) {
                     var title = _a.title, desc = _a.desc;
                     return (react_1["default"].createElement("li", { key: "personal-data-" + index, className: "flex justify-between p-4 border-b-2 border-secondary-02" },
@@ -36,8 +37,8 @@ function MobileInnerProfile(_a) {
                         react_1["default"].createElement("p", { className: "text-secondary" }, desc)));
                 }))),
         react_1["default"].createElement("div", { className: 'w-full h-3 bg-secondary-02' }),
-        react_1["default"].createElement("div", { className: "pt-4" },
-            react_1["default"].createElement("h3", { className: "font-semibold text-xl" }, "Information"),
+        react_1["default"].createElement("div", { className: "p-4" },
+            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center pb-2" }, "Information"),
             react_1["default"].createElement("ul", null, additionalData.map(function (_a, index) {
                 var title = _a.title, desc = _a.desc;
                 return (react_1["default"].createElement("li", { key: "add-data-" + index, className: (additionalData.length - 1 !== index ? "border-secondary-02 border-b-2" : "") + " \n                                 flex justify-between p-4" },

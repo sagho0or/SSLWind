@@ -10,7 +10,7 @@ import MobileInnerProfile from "@/app/components/Profile/MobileInnerProfile";
 
 export default function MobileProfileComponent() {
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
-    const [showInnerProfile, setShowInnerProfile] = useState<boolean>(false);
+    const [showInnerProfile, setShowInnerProfile] = useState<boolean>(true);
     const Router = useRouter();
 
     useEffect(() => {
@@ -22,6 +22,11 @@ export default function MobileProfileComponent() {
             debugger;
         });
     }, []);
+
+    function handleChatClick(event: any) {
+        event.preventDefault();
+        setShowInnerProfile(true);
+    }
 
     function logoutFuc() {
         logout();
@@ -46,18 +51,16 @@ export default function MobileProfileComponent() {
                             <p className={'text-md font-semibold mt-4'}>{userProfile?.full_name}</p>
                         </div>
                         <div className={'w-full h-3 bg-secondary-02'} />
+                       
                         <ul>
+                            
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} onClick={() => setShowInnerProfile(true)}>
+                                <a className={'flex flex-1'} href={'/profile'} onClick={handleChatClick}>
                                     <Icons name={'profile-account'} />
                                     <p className={'ml-3'}>Profle</p>
                                 </a>
                                 <Icons name={'direction-left-gray'} />
                             </li>
-                        </ul>
-                        <div className={'w-full h-3 bg-secondary-02'} />
-                        <div className={'w-full h-3 bg-secondary-02'} />
-                        <ul>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} href={'/security'}>
                                     <Icons name={'profile-security'} />
@@ -73,9 +76,9 @@ export default function MobileProfileComponent() {
                                 <Icons name={'direction-left-gray'} />
                             </li>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/faq'}>
+                                <a className={'flex flex-1'} href={'/chat'}>
                                     <Icons name={'profile-faq'} />
-                                    <p className={'ml-3'}>FAQ</p>
+                                    <p className={'ml-3'}>Chat</p>
                                 </a>
                                 <Icons name={'direction-left-gray'} />
                             </li>

@@ -14,7 +14,7 @@ export default function ClientWrapper({children}: { children: ReactNode }) {
             load &&
             <>{
                 isMobileView ?
-                    <div className={'min-h-screen'}>
+                    <div className={'min-h-screen flex flex-col'}>
                         {children}
                     </div>
                     :

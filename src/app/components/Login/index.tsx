@@ -6,7 +6,6 @@ import isMobileView from '@/app/utils/isMobileView';
 import MobileLoginForm from '@/app/components/Login/Forms/LoginForm';
 import MobileOtpForm from '@/app/components/Login/Forms/OtpForm';
 import { useDispatch, useSelector } from 'react-redux';
-import BottomMenu from '@/app/components/Header/mobileMenu';
 import { useReCaptcha } from 'next-recaptcha-v3';
 import { encode } from 'base-64';
 import { useCookies } from 'react-cookie';
@@ -82,11 +81,6 @@ export default function LoginComponent() {
               ''
         }
       </div>
-      {
-        (step == 0 && isMobileView) ?
-          <BottomMenu />
-          : ''
-      }
     </>
   );
 }

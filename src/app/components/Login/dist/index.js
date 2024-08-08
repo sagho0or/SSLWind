@@ -44,7 +44,6 @@ var isMobileView_1 = require("@/app/utils/isMobileView");
 var LoginForm_1 = require("@/app/components/Login/Forms/LoginForm");
 var OtpForm_1 = require("@/app/components/Login/Forms/OtpForm");
 var react_redux_1 = require("react-redux");
-var mobileMenu_1 = require("@/app/components/Header/mobileMenu");
 var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var base_64_1 = require("base-64");
 var react_cookie_1 = require("react-cookie");
@@ -109,9 +108,6 @@ function LoginComponent() {
                 react_1["default"].createElement(LoginForm_1["default"], { confirmFunction: acceptMobileForm }) :
                 step == 1 && loginResponse ?
                     react_1["default"].createElement(OtpForm_1["default"], { email: email, backFunc: backFunc, password: password, loginResponse: loginResponse }) :
-                    ''),
-        (step == 0 && isMobileView_1["default"]) ?
-            react_1["default"].createElement(mobileMenu_1["default"], null)
-            : ''));
+                    '')));
 }
 exports["default"] = LoginComponent;

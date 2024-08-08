@@ -6,31 +6,12 @@ import { UserProfileResponseInterface } from "@/store/userProfile/interface";
 import logout from "@/app/services/logout";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
-import MobileInnerChat from '../MobileInnerChat';
+import MobileInnerSetting from '../MobileInnerSetting';
 
-export default function MobileChatComponent() {
+export default function MobileSettingComponent() {
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
-    const [showInnerChat, setShowInnerChat] = useState<boolean>(true);
+    const [showInnerProfile, setShowInnerProfile] = useState<boolean>(false);
     const Router = useRouter();
-
-    useEffect(() => {
-        getUserProfileService(false).then((res: any) => {
-            setUserProfile(res);
-            console.log("User Profile:", userProfile);
-        }).catch((error) => {
-            console.error("Error fetching user profile:", error);
-        });
-    }, []);
-
-    useEffect(() => {
-        console.log("showInnerChat:", showInnerChat);
-        debugger;
-    }, [showInnerChat]);
-
-    function handleChatClick(event: any) {
-        event.preventDefault();
-        setShowInnerChat(true);
-    }
 
     function logoutFuc() {
         logout();
@@ -39,7 +20,7 @@ export default function MobileChatComponent() {
     return (
         <>
             {
-                !showInnerChat ?
+                !showInnerProfile ?
                     <>
                         <div className={'h-40 flex flex-col justify-center items-center'}>
                             <div className={'rounded-full w-12 h-12'}>
@@ -57,12 +38,16 @@ export default function MobileChatComponent() {
                         <div className={'w-full h-3 bg-secondary-02'} />
                         <ul>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/profile'}>
+                                <a className={'flex flex-1'} onClick={() => setShowInnerProfile(true)}>
                                     <Icons name={'profile-account'} />
                                     <p className={'ml-3'}>Profle</p>
                                 </a>
                                 <Icons name={'direction-left-gray'} />
                             </li>
+                        </ul>
+                        <div className={'w-full h-3 bg-secondary-02'} />
+                        <div className={'w-full h-3 bg-secondary-02'} />
+                        <ul>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                                 <a className={'flex flex-1'} href={'/security'}>
                                     <Icons name={'profile-security'} />
@@ -78,9 +63,9 @@ export default function MobileChatComponent() {
                                 <Icons name={'direction-left-gray'} />
                             </li>
                             <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/chat'} onClick={handleChatClick}>
+                                <a className={'flex flex-1'} href={'/faq'}>
                                     <Icons name={'profile-faq'} />
-                                    <p className={'ml-3'}>chat</p>
+                                    <p className={'ml-3'}>FAQ</p>
                                 </a>
                                 <Icons name={'direction-left-gray'} />
                             </li>
@@ -91,7 +76,7 @@ export default function MobileChatComponent() {
                         </ul>
                     </>
                     :
-                    <MobileInnerChat setShowInnerChat={setShowInnerChat} />
+                    <MobileInnerSetting setShowInnerProfile={setShowInnerProfile} />
             }
 
 

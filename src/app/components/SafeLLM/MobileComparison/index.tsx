@@ -1,5 +1,4 @@
 import IButton from '@/app/components/Common/Button';
-import BottomMenu from '@/app/components/Header/mobileMenu';
 import { useCookies } from 'react-cookie';
 import { SafeLLMInterface } from '../safellm.interface';
 
@@ -26,7 +25,6 @@ export default function MobileComparison(props: SafeLLMInterface) {
         </div>
       </>
     </div>
-  <BottomMenu />
   </>
   );
 }

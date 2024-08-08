@@ -41,7 +41,7 @@ var User = /** @class */ (function () {
 exports.User = User;
 var UserRole;
 (function (UserRole) {
-    UserRole["User"] = "User";
+    UserRole["User"] = "user";
     UserRole["Management"] = "management";
     UserRole["Admin"] = "admin";
     UserRole["Developer"] = "developer";

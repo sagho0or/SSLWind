@@ -56,7 +56,7 @@ export interface UserDto {
   refreshToken: string
 }
 export enum UserRole {
-  User = 'User',
+  User = 'user',
   Management = 'management',
   Admin = 'admin',
   Developer = 'developer',
