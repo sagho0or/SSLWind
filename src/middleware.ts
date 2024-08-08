@@ -8,13 +8,14 @@ export function middleware(request: NextRequest) {
     const token = request.cookies.get("auth-token")?.value || ""; // check if the token exists
     debugger;
     if (isPublicPath && token.length > 0) {
-        // redirect them to their profile page
-        return NextResponse.redirect(new URL("/", request.nextUrl));
+        // redirect them to their chatbot page
+        return NextResponse.redirect(new URL("/chat", request.nextUrl));
     }
     if (!isPublicPath && token.length <= 0) {
         // redirect them to the login page
         return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
+    return NextResponse.next();
 }
 // See "Matching Paths" below to learn more
 export const config = {

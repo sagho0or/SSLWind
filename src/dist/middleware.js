@@ -10,13 +10,14 @@ function middleware(request) {
     var token = ((_a = request.cookies.get("auth-token")) === null || _a === void 0 ? void 0 : _a.value) || ""; // check if the token exists
     debugger;
     if (isPublicPath && token.length > 0) {
-        // redirect them to their profile page
-        return server_1.NextResponse.redirect(new URL("/", request.nextUrl));
+        // redirect them to their chatbot page
+        return server_1.NextResponse.redirect(new URL("/chat", request.nextUrl));
     }
     if (!isPublicPath && token.length <= 0) {
         // redirect them to the login page
         return server_1.NextResponse.redirect(new URL("/login", request.nextUrl));
     }
+    return server_1.NextResponse.next();
 }
 exports.middleware = middleware;
 // See "Matching Paths" below to learn more
