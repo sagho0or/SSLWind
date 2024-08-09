@@ -22,7 +22,7 @@ function MobileChatComponent(_a) {
     var messagesEndRef = react_1.useRef(null);
     react_1.useEffect(function () {
         if (chatState.isDone && chatState.response) {
-            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "bot", content: chatState.response.data }]); });
+            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "bot", content: chatState.response.data, isSafe: chatState.response.isSafe }]); });
         }
     }, [chatState.isDone, chatState.response]);
     var handleSendMessage = function () {
@@ -44,8 +44,12 @@ function MobileChatComponent(_a) {
         react_1["default"].createElement("div", { className: "pt-8 h-full flex flex-1 flex-col" },
             react_1["default"].createElement("div", { className: "flex flex-col flex-1 " },
                 react_1["default"].createElement("div", { className: "flex-grow p-4 overflow-y-auto" },
-                    messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") }, message.role === "user" ? (react_1["default"].createElement("span", { className: "inline-block p-2 rounded bg-blue-500 text-white" }, message.content)) : (react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-gray-300" },
-                        react_1["default"].createElement(react_markdown_1["default"], null, message.content))))); }),
+                    messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") }, message.role === "user" ? (react_1["default"].createElement("span", { className: "inline-block p-2 rounded bg-blue-500 text-white" }, message.content)) : (message.isSafe ?
+                        react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-gray-300" },
+                            react_1["default"].createElement(react_markdown_1["default"], null, message.content))
+                        :
+                            react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-red-300" },
+                                react_1["default"].createElement("p", null, "!! The system has detected an unsafe response and therefore cannot be shown. A manager has been alerted. You can continue to engage with the agent, try re-phrasing your query."))))); }),
                     react_1["default"].createElement("div", { ref: messagesEndRef })),
                 react_1["default"].createElement("div", { className: "p-4 border-t border-gray-300" },
                     react_1["default"].createElement("input", { type: "text", value: userInput, onChange: function (e) { return setUserInput(e.target.value); }, className: "w-full p-2 border border-gray-300 rounded", placeholder: "Type your message..." }),
