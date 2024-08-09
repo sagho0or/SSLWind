@@ -1,3 +1,5 @@
 export interface ChatResponseInterface{
-  reply: string
+  message: string,
+  data: string,
+  isSafe: true
 }

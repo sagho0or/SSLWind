@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 export default function WebChatComponent() {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
     const [userInput, setUserInput] = useState<string>("");
-    const [messages, setMessages] = useState<{ role: string, content: string }[]>([]);
+    const [messages, setMessages] = useState<{ role: string, content: string, isSafe?: boolean }[]>([]);
     const dispatch = useDispatch();
     const chatState = useSelector((state: any) => state.chat);
     const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -16,7 +16,7 @@ export default function WebChatComponent() {
 
     useEffect(() => {
         if (chatState.isDone && chatState.response) {
-            setMessages((prevMessages) => [...prevMessages, { role: "bot", content: chatState.response.data }]);
+            setMessages((prevMessages) => [...prevMessages, { role: "bot", content: chatState.response.data, isSafe: chatState.response.isSafe }]);
         }
     }, [chatState.isDone, chatState.response]);
 
@@ -43,9 +43,16 @@ export default function WebChatComponent() {
                                     {message.content}
                                 </span>
                             ) : (
-                                <div className="inline-block p-2 rounded bg-gray-300">
-                                    <ReactMarkdown>{message.content}</ReactMarkdown>
-                                </div>
+                                message.isSafe ?
+                                    <div className="inline-block p-2 rounded bg-gray-300">
+                                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                                    </div>
+                                    :
+                                    <div className="inline-block p-2 rounded bg-red-300">
+                                        <p>
+                                            !! The system has detected an unsafe response and therefore cannot be shown. A manager has been alerted. You can continue to engage with the agent, try re-phrasing your query.
+                                        </p>
+                                    </div>
                             )}
                         </div>
                     ))}
