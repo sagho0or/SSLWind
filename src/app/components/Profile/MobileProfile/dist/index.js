@@ -1,66 +1,64 @@
-'use client';
 "use strict";
 exports.__esModule = true;
-var react_1 = require("react");
 var Icons_1 = require("../../../../../public/Icons");
+var react_1 = require("react");
+var moment_1 = require("moment");
 var getUserProfile_service_1 = require("@/app/services/getUserProfile.service");
-var logout_1 = require("@/app/services/logout");
-var navigation_1 = require("next/navigation");
-var MobileInnerProfile_1 = require("@/app/components/Profile/MobileInnerProfile");
-function MobileProfileComponent() {
-    var _a = react_1.useState(), userProfile = _a[0], setUserProfile = _a[1];
-    var _b = react_1.useState(true), showInnerProfile = _b[0], setShowInnerProfile = _b[1];
-    var Router = navigation_1.useRouter();
+function MobileProfileComponent(_a) {
+    var setShowInnerComponent = _a.setShowInnerComponent;
+    var _b = react_1.useState(null), userProfile = _b[0], setUserProfile = _b[1];
+    var _c = react_1.useState(null), error = _c[0], setError = _c[1];
     react_1.useEffect(function () {
         getUserProfile_service_1["default"](false).then(function (res) {
             setUserProfile(res);
             console.log(userProfile);
         })["catch"](function (error) {
             console.error("Error fetching user profile:", error);
-            debugger;
         });
     }, []);
-    function handleChatClick(event) {
-        event.preventDefault();
-        setShowInnerProfile(true);
+    var personalData = react_1.useMemo(function () { return [
+        { title: "Full name", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.firstName) + " " + (userProfile === null || userProfile === void 0 ? void 0 : userProfile.lastName) },
+        { title: "Birth Date", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.birthDate) ? moment_1["default"](userProfile === null || userProfile === void 0 ? void 0 : userProfile.birthDate).format('YYYY/MM/DD') : '' },
+        { title: "Phone Number", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.mobileNumber },
+        { title: "Email", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.email }
+    ]; }, [userProfile]);
+    var additionalData = react_1.useMemo(function () { return [
+        { title: "Postal code", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.postalCode) || "------------" },
+        { title: "Address", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.address) || "------------" },
+    ]; }, [userProfile]);
+    if (error) {
+        return react_1["default"].createElement("div", { className: "text-red-500 text-center mt-4" }, error);
     }
-    function logoutFuc() {
-        logout_1["default"]();
-        Router.push('/');
+    if (!userProfile) {
+        return react_1["default"].createElement("div", { className: "text-center mt-4" }, "Loading...");
     }
-    return (react_1["default"].createElement(react_1["default"].Fragment, null, !showInnerProfile ?
-        react_1["default"].createElement(react_1["default"].Fragment, null,
-            react_1["default"].createElement("div", { className: 'h-40 flex flex-col justify-center items-center' },
-                react_1["default"].createElement("div", { className: 'rounded-full w-12 h-12' },
-                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name) || 'User Avatar', width: 48, height: 48, onError: function (e) { e.currentTarget.src = '/images/avatar.svg'; }, loading: "lazy" })),
-                react_1["default"].createElement("p", { className: 'text-md font-semibold mt-4' }, userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name)),
-            react_1["default"].createElement("div", { className: 'w-full h-3 bg-secondary-02' }),
-            react_1["default"].createElement("ul", null,
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/profile', onClick: handleChatClick },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-account' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Profle")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/security' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-security' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Security")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-support' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Support")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/chat' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-faq' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Chat")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex p-4 cursor-pointer', onClick: logoutFuc },
-                    react_1["default"].createElement(Icons_1["default"], { name: 'profile-logout' }),
-                    react_1["default"].createElement("p", { className: 'ml-3' }, "Logout"))))
-        :
-            userProfile &&
-                react_1["default"].createElement(MobileInnerProfile_1["default"], { userProfile: userProfile, setShowInnerProfile: setShowInnerProfile })));
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement("div", { className: "fixed pt-3 pb-3 w-full bg-white" },
+            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center" }, "Profle"),
+            react_1["default"].createElement("div", { onClick: function () { return setShowInnerComponent(false); }, className: 'absolute top-4 left-2 cursor-pointer' },
+                react_1["default"].createElement(Icons_1["default"], { name: 'right-arrow-key' }))),
+        react_1["default"].createElement("div", { className: "mt-8" },
+            react_1["default"].createElement("ul", { className: "mt-4 " },
+                react_1["default"].createElement("li", { className: 'flex justify-between items-center p-4 border-b-2 border-secondary-02 cursor-pointer' },
+                    react_1["default"].createElement("p", null, "Photo"),
+                    react_1["default"].createElement("div", { className: 'rounded-full w-12 h-12' },
+                        react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.firstName) + '' + (userProfile === null || userProfile === void 0 ? void 0 : userProfile.lastName), width: 48, height: 48 }))),
+                personalData.map(function (_a, index) {
+                    var title = _a.title, desc = _a.desc;
+                    return (react_1["default"].createElement("li", { key: "personal-data-" + index, className: "flex justify-between p-4 border-b-2 border-secondary-02" },
+                        react_1["default"].createElement("p", { className: " mb-2" }, title),
+                        react_1["default"].createElement("p", { className: "text-secondary" }, desc)));
+                }))),
+        react_1["default"].createElement("div", { className: 'w-full h-3 bg-secondary-02' }),
+        react_1["default"].createElement("div", { className: "p-4" },
+            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center pb-2" }, "Information"),
+            react_1["default"].createElement("ul", null, additionalData.map(function (_a, index) {
+                var title = _a.title, desc = _a.desc;
+                return (react_1["default"].createElement("li", { key: "add-data-" + index, className: (additionalData.length - 1 !== index ? "border-secondary-02 border-b-2" : "") + " \n                                 flex justify-between p-4" },
+                    react_1["default"].createElement("p", { className: "" }, title),
+                    react_1["default"].createElement("p", { className: "text-secondary flex" },
+                        desc,
+                        react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' }))));
+            })))));
 }
 exports["default"] = MobileProfileComponent;

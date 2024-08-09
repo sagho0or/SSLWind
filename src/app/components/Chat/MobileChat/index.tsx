@@ -1,100 +1,82 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import Icons from '../../../../../public/Icons';
-import getUserProfileService from "@/app/services/getUserProfile.service";
-import { UserProfileResponseInterface } from "@/store/userProfile/interface";
-import logout from "@/app/services/logout";
-import { Router } from "next/router";
-import { useRouter } from "next/navigation";
-import MobileInnerChat from '../MobileInnerChat';
+import Icons from "../../../../../public/Icons";
+import React, { useEffect, useRef, useState } from "react";
+import IButton from "@/app/components/Common/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChatResponse } from "@/store/chat/new/slice";
+import ReactMarkdown from "react-markdown";
 
-export default function MobileChatComponent() {
-    const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
-    const [showInnerChat, setShowInnerChat] = useState<boolean>(true);
-    const Router = useRouter();
-
-    useEffect(() => {
-        getUserProfileService(false).then((res: any) => {
-            setUserProfile(res);
-            console.log("User Profile:", userProfile);
-        }).catch((error) => {
-            console.error("Error fetching user profile:", error);
-        });
-    }, []);
+export default function MobileChatComponent({ setShowInnerComponent }:
+    { setShowInnerComponent: (a: boolean) => void }) {
+    const [userInput, setUserInput] = useState<string>("");
+    const [messages, setMessages] = useState<{ role: string, content: string }[]>([]);
+    const dispatch = useDispatch();
+    const chatState = useSelector((state: any) => state.chat);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        console.log("showInnerChat:", showInnerChat);
-        debugger;
-    }, [showInnerChat]);
+        if (chatState.isDone && chatState.response) {
+            setMessages((prevMessages) => [...prevMessages, { role: "bot", content: chatState.response.data }]);
+        }
+    }, [chatState.isDone, chatState.response]);
 
-    function handleChatClick(event: any) {
-        event.preventDefault();
-        setShowInnerChat(true);
-    }
+    const handleSendMessage = () => {
+        if (userInput.trim()) {
+            setMessages((prevMessages) => [...prevMessages, { role: "user", content: userInput }]);
+            dispatch(fetchChatResponse({ userInput }));
+            setUserInput("");
+        }
+    };
 
-    function logoutFuc() {
-        logout();
-        Router.push('/')
-    }
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
     return (
         <>
-            {
-                !showInnerChat ?
-                    <>
-                        <div className={'h-40 flex flex-col justify-center items-center'}>
-                            <div className={'rounded-full w-12 h-12'}>
-                                <img
-                                    src={userProfile?.imageUrl || '/images/avatar.svg'}
-                                    alt={userProfile?.full_name || 'User Avatar'}
-                                    width={48}
-                                    height={48}
-                                    onError={(e) => { e.currentTarget.src = '/images/avatar.svg'; }}
-                                    loading="lazy"
-                                />
+            <div className={"fixed pt-3 pb-3 w-full bg-white"}>
+                <h3 className={"font-semibold text-xl text-center"}>Chat</h3>
+
+                <div onClick={() => {console.log('Clicked, setShowInnerComponent:', setShowInnerComponent);setShowInnerComponent(false)}}
+                    className={'absolute top-4 left-2 cursor-pointer'}>
+                    <Icons name={'right-arrow-key'} />
+                </div>
+            </div>
+            <div className={"pt-8 h-full flex flex-1 flex-col"}>
+                <div className="flex flex-col flex-1 ">
+                    <div className="flex-grow p-4 overflow-y-auto">
+                        {messages.map((message, index) => (
+                            <div key={index} className={`my-2 ${message.role === "user" ? "text-right" : "text-left"}`}>
+                                {message.role === "user" ? (
+                                    <span className="inline-block p-2 rounded bg-blue-500 text-white">
+                                        {message.content}
+                                    </span>
+                                ) : (
+                                    <div className="inline-block p-2 rounded bg-gray-300">
+                                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                                    </div>
+                                )}
                             </div>
-                            <p className={'text-md font-semibold mt-4'}>{userProfile?.full_name}</p>
-                        </div>
-                        <div className={'w-full h-3 bg-secondary-02'} />
-                        <ul>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/profile'}>
-                                    <Icons name={'profile-account'} />
-                                    <p className={'ml-3'}>Profle</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/security'}>
-                                    <Icons name={'profile-security'} />
-                                    <p className={'ml-3'}>Security</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={''}>
-                                    <Icons name={'profile-support'} />
-                                    <p className={'ml-3'}>Support</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/chat'} onClick={handleChatClick}>
-                                    <Icons name={'profile-faq'} />
-                                    <p className={'ml-3'}>chat</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex p-4 cursor-pointer'} onClick={logoutFuc}>
-                                <Icons name={'profile-logout'} />
-                                <p className={'ml-3'}>Logout</p>
-                            </li>
-                        </ul>
-                    </>
-                    :
-                    <MobileInnerChat setShowInnerChat={setShowInnerChat} />
-            }
-
-
+                        ))}
+                        <div ref={messagesEndRef} />
+                    </div>
+                    <div className="p-4 border-t border-gray-300">
+                        <input
+                            type="text"
+                            value={userInput}
+                            onChange={(e) => setUserInput(e.target.value)}
+                            className="w-full p-2 border border-gray-300 rounded"
+                            placeholder="Type your message..."
+                        />
+                        <button
+                            onClick={handleSendMessage}
+                            className="mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
         </>
-    );
+    )
 }

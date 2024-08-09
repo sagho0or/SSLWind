@@ -11,34 +11,36 @@ import { encode } from 'base-64';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import { loginLoading } from '@/store/auth/login/form/slice';
-import { User, UserDto } from './user.class';
 import { LoginResponse } from './Forms/OtpForm/OTPFormProps.interface';
+import { RootState } from '@/store/store';
+import { UserProfileResponseInterface } from '@/store/userProfile/interface';
 
 export default function LoginComponent() {
   const [step, setStep] = useState<number>(0);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginResponse, setLoginResponse] = useState<LoginResponse>();
-  const [cookies, setCookie, removeCookie] = useCookies(['auth-token','auth-refresh']);
+  const [cookies, setCookie, removeCookie] = useCookies(['auth-token', 'auth-refresh']);
 
   const loginStates = useSelector((state: any) => state.login);
   const loginOtpStates = useSelector((state: any) => state.loginOtp);
   const dispatch = useDispatch();
-  const {executeRecaptcha} = useReCaptcha();
+  const { executeRecaptcha } = useReCaptcha();
   const router = useRouter();
 
+  const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
+
   useEffect(() => {
-    if(loginStates.isDone){
+    if (loginStates.isDone) {
       setLoginResponse(loginStates.response.data);
       setStep(1)
     }
   }, [loginStates.isDone]);
 
   useEffect(() => {
-    if(loginOtpStates.isDone){
-      const user = User.getInstance();
+    if (loginOtpStates.isDone) {
       debugger;
-      user.updateUser(loginOtpStates.response.data);
+      setUserProfile(loginOtpStates.response.data);
       setCookie("auth-token", loginOtpStates.response.data.token);
       setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
       router.push('/');
@@ -47,8 +49,8 @@ export default function LoginComponent() {
 
   async function acceptMobileForm(email: string, password: string) {
     //api call for mobile number & password
-    console.log('email',email);
-    console.log('password',password);
+    console.log('email', email);
+    console.log('password', password);
     dispatch(loginLoading({
       email: email,
       password: encode(password)
@@ -73,11 +75,11 @@ export default function LoginComponent() {
         {
           step == 0 ?
             <MobileLoginForm confirmFunction={acceptMobileForm} /> :
-            step == 1 && loginResponse?
+            step == 1 && loginResponse ?
               <MobileOtpForm email={email}
-                             backFunc={backFunc}
-                             password = {password}
-                             loginResponse={loginResponse}  /> :
+                backFunc={backFunc}
+                password={password}
+                loginResponse={loginResponse} /> :
               ''
         }
       </div>

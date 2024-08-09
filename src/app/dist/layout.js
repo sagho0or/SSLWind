@@ -8,6 +8,7 @@ var next_recaptcha_v3_1 = require("next-recaptcha-v3");
 var toast_notif_1 = require("@/app/utils/toast-notif");
 var clientWrapper_1 = require("./clientWrapper");
 require("react-tooltip/dist/react-tooltip.css");
+var ShowInnerComponentContext_1 = require("./ShowInnerComponentContext");
 exports.metadata = {
     title: 'SafeLLM Wind',
     description: 'SafeLLM framework in the development of large language models for the provision of safe and trust-inducing responses in offshore wind maintenance'
@@ -31,6 +32,7 @@ function RootLayout(_a) {
             react_1["default"].createElement(reduxProvider_1["default"], null,
                 react_1["default"].createElement(next_recaptcha_v3_1.ReCaptchaProvider, { reCaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY },
                     react_1["default"].createElement(toast_notif_1["default"], null),
-                    react_1["default"].createElement(clientWrapper_1["default"], null, children))))));
+                    react_1["default"].createElement(ShowInnerComponentContext_1.ShowInnerComponentProvider, null,
+                        react_1["default"].createElement(clientWrapper_1["default"], null, children)))))));
 }
 exports["default"] = RootLayout;

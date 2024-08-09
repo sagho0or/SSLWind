@@ -16,13 +16,7 @@ export default function Header() {
     const isLogin = !!cookie['auth-token'];
 
 
-    useEffect(() => {
-        if (isLogin) {
-            getUserProfileService(false).then((res: any) => {
-                setUserProfile(res)
-            })
-        }
-    }, [isLogin]);
+
     useEffect(() => {
         if (isLogin) {
             getUserProfileService(false).then((res: any) => {
@@ -48,7 +42,7 @@ export default function Header() {
                         <div className={'flex items-center'}>
                             <div className={'rounded-full w-9 h-9'}>
                                 <Link href={"/profile"}>
-                                    <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.first_name} width={36}
+                                    <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.firstName} width={36}
                                          height={36}/>
                                 </Link>
                             </div>

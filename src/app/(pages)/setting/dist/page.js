@@ -6,19 +6,20 @@ var isMobileView_1 = require("@/app/utils/isMobileView");
 var mobileMenu_1 = require("@/app/components/Header/mobileMenu");
 var MobileSetting_1 = require("@/app/components/Setting/MobileSetting");
 var WebSetting_1 = require("@/app/components/Setting/WebSetting");
-var user_class_1 = require("@/app/components/Login/user.class");
 var router_1 = require("next/router");
+var react_redux_1 = require("react-redux");
+var interface_1 = require("@/store/userProfile/interface");
 function Setting() {
-    var user = user_class_1.User.getInstance();
     var router = router_1.useRouter();
+    var userProfile = react_redux_1.useSelector(function (state) { return state.userProfile.data; });
     react_1.useEffect(function () {
-        var userRole = user.role;
-        if (![user_class_1.UserRole.Management, user_class_1.UserRole.Admin, user_class_1.UserRole.Developer].includes(userRole)) {
+        var userRole = userProfile.role;
+        if (![interface_1.UserRole.Management, interface_1.UserRole.Admin, interface_1.UserRole.Developer].includes(userRole)) {
             router.push('/chat');
         }
     }, [router]);
-    if (!user || !['management', 'admin', 'developer'].includes(user.role)) {
-        return null; // Optionally, display a loading spinner or message
+    if (!userProfile || !['management', 'admin', 'developer'].includes(userProfile.role)) {
+        return null;
     }
     return (react_1["default"].createElement(react_1["default"].Fragment, null, isMobileView_1["default"] ?
         react_1["default"].createElement(react_1["default"].Fragment, null,

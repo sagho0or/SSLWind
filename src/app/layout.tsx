@@ -6,6 +6,7 @@ import {ReCaptchaProvider} from 'next-recaptcha-v3';
 import IToastNotif from '@/app/utils/toast-notif';
 import ClientWrapper from "./clientWrapper";
 import 'react-tooltip/dist/react-tooltip.css'
+import { ShowInnerComponentProvider } from "./ShowInnerComponentContext";
 
 export const metadata: Metadata = {
     title: 'SafeLLM Wind',
@@ -14,9 +15,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+                                   }: {
+    children: any;
+}) {
 
     return (
         <html lang="en" dir={'rtl'}>
@@ -39,7 +40,9 @@ export default function RootLayout({
         <ReduxProvider>
             <ReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}>
                 <IToastNotif/>
-                <ClientWrapper>{children}</ClientWrapper>
+                <ShowInnerComponentProvider>
+                    <ClientWrapper>{children}</ClientWrapper>
+                </ShowInnerComponentProvider>
             </ReCaptchaProvider>
         </ReduxProvider>
         </body>

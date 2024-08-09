@@ -11,13 +11,13 @@ export default function WebProfileComponent() {
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
 
     const personalData = [
-        {title: "Full Name", desc: userProfile?.full_name},
-        {title: "Date of Birth", desc: userProfile?.birth_date?moment(userProfile?.birth_date).format('YYYY/MM/DD'):''},
-        {title: "Phone Number", desc: userProfile?.mobile_number},
+        {title: "Full Name", desc: `${userProfile?.firstName} ${userProfile?.lastName}`},
+        {title: "Date of Birth", desc: userProfile?.birthDate?moment(userProfile?.birthDate).format('YYYY/MM/DD'):''},
+        {title: "Phone Number", desc: userProfile?.mobileNumber},
         {title: "Email", desc: userProfile?.email}
     ];
     const additionalData = [
-        {title: "Postal Code", desc: `${userProfile?.postal_code ? userProfile?.postal_code : "------------"}`},
+        {title: "Postal Code", desc: `${userProfile?.postalCode ? userProfile?.postalCode : "------------"}`},
         {title: "Address", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
     ]
 
@@ -33,7 +33,7 @@ export default function WebProfileComponent() {
             <div>
                 <div className={'bg-secondary-01 rounded-xl flex p-8'}>
                     <div className={'rounded-full w-18 h-18'}>
-                        <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.first_name} width={72}
+                        <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.firstName} width={72}
                              height={72}/>
                     </div>
                     <ul className={"flex flex-row justify-between items-center w-full ml-4"}>

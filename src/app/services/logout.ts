@@ -1,5 +1,4 @@
 import {Cookies} from "react-cookie";
-import { User } from "../components/Login/user.class";
 
 export default function logout(){
     const cookies = new Cookies();
@@ -11,9 +10,5 @@ export default function logout(){
     localStorage.removeItem("userProfile");
 
     var a = cookies.get("auth-token");
-    debugger;
-
-    const user = User.getInstance();
-    user.clearUser();
 
 }

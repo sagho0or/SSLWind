@@ -1,6 +1,5 @@
 
 import { LoginResponse } from '@/app/components/Login/Forms/OtpForm/OTPFormProps.interface';
-import { UserDto, UserRole } from '@/app/components/Login/user.class';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {

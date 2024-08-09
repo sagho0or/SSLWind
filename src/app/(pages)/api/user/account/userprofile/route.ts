@@ -1,20 +1,22 @@
-
-import { UserProfileResponseInterface } from '@/store/userProfile/interface';
+import { UserProfileResponseInterface, UserRole } from '@/store/userProfile/interface';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
     const data : UserProfileResponseInterface = { 
-        id: 2,
+        userId: 2,
         email: 'Saghar@gmail.com',
-        mobile_number: '00447471358135',
-        full_name: 'Saghar Fadaei',
-        birth_date: '1989-02-01',
+        mobileNumber: '00447471358135',
+        birthDate: '1989-02-01',
         imageUrl: '',
-        postal_code: 'LS17 222',
+        postalCode: 'LS17 222',
         address: 'Leeds',
-        last_name: 'Fadaei',
-        first_name: 'Saghar',
-        role: 'user'
+        lastName: 'Fadaei',
+        firstName: 'Saghar',
+        role: UserRole.User,
+        lastLogin: new Date(),
+        token: 'string',
+        refreshToken: 'string'
+        
     }
     return NextResponse.json({ message: 'get user information successfully', data }, { status: 200 });
 

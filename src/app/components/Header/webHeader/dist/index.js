@@ -17,13 +17,6 @@ function Header() {
                 setUserProfile(res);
             });
         }
-    }, [isLogin]);
-    react_1.useEffect(function () {
-        if (isLogin) {
-            getUserProfile_service_1["default"](false).then(function (res) {
-                setUserProfile(res);
-            });
-        }
     }, []);
     return (react_1["default"].createElement("div", { className: "fixed w-full z-50" },
         react_1["default"].createElement("div", { className: "flex justify-between items-center h-18 bg-white px-16" },
@@ -37,7 +30,7 @@ function Header() {
                     react_1["default"].createElement("div", { className: 'flex items-center' },
                         react_1["default"].createElement("div", { className: 'rounded-full w-9 h-9' },
                             react_1["default"].createElement(link_1["default"], { href: "/profile" },
-                                react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.first_name, width: 36, height: 36 })))))
+                                react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.firstName, width: 36, height: 36 })))))
                 : react_1["default"].createElement(link_1["default"], { href: "/login" },
                     react_1["default"].createElement(Button_1["default"], { style: 'primarySimple' },
                         react_1["default"].createElement("p", null, "Login"))))));

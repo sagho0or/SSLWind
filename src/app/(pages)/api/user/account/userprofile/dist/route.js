@@ -37,23 +37,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.POST = exports.GET = void 0;
+var interface_1 = require("@/store/userProfile/interface");
 var server_1 = require("next/server");
 function GET(req) {
     return __awaiter(this, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             data = {
-                id: 2,
+                userId: 2,
                 email: 'Saghar@gmail.com',
-                mobile_number: '00447471358135',
-                full_name: 'Saghar Fadaei',
-                birth_date: '1989-02-01',
+                mobileNumber: '00447471358135',
+                birthDate: '1989-02-01',
                 imageUrl: '',
-                postal_code: 'LS17 222',
+                postalCode: 'LS17 222',
                 address: 'Leeds',
-                last_name: 'Fadaei',
-                first_name: 'Saghar',
-                role: 'user'
+                lastName: 'Fadaei',
+                firstName: 'Saghar',
+                role: interface_1.UserRole.User,
+                lastLogin: new Date(),
+                token: 'string',
+                refreshToken: 'string'
             };
             return [2 /*return*/, server_1.NextResponse.json({ message: 'get user information successfully', data: data }, { status: 200 })];
         });

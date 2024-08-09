@@ -26,14 +26,14 @@ export default function MobileSettingComponent() {
                             <div className={'rounded-full w-12 h-12'}>
                                 <img
                                     src={userProfile?.imageUrl || '/images/avatar.svg'}
-                                    alt={userProfile?.full_name || 'User Avatar'}
+                                    alt={userProfile?.firstName +' '+ userProfile?.lastName || 'User Avatar'}
                                     width={48}
                                     height={48}
                                     onError={(e) => { e.currentTarget.src = '/images/avatar.svg'; }}
                                     loading="lazy"
                                 />
                             </div>
-                            <p className={'text-md font-semibold mt-4'}>{userProfile?.full_name}</p>
+                            <p className={'text-md font-semibold mt-4'}>{userProfile?.firstName +' '+ userProfile?.lastName}</p>
                         </div>
                         <div className={'w-full h-3 bg-secondary-02'} />
                         <ul>

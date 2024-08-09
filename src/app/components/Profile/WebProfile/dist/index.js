@@ -9,13 +9,13 @@ function WebProfileComponent() {
     var _a = react_1.useState(true), isSidebarOpen = _a[0], setIsSidebarOpen = _a[1];
     var _b = react_1.useState(), userProfile = _b[0], setUserProfile = _b[1];
     var personalData = [
-        { title: "Full Name", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name },
-        { title: "Date of Birth", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date) ? moment_1["default"](userProfile === null || userProfile === void 0 ? void 0 : userProfile.birth_date).format('YYYY/MM/DD') : '' },
-        { title: "Phone Number", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.mobile_number },
+        { title: "Full Name", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.firstName) + " " + (userProfile === null || userProfile === void 0 ? void 0 : userProfile.lastName) },
+        { title: "Date of Birth", desc: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.birthDate) ? moment_1["default"](userProfile === null || userProfile === void 0 ? void 0 : userProfile.birthDate).format('YYYY/MM/DD') : '' },
+        { title: "Phone Number", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.mobileNumber },
         { title: "Email", desc: userProfile === null || userProfile === void 0 ? void 0 : userProfile.email }
     ];
     var additionalData = [
-        { title: "Postal Code", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.postal_code) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.postal_code : "------------") },
+        { title: "Postal Code", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.postalCode) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.postalCode : "------------") },
         { title: "Address", desc: "" + ((userProfile === null || userProfile === void 0 ? void 0 : userProfile.address) ? userProfile === null || userProfile === void 0 ? void 0 : userProfile.address : "------------") },
     ];
     react_1.useEffect(function () {
@@ -27,7 +27,7 @@ function WebProfileComponent() {
         react_1["default"].createElement("div", null,
             react_1["default"].createElement("div", { className: 'bg-secondary-01 rounded-xl flex p-8' },
                 react_1["default"].createElement("div", { className: 'rounded-full w-18 h-18' },
-                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.first_name, width: 72, height: 72 })),
+                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: userProfile === null || userProfile === void 0 ? void 0 : userProfile.firstName, width: 72, height: 72 })),
                 react_1["default"].createElement("ul", { className: "flex flex-row justify-between items-center w-full ml-4" }, personalData.map(function (_a, index) {
                     var title = _a.title, desc = _a.desc;
                     return (react_1["default"].createElement("li", { key: "personal-data-" + index },

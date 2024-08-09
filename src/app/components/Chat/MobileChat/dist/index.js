@@ -1,68 +1,54 @@
 'use client';
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
-var react_1 = require("react");
 var Icons_1 = require("../../../../../public/Icons");
-var getUserProfile_service_1 = require("@/app/services/getUserProfile.service");
-var logout_1 = require("@/app/services/logout");
-var navigation_1 = require("next/navigation");
-var MobileInnerChat_1 = require("../MobileInnerChat");
-function MobileChatComponent() {
-    var _a = react_1.useState(), userProfile = _a[0], setUserProfile = _a[1];
-    var _b = react_1.useState(true), showInnerChat = _b[0], setShowInnerChat = _b[1];
-    var Router = navigation_1.useRouter();
+var react_1 = require("react");
+var react_redux_1 = require("react-redux");
+var slice_1 = require("@/store/chat/new/slice");
+var react_markdown_1 = require("react-markdown");
+function MobileChatComponent(_a) {
+    var setShowInnerComponent = _a.setShowInnerComponent;
+    var _b = react_1.useState(""), userInput = _b[0], setUserInput = _b[1];
+    var _c = react_1.useState([]), messages = _c[0], setMessages = _c[1];
+    var dispatch = react_redux_1.useDispatch();
+    var chatState = react_redux_1.useSelector(function (state) { return state.chat; });
+    var messagesEndRef = react_1.useRef(null);
     react_1.useEffect(function () {
-        getUserProfile_service_1["default"](false).then(function (res) {
-            setUserProfile(res);
-            console.log("User Profile:", userProfile);
-        })["catch"](function (error) {
-            console.error("Error fetching user profile:", error);
-        });
-    }, []);
+        if (chatState.isDone && chatState.response) {
+            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "bot", content: chatState.response.data }]); });
+        }
+    }, [chatState.isDone, chatState.response]);
+    var handleSendMessage = function () {
+        if (userInput.trim()) {
+            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "user", content: userInput }]); });
+            dispatch(slice_1.fetchChatResponse({ userInput: userInput }));
+            setUserInput("");
+        }
+    };
     react_1.useEffect(function () {
-        console.log("showInnerChat:", showInnerChat);
-        debugger;
-    }, [showInnerChat]);
-    function handleChatClick(event) {
-        event.preventDefault();
-        setShowInnerChat(true);
-    }
-    function logoutFuc() {
-        logout_1["default"]();
-        Router.push('/');
-    }
-    return (react_1["default"].createElement(react_1["default"].Fragment, null, !showInnerChat ?
-        react_1["default"].createElement(react_1["default"].Fragment, null,
-            react_1["default"].createElement("div", { className: 'h-40 flex flex-col justify-center items-center' },
-                react_1["default"].createElement("div", { className: 'rounded-full w-12 h-12' },
-                    react_1["default"].createElement("img", { src: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.imageUrl) || '/images/avatar.svg', alt: (userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name) || 'User Avatar', width: 48, height: 48, onError: function (e) { e.currentTarget.src = '/images/avatar.svg'; }, loading: "lazy" })),
-                react_1["default"].createElement("p", { className: 'text-md font-semibold mt-4' }, userProfile === null || userProfile === void 0 ? void 0 : userProfile.full_name)),
-            react_1["default"].createElement("div", { className: 'w-full h-3 bg-secondary-02' }),
-            react_1["default"].createElement("ul", null,
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/profile' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-account' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Profle")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/security' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-security' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Security")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '' },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-support' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "Support")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer' },
-                    react_1["default"].createElement("a", { className: 'flex flex-1', href: '/chat', onClick: handleChatClick },
-                        react_1["default"].createElement(Icons_1["default"], { name: 'profile-faq' }),
-                        react_1["default"].createElement("p", { className: 'ml-3' }, "chat")),
-                    react_1["default"].createElement(Icons_1["default"], { name: 'direction-left-gray' })),
-                react_1["default"].createElement("li", { className: 'flex p-4 cursor-pointer', onClick: logoutFuc },
-                    react_1["default"].createElement(Icons_1["default"], { name: 'profile-logout' }),
-                    react_1["default"].createElement("p", { className: 'ml-3' }, "Logout"))))
-        :
-            react_1["default"].createElement(MobileInnerChat_1["default"], { setShowInnerChat: setShowInnerChat })));
+        var _a;
+        (_a = messagesEndRef.current) === null || _a === void 0 ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+    return (react_1["default"].createElement(react_1["default"].Fragment, null,
+        react_1["default"].createElement("div", { className: "fixed pt-3 pb-3 w-full bg-white" },
+            react_1["default"].createElement("h3", { className: "font-semibold text-xl text-center" }, "Chat"),
+            react_1["default"].createElement("div", { onClick: function () { console.log('Clicked, setShowInnerComponent:', setShowInnerComponent); setShowInnerComponent(false); }, className: 'absolute top-4 left-2 cursor-pointer' },
+                react_1["default"].createElement(Icons_1["default"], { name: 'right-arrow-key' }))),
+        react_1["default"].createElement("div", { className: "pt-8 h-full flex flex-1 flex-col" },
+            react_1["default"].createElement("div", { className: "flex flex-col flex-1 " },
+                react_1["default"].createElement("div", { className: "flex-grow p-4 overflow-y-auto" },
+                    messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") }, message.role === "user" ? (react_1["default"].createElement("span", { className: "inline-block p-2 rounded bg-blue-500 text-white" }, message.content)) : (react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-gray-300" },
+                        react_1["default"].createElement(react_markdown_1["default"], null, message.content))))); }),
+                    react_1["default"].createElement("div", { ref: messagesEndRef })),
+                react_1["default"].createElement("div", { className: "p-4 border-t border-gray-300" },
+                    react_1["default"].createElement("input", { type: "text", value: userInput, onChange: function (e) { return setUserInput(e.target.value); }, className: "w-full p-2 border border-gray-300 rounded", placeholder: "Type your message..." }),
+                    react_1["default"].createElement("button", { onClick: handleSendMessage, className: "mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600" }, "Send"))))));
 }
 exports["default"] = MobileChatComponent;

@@ -1,99 +1,91 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import Icons from '../../../../../public/Icons';
-import getUserProfileService from "@/app/services/getUserProfile.service";
+import Icons from "../../../../../public/Icons";
+import React, { useEffect, useMemo, useState } from "react";
 import { UserProfileResponseInterface } from "@/store/userProfile/interface";
-import logout from "@/app/services/logout";
-import { Router } from "next/router";
-import { useRouter } from "next/navigation";
-import MobileInnerProfile from "@/app/components/Profile/MobileInnerProfile";
+import moment from 'moment';
+import IButton from "@/app/components/Common/Button";
+import getUserProfileService from "@/app/services/getUserProfile.service";
 
-export default function MobileProfileComponent() {
-    const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
-    const [showInnerProfile, setShowInnerProfile] = useState<boolean>(true);
-    const Router = useRouter();
+export default function MobileProfileComponent({ setShowInnerComponent }:
+    { setShowInnerComponent: (a: boolean) => void }) {
 
+    const [userProfile, setUserProfile] = useState<UserProfileResponseInterface | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    
     useEffect(() => {
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
             console.log(userProfile);
         }).catch((error) => {
             console.error("Error fetching user profile:", error);
-            debugger;
         });
     }, []);
+    
+    const personalData = useMemo(() => [
+        { title: "Full name", desc: `${userProfile?.firstName} ${userProfile?.lastName}` },
+        { title: "Birth Date", desc: userProfile?.birthDate ? moment(userProfile?.birthDate).format('YYYY/MM/DD') : '' },
+        { title: "Phone Number", desc: userProfile?.mobileNumber },
+        { title: "Email", desc: userProfile?.email }
+    ], [userProfile]);
 
-    function handleChatClick(event: any) {
-        event.preventDefault();
-        setShowInnerProfile(true);
+    const additionalData = useMemo(() => [
+        { title: "Postal code", desc: userProfile?.postalCode || "------------" },
+        { title: "Address", desc: userProfile?.address || "------------" },
+    ], [userProfile]);
+
+    if (error) {
+        return <div className="text-red-500 text-center mt-4">{error}</div>;
     }
 
-    function logoutFuc() {
-        logout();
-        Router.push('/')
+    if (!userProfile) {
+        return <div className="text-center mt-4">Loading...</div>;
     }
+    
     return (
         <>
-            {
-                !showInnerProfile ?
-                    <>
-                        <div className={'h-40 flex flex-col justify-center items-center'}>
-                            <div className={'rounded-full w-12 h-12'}>
-                                <img
-                                    src={userProfile?.imageUrl || '/images/avatar.svg'}
-                                    alt={userProfile?.full_name || 'User Avatar'}
-                                    width={48}
-                                    height={48}
-                                    onError={(e) => { e.currentTarget.src = '/images/avatar.svg'; }}
-                                    loading="lazy"
-                                />
-                            </div>
-                            <p className={'text-md font-semibold mt-4'}>{userProfile?.full_name}</p>
+
+            <div className={"fixed pt-3 pb-3 w-full bg-white"}>
+                <h3 className={"font-semibold text-xl text-center"}>Profle</h3>
+                <div onClick={() => setShowInnerComponent(false)}
+                    className={'absolute top-4 left-2 cursor-pointer'}>
+                    <Icons name={'right-arrow-key'} />
+                </div>
+            </div>
+            <div className={"mt-8"}>
+                <ul className={"mt-4 "}>
+                    <li className={'flex justify-between items-center p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                        <p >Photo</p>
+                        <div className={'rounded-full w-12 h-12'}>
+                            <img src={userProfile?.imageUrl || '/images/avatar.svg'} alt={userProfile?.firstName + '' + userProfile?.lastName} width={48}
+                                height={48} />
                         </div>
-                        <div className={'w-full h-3 bg-secondary-02'} />
-                       
-                        <ul>
-                            
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/profile'} onClick={handleChatClick}>
-                                    <Icons name={'profile-account'} />
-                                    <p className={'ml-3'}>Profle</p>
-                                </a>
+                    </li>
+                    {
+                        personalData.map(({ title, desc }, index) =>
+                        (<li key={`personal-data-${index}`}
+                            className={"flex justify-between p-4 border-b-2 border-secondary-02"}>
+                            <p className={" mb-2"}>{title}</p>
+                            <p className={"text-secondary"}>{desc}</p>
+                        </li>))
+                    }
+                </ul>
+            </div>
+            <div className={'w-full h-3 bg-secondary-02'} />
+            <div className={"p-4"}>
+                <h3 className={"font-semibold text-xl text-center pb-2"}>Information</h3>
+                <ul>
+                    {
+                        additionalData.map(({ title, desc }, index) =>
+                        (<li key={`add-data-${index}`}
+                            className={`${additionalData.length - 1 !== index ? "border-secondary-02 border-b-2" : ""} 
+                                 flex justify-between p-4`}>
+                            <p className={""}>{title}</p>
+                            <p className={"text-secondary flex"}>{desc}
                                 <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/security'}>
-                                    <Icons name={'profile-security'} />
-                                    <p className={'ml-3'}>Security</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={''}>
-                                    <Icons name={'profile-support'} />
-                                    <p className={'ml-3'}>Support</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                                <a className={'flex flex-1'} href={'/chat'}>
-                                    <Icons name={'profile-faq'} />
-                                    <p className={'ml-3'}>Chat</p>
-                                </a>
-                                <Icons name={'direction-left-gray'} />
-                            </li>
-                            <li className={'flex p-4 cursor-pointer'} onClick={logoutFuc}>
-                                <Icons name={'profile-logout'} />
-                                <p className={'ml-3'}>Logout</p>
-                            </li>
-                        </ul>
-                    </>
-                    :
-                    userProfile &&
-                    <MobileInnerProfile userProfile={userProfile} setShowInnerProfile={setShowInnerProfile} />
-            }
-
-
+                            </p>
+                        </li>))
+                    }
+                </ul>
+            </div>
         </>
-    );
+    )
 }

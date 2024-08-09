@@ -1,13 +1,22 @@
 export interface UserProfileResponseInterface {
-    id: number,
+    role: UserRole,
+    lastLogin: Date,
+    token: string,
     email: string,
-    mobile_number: string,
-    full_name: string,
-    birth_date: string,
+    userId: number,
+    refreshToken: string,
+    firstName : string,
+    lastName: string,
+    mobileNumber: string,
+    birthDate: string,
     imageUrl: string,
-    postal_code: string,
+    postalCode: string,
     address: string,
-    last_name: string,
-    first_name: string,
-    role: string
 }
+export enum UserRole {
+    User = 'user',
+    Management = 'management',
+    Admin = 'admin',
+    Developer = 'developer',
+    Guest = ''
+  }

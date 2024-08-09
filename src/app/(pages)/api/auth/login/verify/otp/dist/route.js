@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.GET = exports.POST = void 0;
-var user_class_1 = require("@/app/components/Login/user.class");
+var interface_1 = require("@/store/userProfile/interface");
 var server_1 = require("next/server");
 function POST(req) {
     return __awaiter(this, void 0, void 0, function () {
@@ -48,11 +48,18 @@ function POST(req) {
                 case 1:
                     _a = _b.sent(), code = _a.code, email = _a.email, trackingId = _a.trackingId;
                     data = {
-                        role: user_class_1.UserRole.Admin,
+                        userId: 2,
+                        email: 'Saghar@gmail.com',
+                        mobileNumber: '00447471358135',
+                        birthDate: '1989-02-01',
+                        imageUrl: '',
+                        postalCode: 'LS17 222',
+                        address: 'Leeds',
+                        lastName: 'Fadaei',
+                        firstName: 'Saghar',
+                        role: interface_1.UserRole.User,
                         lastLogin: new Date(),
                         token: 'mockAuthToken',
-                        email: 'user@example.com',
-                        userId: 1,
                         refreshToken: 'mockRefreshAuthToken'
                     };
                     if (code === '123456') {

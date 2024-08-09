@@ -49,7 +49,6 @@ var base_64_1 = require("base-64");
 var react_cookie_1 = require("react-cookie");
 var navigation_1 = require("next/navigation");
 var slice_1 = require("@/store/auth/login/form/slice");
-var user_class_1 = require("./user.class");
 function LoginComponent() {
     var _a = react_1.useState(0), step = _a[0], setStep = _a[1];
     var _b = react_1.useState(''), email = _b[0], setEmail = _b[1];
@@ -61,6 +60,7 @@ function LoginComponent() {
     var dispatch = react_redux_1.useDispatch();
     var executeRecaptcha = next_recaptcha_v3_1.useReCaptcha().executeRecaptcha;
     var router = navigation_1.useRouter();
+    var _f = react_1.useState(), userProfile = _f[0], setUserProfile = _f[1];
     react_1.useEffect(function () {
         if (loginStates.isDone) {
             setLoginResponse(loginStates.response.data);
@@ -69,9 +69,8 @@ function LoginComponent() {
     }, [loginStates.isDone]);
     react_1.useEffect(function () {
         if (loginOtpStates.isDone) {
-            var user = user_class_1.User.getInstance();
             debugger;
-            user.updateUser(loginOtpStates.response.data);
+            setUserProfile(loginOtpStates.response.data);
             setCookie("auth-token", loginOtpStates.response.data.token);
             setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
             router.push('/');
