@@ -37,7 +37,7 @@ const Menu = ({ currentPath, setShowInnerComponent }:
     }
 
     function logoutFuc() {
-        setShowInnerComponent(true);
+        
         logout();
         Router.push('/')
     }

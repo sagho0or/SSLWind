@@ -72,15 +72,15 @@ function Sidebar(props) {
     var handleModalOverlayClick = function (val) {
         props.setIsSidebarOpen(val);
     };
-    return (react_1["default"].createElement("div", { className: isMobileView_1["default"] ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative' },
+    return (react_1["default"].createElement("div", { className: isMobileView_1["default"] ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative flex flex-col' },
         props.isSidebarOpen ?
-            react_1["default"].createElement("div", { className: 'fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar' },
-                react_1["default"].createElement("div", { className: "min-h-[660px] h-full " + (isMobileView_1["default"] ?
+            react_1["default"].createElement("div", { className: 'flex flex-col flex-1 fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar' },
+                react_1["default"].createElement("div", { className: "h-full " + (isMobileView_1["default"] ?
                         'relative'
                         : 'bg-secondary-01 rounded-xl') },
                     react_1["default"].createElement("div", { className: "w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500", onClick: function () { return handleModalOverlayClick(false); } },
                         react_1["default"].createElement(Icons_1["default"], { name: 'close' })),
-                    react_1["default"].createElement("aside", { id: "separator-sidebar", className: "h-full min-h-[660px] z-40 transition-transform sm:translate-x-0 \n                           " + (isMobileView_1["default"] ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '), "aria-label": "Sidebar" },
+                    react_1["default"].createElement("aside", { id: "separator-sidebar", className: "h-full z-40 transition-transform sm:translate-x-0 \n                           " + (isMobileView_1["default"] ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '), "aria-label": "Sidebar" },
                         react_1["default"].createElement("div", { className: "py-4 overflow-y-auto text-secondary-17 divide-y-2" },
                             react_1["default"].createElement("ul", { className: "h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" + ' ' +
                                     isMobileView_1["default"] ? '' : 'scrollbar-hide"' },
@@ -93,14 +93,14 @@ function Sidebar(props) {
                                             react_1["default"].createElement(Icons_1["default"], { name: item.hoverIconName })),
                                         react_1["default"].createElement("span", { className: "ms-3 group-hover:font-semibold" }, item.label)))); }),
                                 isLogin &&
-                                    react_1["default"].createElement("li", { className: "fixed bottom-0 w-full pb-8 cursor-pointer " + itemsStyle, onClick: function () { return logoutFunc(); } },
+                                    react_1["default"].createElement("li", { className: "mt-auto bottom-0 w-full pb-8 cursor-pointer " + itemsStyle, onClick: function () { return logoutFunc(); } },
                                         react_1["default"].createElement(Icons_1["default"], { name: 'logout' }),
                                         react_1["default"].createElement("span", { className: "ms-3" }, "Logout")))))))
             :
                 react_1["default"].createElement("div", { onClick: function () { return handleModalOverlayClick(true); }, className: "absolute w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" },
                     react_1["default"].createElement(Icons_1["default"], { name: 'menu' })),
         react_1["default"].createElement("div", { className: !isMobileView_1["default"] ?
-                props.isSidebarOpen ? "sm:w-screen-390 float-right w-full" : 'w-full float-right'
+                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full" : 'w-full self-end'
                 : 'w-full' }, props.children)));
 }
 exports["default"] = Sidebar;

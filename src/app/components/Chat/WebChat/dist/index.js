@@ -36,7 +36,7 @@ function WebChatComponent() {
         (_a = messagesEndRef.current) === null || _a === void 0 ? void 0 : _a.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
     return (react_1["default"].createElement(Sidebar_1["default"], { isSidebarOpen: isSidebarOpen, setIsSidebarOpen: setIsSidebarOpen },
-        react_1["default"].createElement("div", { className: "flex flex-col min-h-[660px]" },
+        react_1["default"].createElement("div", { className: "flex flex-col w-full" },
             react_1["default"].createElement("div", { className: "flex-grow p-4 overflow-y-auto" },
                 messages.map(function (message, index) { return (react_1["default"].createElement("div", { key: index, className: "my-2 " + (message.role === "user" ? "text-right" : "text-left") }, message.role === "user" ? (react_1["default"].createElement("span", { className: "inline-block p-2 rounded bg-blue-500 text-white" }, message.content)) : (react_1["default"].createElement("div", { className: "inline-block p-2 rounded bg-gray-300" },
                     react_1["default"].createElement(react_markdown_1["default"], null, message.content))))); }),

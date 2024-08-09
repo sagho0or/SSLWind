@@ -32,7 +32,6 @@ var Menu = function (_a) {
         Router.push(path);
     }
     function logoutFuc() {
-        setShowInnerComponent(true);
         logout_1["default"]();
         Router.push('/');
     }

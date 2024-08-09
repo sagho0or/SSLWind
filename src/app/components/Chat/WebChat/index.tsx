@@ -34,7 +34,7 @@ export default function WebChatComponent() {
 
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}>
-            <div className="flex flex-col min-h-[660px]">
+            <div className="flex flex-col w-full">
                 <div className="flex-grow p-4 overflow-y-auto">
                     {messages.map((message, index) => (
                         <div key={index} className={`my-2 ${message.role === "user" ? "text-right" : "text-left"}`}>

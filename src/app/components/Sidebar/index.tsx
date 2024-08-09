@@ -82,13 +82,13 @@ export default function Sidebar(props: SidebarInterface) {
     };
 
     return (
-        <div className={isMobileView ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative'}>
+        <div className={isMobileView ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
 
             {
                 props.isSidebarOpen ?
-                    <div className={'fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
+                    <div className={'flex flex-col flex-1 fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
                     }>
-                        <div className={`min-h-[660px] h-full ${isMobileView ?
+                        <div className={`h-full ${isMobileView ?
                             'relative'
                             : 'bg-secondary-01 rounded-xl'}`}
                         >
@@ -98,7 +98,7 @@ export default function Sidebar(props: SidebarInterface) {
                             </div>
 
                             <aside id="separator-sidebar"
-                                className={`h-full min-h-[660px] z-40 transition-transform sm:translate-x-0 
+                                className={`h-full z-40 transition-transform sm:translate-x-0 
                            ${isMobileView ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '}`}
                                 aria-label="Sidebar">
                                 <div className="py-4 overflow-y-auto text-secondary-17 divide-y-2">
@@ -124,7 +124,7 @@ export default function Sidebar(props: SidebarInterface) {
                                         }
 
                                         {isLogin &&
-                                            <li className={`fixed bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
+                                            <li className={`mt-auto bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
                                                 onClick={() => logoutFunc()}>
                                                 <Icons name={'logout'} />
                                                 <span className="ms-3">Logout</span>
@@ -143,7 +143,7 @@ export default function Sidebar(props: SidebarInterface) {
                     </div>
             }
             <div className={!isMobileView ?
-                props.isSidebarOpen ? "sm:w-screen-390 float-right w-full" : 'w-full float-right'
+                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full" : 'w-full self-end'
                 : 'w-full'}>
                 {props.children}
             </div>
