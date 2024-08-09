@@ -37,7 +37,7 @@ export default function MobileChatComponent({ setShowInnerComponent }:
             <div className={"fixed pt-3 pb-3 w-full bg-white"}>
                 <h3 className={"font-semibold text-xl text-center"}>Chat</h3>
 
-                <div onClick={() => {console.log('Clicked, setShowInnerComponent:', setShowInnerComponent);setShowInnerComponent(false)}}
+                <div onClick={() => { console.log('Clicked, setShowInnerComponent:', setShowInnerComponent); setShowInnerComponent(false) }}
                     className={'absolute top-4 left-2 cursor-pointer'}>
                     <Icons name={'right-arrow-key'} />
                 </div>
@@ -52,16 +52,17 @@ export default function MobileChatComponent({ setShowInnerComponent }:
                                         {message.content}
                                     </span>
                                 ) : (
+
                                     message.isSafe ?
-                                    <div className="inline-block p-2 rounded bg-gray-300">
-                                        <ReactMarkdown>{message.content}</ReactMarkdown>
-                                    </div>
-                                    :
-                                    <div className="inline-block p-2 rounded bg-red-300">
-                                        <p>
-                                            !! The system has detected an unsafe response and therefore cannot be shown. A manager has been alerted. You can continue to engage with the agent, try re-phrasing your query.
-                                        </p>
-                                    </div>
+                                        <div className="inline-block p-2 rounded bg-gray-300">
+                                            <ReactMarkdown>{message.content}</ReactMarkdown>
+                                        </div>
+                                        :
+                                        <div className="inline-block p-2 rounded bg-red-300">
+                                            <p>
+                                                !! The system has detected an unsafe response and therefore cannot be shown. A manager has been alerted. You can continue to engage with the agent, try re-phrasing your query.
+                                            </p>
+                                        </div>
                                 )}
                             </div>
                         ))}
