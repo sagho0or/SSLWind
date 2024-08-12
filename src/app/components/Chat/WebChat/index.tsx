@@ -1,78 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
 import Sidebar from "@/app/components/Sidebar";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchChatResponse } from "@/store/chat/new/slice";
-import { ChatResponseInterface } from "@/store/chat/new/chat.interface";
 import ReactMarkdown from "react-markdown";
-import { fetchChatHistory } from "@/store/chat/history/slice";
+import { useChat } from "../useChat";
 
 export default function WebChatComponent({ initialChatId }: any) {
+    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef } = useChat(initialChatId);
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
-    const [userInput, setUserInput] = useState<string>("");
-    const [messages, setMessages] = useState<{ sender: string, content: string, isSafe?: boolean }[]>([]);
-    const dispatch = useDispatch();
-    const chatState = useSelector((state: any) => state.chat);
-    const chathistoryState = useSelector((state: any) => state.chathistory);
-    const [chatId, setChatId] = useState<string | null>(initialChatId);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const [isHistoryLoaded, setIsHistoryLoaded] = useState<boolean>(false);
-    const isHistoryMode = !!chatId;
-
-
-    useEffect(() => {
-        debugger;
-        if (isHistoryMode && chatId && !isHistoryLoaded) {
-            // Fetch chat history if chatId is provided
-            dispatch(fetchChatHistory({ chatId }));
-            setIsHistoryLoaded(true);
-        }
-    }, [isHistoryMode, chatId, isHistoryLoaded, dispatch]);
- 
-    useEffect(() => {
-        if (chatState.isDone && chatState.response) {
-            if (!isHistoryMode && chatState.response.chatId) {
-                debugger;
-                setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.data, isSafe: chatState.response.response.isSafe }]);
-                if (chatState.response.chatId) {
-                    setChatId(chatState.response.chatId);
-                    setIsHistoryLoaded(true);
-                    window.history.pushState({}, '', `/chat/history/${chatState.response.chatId}`);
-                }
-            } 
-        }
-    }, [chatState.isDone, chatState.response ,isHistoryMode]);
-
-    useEffect(() => {
-        if (chathistoryState.isDone && chathistoryState.response) {
-            if (isHistoryMode) {
-                debugger;
-                setMessages(chathistoryState.response.list);
-            }
-        }
-    }, [chathistoryState.isDone, chathistoryState.response, isHistoryMode]);
-
-    const handleSendMessage = () => {
-        if (userInput.trim()) {
-            setMessages((prevMessages) => [...prevMessages, { sender: "user", content: userInput }]);
-            if (isHistoryMode) {
-                dispatch(fetchChatResponse({ userInput, chatId }));
-            } else {
-                dispatch(fetchChatResponse({ userInput }));
-            }
-            setUserInput("");
-        }
-    };
-
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
-
+    
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}>
             <div className="flex flex-col w-full">
                 <div className="flex-grow p-4 overflow-y-auto">
                     {messages.map((message, index) => (
-                        
                         <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
                             {message.sender === "user" ? (
                                 <span className="inline-block p-2 rounded bg-blue-500 text-white">

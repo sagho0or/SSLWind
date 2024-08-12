@@ -143,7 +143,7 @@ export default function Sidebar(props: SidebarInterface) {
                     </div>
             }
             <div className={!isMobileView ?
-                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full" : 'w-full self-end'
+                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full" : 'w-full self-end flex flex-1'
                 : 'w-full'}>
                 {props.children}
             </div>

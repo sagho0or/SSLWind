@@ -16,7 +16,7 @@ export default function ChatHistory() {
   return (
     <>
       {isMobileView ? (
-        <MobileChatComponent setShowInnerComponent={setShowInnerComponent} />
+        <MobileChatComponent  initialChatId={id as string} setShowInnerComponent={setShowInnerComponent} />
       ) : (
         <WebChatComponent initialChatId={id as string} />
       )}

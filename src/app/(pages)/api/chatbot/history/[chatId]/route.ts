@@ -46,12 +46,12 @@ const mockChatHistory: ChatHistoryResponseInterface = {
 
 }
 
-export async function GET(request:any,
+export async function GET(request: any,
     { params }: { params: { chatId: string } }) {
 
-        const chatId = params.chatId;
-    console.log('Extracted chatId:', chatId); 
-    
+    const chatId = params.chatId;
+    console.log('Extracted chatId:', chatId);
+
     return NextResponse.json(mockChatHistory, { status: 200 });
 
 
@@ -62,30 +62,36 @@ export async function GET(request:any,
     // }
 }
 
-export async function POST(req: NextRequest) {
-    const { userInput, chatId } = await req.json();
+export async function POST(req: NextRequest, {params }: { params: { chatId: string } }) {
+    const { userInput } = await req.json();
+    const chatId = params.chatId;
 
-    if (chatId === mockChatHistory.id) {
-        const newMessage = {
-            message: 'User message',
-            content: userInput,
-            isSafe: true,
-            sender: Sender.User
-        };
+    // if (chatId === mockChatHistory.id) {
+    const newMessage = {
+        message: 'User message',
+        content: userInput,
+        isSafe: true,
+        sender: Sender.User
+    };
 
-        mockChatHistory.list.push(newMessage);
+    mockChatHistory.list.push(newMessage);
 
-        const botReply = {
-            message: 'Bot reply to user',
-            content: `MOCK RESPONSE: ${userInput}`,
-            isSafe: true,
-            sender: Sender.Bot
-        };
+    const botReply = {
+        message: 'Bot reply to user',
+        content: `MOCK RESPONSE: ${userInput}`,
+        isSafe: true,
+        sender: Sender.Bot
+    };
 
-        mockChatHistory.list.push(botReply);
+    mockChatHistory.list.push(botReply);
 
-        return NextResponse.json(mockChatHistory, { status: 200 });
-    } else {
-        return NextResponse.json({ message: 'Chat not found' }, { status: 404 });
+    const data = {
+        chatId: chatId,
+        response: botReply
     }
+    console.log('dsssssssssssss', data)
+    return NextResponse.json(data, { status: 200 });
+    // } else {
+    //     return NextResponse.json({ message: 'Chat not found' }, { status: 404 });
+    // }
 }

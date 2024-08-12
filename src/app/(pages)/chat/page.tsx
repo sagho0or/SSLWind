@@ -11,7 +11,7 @@ export default function Chat() {
   return (
     <>
       {isMobileView ? (
-        <MobileChatComponent setShowInnerComponent={setShowInnerComponent} />
+        <MobileChatComponent initialChatId='' setShowInnerComponent={setShowInnerComponent} />
       ) : (
         <WebChatComponent initialChatId=''/>
       )}

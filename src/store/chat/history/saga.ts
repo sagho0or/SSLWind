@@ -11,9 +11,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
 
   const cookies = new Cookies();
   const { chatId } = action.payload;
-  console.log('dataFormdataFormdat', action);
   
-  debugger;
   try {
     const response: any = yield call(
         axiosInterceptorInstance.get,
@@ -23,7 +21,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
         headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
       },
     );
-    debugger;
+
     yield put(fetchChatHistorySuccess(response?.data));
   } catch (error: any) {
     yield errorHandling(error, fetchChatHistoryFailure);

@@ -11,8 +11,6 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
 
   const cookies = new Cookies();
   const { userInput, chatId } = action.payload;
-  console.log('dataFormdataFormdat', action);
-
   const url = chatId
   ? `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}`
   : `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/new/`;
@@ -27,7 +25,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
         headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
       },
     );
-    debugger;
+    
     yield put(fetchChatResponseSuccess(response?.data));
   } catch (error: any) {
     yield errorHandling(error, fetchChatResponseFailure);

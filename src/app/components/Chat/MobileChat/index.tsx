@@ -1,44 +1,19 @@
-'use client';
+import React from "react";
 import Icons from "../../../../../public/Icons";
-import React, { useEffect, useRef, useState } from "react";
-import IButton from "@/app/components/Common/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchChatResponse } from "@/store/chat/new/slice";
 import ReactMarkdown from "react-markdown";
-import { Sender } from "@/store/chat/new/chat.interface";
+import { useChat } from "../useChat";
 
-export default function MobileChatComponent({ setShowInnerComponent }:
-    { setShowInnerComponent: (a: boolean) => void }) {
-    const [userInput, setUserInput] = useState<string>("");
-    const [messages, setMessages] = useState<{ role: string, content: string, isSafe?: boolean }[]>([]);
-    const dispatch = useDispatch();
-    const chatState = useSelector((state: any) => state.chat);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+export default function MobileChatComponent({ initialChatId, setShowInnerComponent }:
+    { initialChatId: string | null, setShowInnerComponent: (a: boolean) => void }) {
 
-    useEffect(() => {
-        if (chatState.isDone && chatState.response) {
-            setMessages((prevMessages) => [...prevMessages, { role: Sender.Bot, content: chatState.response.data, isSafe: chatState.response.isSafe }]);
-        }
-    }, [chatState.isDone, chatState.response]);
-
-    const handleSendMessage = () => {
-        if (userInput.trim()) {
-            setMessages((prevMessages) => [...prevMessages, { role: Sender.User , content: userInput }]);
-            dispatch(fetchChatResponse({ userInput }));
-            setUserInput("");
-        }
-    };
-
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef } = useChat(initialChatId);
 
     return (
         <>
             <div className={"fixed pt-3 pb-3 w-full bg-white"}>
                 <h3 className={"font-semibold text-xl text-center"}>Chat</h3>
 
-                <div onClick={() => { console.log('Clicked, setShowInnerComponent:', setShowInnerComponent); setShowInnerComponent(false) }}
+                <div onClick={() => { setShowInnerComponent(false) }}
                     className={'absolute top-4 left-2 cursor-pointer'}>
                     <Icons name={'right-arrow-key'} />
                 </div>
@@ -47,13 +22,12 @@ export default function MobileChatComponent({ setShowInnerComponent }:
                 <div className="flex flex-col flex-1 ">
                     <div className="flex-grow p-4 overflow-y-auto">
                         {messages.map((message, index) => (
-                            <div key={index} className={`my-2 ${message.role === "user" ? "text-right" : "text-left"}`}>
-                                {message.role === "user" ? (
+                            <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
+                                {message.sender === "user" ? (
                                     <span className="inline-block p-2 rounded bg-blue-500 text-white">
                                         {message.content}
                                     </span>
                                 ) : (
-
                                     message.isSafe ?
                                         <div className="inline-block p-2 rounded bg-gray-300">
                                             <ReactMarkdown>{message.content}</ReactMarkdown>
@@ -87,5 +61,5 @@ export default function MobileChatComponent({ setShowInnerComponent }:
                 </div>
             </div>
         </>
-    )
+    );
 }
