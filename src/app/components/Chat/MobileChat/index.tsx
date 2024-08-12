@@ -5,6 +5,7 @@ import IButton from "@/app/components/Common/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChatResponse } from "@/store/chat/new/slice";
 import ReactMarkdown from "react-markdown";
+import { Sender } from "@/store/chat/new/chat.interface";
 
 export default function MobileChatComponent({ setShowInnerComponent }:
     { setShowInnerComponent: (a: boolean) => void }) {
@@ -16,13 +17,13 @@ export default function MobileChatComponent({ setShowInnerComponent }:
 
     useEffect(() => {
         if (chatState.isDone && chatState.response) {
-            setMessages((prevMessages) => [...prevMessages, { role: "bot", content: chatState.response.data, isSafe: chatState.response.isSafe }]);
+            setMessages((prevMessages) => [...prevMessages, { role: Sender.Bot, content: chatState.response.data, isSafe: chatState.response.isSafe }]);
         }
     }, [chatState.isDone, chatState.response]);
 
     const handleSendMessage = () => {
         if (userInput.trim()) {
-            setMessages((prevMessages) => [...prevMessages, { role: "user", content: userInput }]);
+            setMessages((prevMessages) => [...prevMessages, { role: Sender.User , content: userInput }]);
             dispatch(fetchChatResponse({ userInput }));
             setUserInput("");
         }

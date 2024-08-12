@@ -1,5 +1,5 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import { fetchChatResponse, fetchChatResponseSuccess, fetchChatResponseFailure } from './slice';
+import { fetchChatHistory, fetchChatHistorySuccess, fetchChatHistoryFailure } from './slice';
 
 import { SagaInputActionInterface } from '@/store/_interfaces/sagaInputAction.interface';
 import errorHandling from '@/store/_utils/errorHandling';
@@ -10,30 +10,26 @@ import {Cookies} from 'react-cookie';
 function* ApiCall(action: SagaInputActionInterface): Generator<any> {
 
   const cookies = new Cookies();
-  const { userInput, chatId } = action.payload;
+  const { chatId } = action.payload;
   console.log('dataFormdataFormdat', action);
-
-  const url = chatId
-  ? `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}`
-  : `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/new/`;
-
+  
+  debugger;
   try {
     const response: any = yield call(
-        axiosInterceptorInstance.post,
-        url,
-      { userInput },
+        axiosInterceptorInstance.get,
+      `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}`,
       {
         timeout: Number(process.env.API_TIME_OUT),
         headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
       },
     );
     debugger;
-    yield put(fetchChatResponseSuccess(response?.data));
+    yield put(fetchChatHistorySuccess(response?.data));
   } catch (error: any) {
-    yield errorHandling(error, fetchChatResponseFailure);
+    yield errorHandling(error, fetchChatHistoryFailure);
   }
 }
 
 export default function* chatSaga() {
-  yield takeLatest(fetchChatResponse.type, ApiCall);
+  yield takeLatest(fetchChatHistory.type, ApiCall);
 }

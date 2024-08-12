@@ -1,36 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { ChatResponseInterface } from './chat.interface';
+import { ChatHistoryResponseInterface } from '../new/chat.interface';
 
-interface ChatState {
+interface ChathistoryState {
   isLoading: boolean;
   isDone: boolean;
   hasError: boolean;
-  response: string | null;
+  response: ChatHistoryResponseInterface  | null;
 }
 
-const initialState: ChatState = {
+const initialState: ChathistoryState = {
   isLoading: false,
   isDone: false,
   hasError: false,
   response: null,
 };
 
-const chatSlice = createSlice({
-  name: 'chat',
+const chathistorySlice = createSlice({
+  name: 'chathistory',
   initialState,
   reducers: {
-    fetchChatResponse(state, action: PayloadAction<{ userInput: string, chatId? : string }>) {
+    fetchChatHistory(state, action: PayloadAction<{ chatId: string }>) {
       state.isLoading = true;
       state.isDone = false;
       state.hasError = false;
     },
-    fetchChatResponseSuccess(state, action: PayloadAction<string>) {
+    fetchChatHistorySuccess(state, action: PayloadAction<ChatHistoryResponseInterface>) {
       state.isLoading = false;
       state.isDone = true;
       state.response = action.payload;
     },
-    fetchChatResponseFailure(state) {
+    fetchChatHistoryFailure(state) {
       state.isLoading = false;
       state.isDone = false;
       state.hasError = true;
@@ -40,11 +40,11 @@ const chatSlice = createSlice({
     builder.addCase(HYDRATE, (state, action: any) => {
       return {
         ...state,
-        ...action.payload.chat,
+        ...action.payload.chathistory,
       };
     });
   },
 });
 
-export const { fetchChatResponse, fetchChatResponseSuccess, fetchChatResponseFailure } = chatSlice.actions;
-export default chatSlice.reducer;
+export const { fetchChatHistory, fetchChatHistorySuccess, fetchChatHistoryFailure } = chathistorySlice.actions;
+export default chathistorySlice.reducer;

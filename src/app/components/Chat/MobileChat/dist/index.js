@@ -13,6 +13,7 @@ var react_1 = require("react");
 var react_redux_1 = require("react-redux");
 var slice_1 = require("@/store/chat/new/slice");
 var react_markdown_1 = require("react-markdown");
+var chat_interface_1 = require("@/store/chat/new/chat.interface");
 function MobileChatComponent(_a) {
     var setShowInnerComponent = _a.setShowInnerComponent;
     var _b = react_1.useState(""), userInput = _b[0], setUserInput = _b[1];
@@ -22,12 +23,12 @@ function MobileChatComponent(_a) {
     var messagesEndRef = react_1.useRef(null);
     react_1.useEffect(function () {
         if (chatState.isDone && chatState.response) {
-            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "bot", content: chatState.response.data, isSafe: chatState.response.isSafe }]); });
+            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: chat_interface_1.Sender.Bot, content: chatState.response.data, isSafe: chatState.response.isSafe }]); });
         }
     }, [chatState.isDone, chatState.response]);
     var handleSendMessage = function () {
         if (userInput.trim()) {
-            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: "user", content: userInput }]); });
+            setMessages(function (prevMessages) { return __spreadArrays(prevMessages, [{ role: chat_interface_1.Sender.User, content: userInput }]); });
             dispatch(slice_1.fetchChatResponse({ userInput: userInput }));
             setUserInput("");
         }

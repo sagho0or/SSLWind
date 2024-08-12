@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.GET = exports.POST = void 0;
+var chat_interface_1 = require("@/store/chat/new/chat.interface");
 var server_1 = require("next/server");
 function POST(req) {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,7 +50,8 @@ function POST(req) {
                     data = {
                         message: 'get user information successfully',
                         data: "MOCK DATA Response in Markdown-formated : Here are simple \"Hello World\" examples in both JavaScript and Python, followed by a list of cons for JavaScript.\n\n### Hello World in JavaScript\n\n```javascript\n// Hello World in JavaScript\nconsole.log('Hello, World!');\n```\n\n### Hello World in Python\n\n```python\n# Hello World in Python\nprint('Hello, World!')\n```\n\n### Cons of JavaScript\n\n- **Browser Dependency**: JavaScript code behaves differently in different browsers due to variations in browser implementations.\n- **Security Issues**: JavaScript code can be exploited for malicious purposes if not properly secured.\n- **Asynchronous Programming Complexity**: Managing asynchronous operations and callbacks can be complex and may lead to callback hell or convoluted code.\n- **Dynamic Typing**: The dynamic nature of JavaScript can lead to runtime errors that are difficult to debug.\n- **Global Variables**: By default, variables in JavaScript are global if not declared properly, which can lead to unintended interactions between different parts of a program.\n- **Performance**: JavaScript may not be as fast as compiled languages like C++ or Java, especially for CPU-intensive tasks.\n- **Memory Leaks**: Improper handling of memory allocation and garbage collection can lead to memory leaks.\n- **Lack of Standards**: Rapidly changing ecosystem and lack of standardized libraries can create inconsistencies and compatibility issues.\n- **Verbosity**: For certain tasks, JavaScript can be more verbose compared to other languages like Python.\n- **Tooling and Framework Overhead**: The abundance of frameworks and libraries can be overwhelming and may lead to excessive overhead if not managed properly.",
-                        isSafe: true
+                        isSafe: true,
+                        user: chat_interface_1.Sender.Bot
                     };
                     return [2 /*return*/, server_1.NextResponse.json(data, { status: 200 })];
             }

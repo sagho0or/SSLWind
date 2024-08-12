@@ -4,26 +4,61 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchChatResponse } from "@/store/chat/new/slice";
 import { ChatResponseInterface } from "@/store/chat/new/chat.interface";
 import ReactMarkdown from "react-markdown";
+import { fetchChatHistory } from "@/store/chat/history/slice";
 
-export default function WebChatComponent() {
+export default function WebChatComponent({ initialChatId }: any) {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
     const [userInput, setUserInput] = useState<string>("");
-    const [messages, setMessages] = useState<{ role: string, content: string, isSafe?: boolean }[]>([]);
+    const [messages, setMessages] = useState<{ sender: string, content: string, isSafe?: boolean }[]>([]);
     const dispatch = useDispatch();
     const chatState = useSelector((state: any) => state.chat);
+    const chathistoryState = useSelector((state: any) => state.chathistory);
+    const [chatId, setChatId] = useState<string | null>(initialChatId);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isHistoryLoaded, setIsHistoryLoaded] = useState<boolean>(false);
+    const isHistoryMode = !!chatId;
 
 
     useEffect(() => {
-        if (chatState.isDone && chatState.response) {
-            setMessages((prevMessages) => [...prevMessages, { role: "bot", content: chatState.response.data, isSafe: chatState.response.isSafe }]);
+        debugger;
+        if (isHistoryMode && chatId && !isHistoryLoaded) {
+            // Fetch chat history if chatId is provided
+            dispatch(fetchChatHistory({ chatId }));
+            setIsHistoryLoaded(true);
         }
-    }, [chatState.isDone, chatState.response]);
+    }, [isHistoryMode, chatId, isHistoryLoaded, dispatch]);
+ 
+    useEffect(() => {
+        if (chatState.isDone && chatState.response) {
+            if (!isHistoryMode && chatState.response.chatId) {
+                debugger;
+                setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.data, isSafe: chatState.response.response.isSafe }]);
+                if (chatState.response.chatId) {
+                    setChatId(chatState.response.chatId);
+                    setIsHistoryLoaded(true);
+                    window.history.pushState({}, '', `/chat/history/${chatState.response.chatId}`);
+                }
+            } 
+        }
+    }, [chatState.isDone, chatState.response ,isHistoryMode]);
+
+    useEffect(() => {
+        if (chathistoryState.isDone && chathistoryState.response) {
+            if (isHistoryMode) {
+                debugger;
+                setMessages(chathistoryState.response.list);
+            }
+        }
+    }, [chathistoryState.isDone, chathistoryState.response, isHistoryMode]);
 
     const handleSendMessage = () => {
         if (userInput.trim()) {
-            setMessages((prevMessages) => [...prevMessages, { role: "user", content: userInput }]);
-            dispatch(fetchChatResponse({ userInput }));
+            setMessages((prevMessages) => [...prevMessages, { sender: "user", content: userInput }]);
+            if (isHistoryMode) {
+                dispatch(fetchChatResponse({ userInput, chatId }));
+            } else {
+                dispatch(fetchChatResponse({ userInput }));
+            }
             setUserInput("");
         }
     };
@@ -37,8 +72,9 @@ export default function WebChatComponent() {
             <div className="flex flex-col w-full">
                 <div className="flex-grow p-4 overflow-y-auto">
                     {messages.map((message, index) => (
-                        <div key={index} className={`my-2 ${message.role === "user" ? "text-right" : "text-left"}`}>
-                            {message.role === "user" ? (
+                        
+                        <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
+                            {message.sender === "user" ? (
                                 <span className="inline-block p-2 rounded bg-blue-500 text-white">
                                     {message.content}
                                 </span>

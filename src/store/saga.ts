@@ -15,6 +15,7 @@ import getOrderHistorySaga from "@/store/history/saga";
 import refreshTokenSaga from "@/store/auth/refreshToken/saga";
 import loginSaga from './auth/login/form/saga';
 import chatSaga from './chat/new/saga';
+import chatHisotrySaga from './chat/history/saga';
 
 function* rootSaga() {
     yield all([
@@ -26,6 +27,7 @@ function* rootSaga() {
         loginOtpSaga(),
         
         chatSaga(),
+        chatHisotrySaga(),
         // resendOtpSmsSaga(),
 
         // registerMobileSaga(),
