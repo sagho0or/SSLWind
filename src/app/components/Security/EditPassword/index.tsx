@@ -46,7 +46,7 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
 
     return (
         <>
-            <div className={'bg-secondary-01 px-3 py-9' + ` ${isMobileView ? 'space-y-3' : 'rounded-xl'}`}>
+            <div className={'bg-secondary-01 px-3 pb-9' + ` ${isMobileView ? 'space-y-3' : 'rounded-xl'}`}>
                 <h4 className={'font-semibold'}>Password</h4>
                 <div className={'flex w-full flex-wrap items-end gap-5'}>
                     <p className={'font-medium text-sm text-secondary w-162'}>You can change your password by clicking the edit button.</p>

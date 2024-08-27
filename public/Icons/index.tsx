@@ -1082,6 +1082,20 @@ export default function Icons(props: IconsProps) {
                     <path d="M12 13.5L12 15.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
             )
+        case 'management':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7H16V6C16 4.89543 15.1046 4 14 4H10C8.89543 4 8 4.89543 8 6V7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7ZM10 6H14V7H10V6ZM20 19H4V9H20V19Z" fill="#02B5FF" />
+                    <path d="M9 12H7V14H9V12ZM17 12H15V14H17V12Z" fill="#191919" />
+                </svg>
+            )
+        case 'management-filled':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 7H16V6C16 4.89543 15.1046 4 14 4H10C8.89543 4 8 4.89543 8 6V7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7ZM10 6H14V7H10V6ZM20 19H4V9H20V19Z" fill="#FF8C00" />
+                    <path d="M9 12H7V14H9V12ZM17 12H15V14H17V12Z" fill="#FFFFFF" />
+                </svg>
+            )
         case 'card':
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

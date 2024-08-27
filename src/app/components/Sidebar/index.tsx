@@ -17,6 +17,7 @@ export default function Sidebar(props: SidebarInterface) {
     const pathname = usePathname();
     const isLogin = !!cookie['auth-token'];
     const Router = useRouter();
+    const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
     const itemsStyle: string = 'flex items-center px-6 py-4 ' +
         'hover:bg-primary-01 hover:text-primary hover:border-r hover:border-r-2 hover:border-primary group ' +
@@ -33,15 +34,50 @@ export default function Sidebar(props: SidebarInterface) {
         logout();
         Router.push('/')
     }
-
+    const chatHistory = [
+        {
+            "id": "chat1",
+            "date": "2024-08-12T12:00:00Z",
+            "title": "Chat on JavaScript Basics"
+        },
+        {
+            "id": "chat2",
+            "date": "2024-08-11T15:30:00Z",
+            "title": "Chat on React Best Practices"
+        },
+        {
+            "id": "chat2",
+            "date": "2024-09-11T15:30:00Z",
+            "title": "Cactices"
+        },
+        {
+            "id": "chat2",
+            "date": "2024-08-11T15:30:00Z",
+            "title": "Chat on React Best Practices"
+        },
+        {
+            "id": "chat2",
+            "date": "2024-10-11T15:30:00Z",
+            "title": "Chat  Best Practices"
+        },
+        {
+            "id": "chat2",
+            "date": "2024-11-11T15:30:00Z",
+            "title": "Chat on React Best Practices"
+        }
+    ]
     const items = [
         {
             label: 'History',
-            path: '/history',
+            path: null,
             iconName: 'history',
             hoverIconName: 'history-filled',
             hasDivider: true,
-            badge: null
+            badge: null,
+            subItems: chatHistory.map(chat => ({
+                label: `${chat.title} - ${new Date(chat.date).toLocaleDateString()}`,
+                path: `/chat/history/${chat.id}`
+            }))
         },
         {
             label: 'chatbot',
@@ -57,6 +93,14 @@ export default function Sidebar(props: SidebarInterface) {
             iconName: 'headphones',
             hoverIconName: 'headphones-filled',
             hasDivider: false,
+            badge: null
+        },
+        {
+            label: 'Management',
+            path: '/management',
+            iconName: 'management',
+            hoverIconName: 'management-filled',
+            hasDivider: true,
             badge: null
         },
         {
@@ -108,17 +152,58 @@ export default function Sidebar(props: SidebarInterface) {
                                             items.map(item => (
                                                 <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
                                                     key={item.label}>
-                                                    <a href={`${item.path}`}
-                                                        className={itemsStyle + ' ' +
-                                                            ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
-                                                        <div className={'group-hover:hidden'}>
-                                                            <Icons name={item.iconName} />
-                                                        </div>
-                                                        <div className={'hidden group-hover:block'}>
-                                                            <Icons name={item.hoverIconName} />
-                                                        </div>
-                                                        <span className="ms-3 group-hover:font-semibold">{item.label}</span>
-                                                    </a>
+                                                    {item.path ?
+                                                        <a href={`${item.path}`}
+                                                            className={itemsStyle + ' ' +
+                                                                ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
+                                                            <div className={'group-hover:hidden'}>
+                                                                <Icons name={item.iconName} />
+                                                            </div>
+                                                            <div className={'hidden group-hover:block'}>
+                                                                <Icons name={item.hoverIconName} />
+                                                            </div>
+                                                            <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+
+                                                            {item.label === 'History' && !isHistoryOpen && (
+                                                                <div onClick={() => { setIsHistoryOpen(true) }}
+                                                                    className={'absolute top-8 right-2 cursor-pointer'}>
+                                                                    <Icons name={'direction-down'} />
+                                                                </div>
+                                                            )}
+
+                                                        </a> :
+                                                        <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
+                                                            className={itemsStyle + ' ' +
+                                                                ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : 'cursor-pointer'}`}>
+                                                            <div className={'group-hover:hidden'}>
+                                                                <Icons name={item.iconName} />
+                                                            </div>
+                                                            <div className={'hidden group-hover:block'}>
+                                                                <Icons name={item.hoverIconName} />
+                                                            </div>
+                                                            <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+
+                                                            <div
+                                                                className={'absolute top-8 right-2 cursor-pointer'}>
+                                                                <Icons name={'direction-down'} />
+                                                            </div>
+
+
+                                                        </a>
+                                                    }
+
+                                                    {item.label === 'History' && isHistoryOpen && (
+                                                        <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto">
+                                                            {item.subItems && item.subItems.map(subItem => (
+                                                                <li key={subItem.label} >
+                                                                    <a href={subItem.path} className="block px-4 py-2 hover:bg-primary-02 hover:text-primary">
+                                                                        {subItem.label}
+                                                                    </a>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+
                                                 </li>
                                             ))
                                         }

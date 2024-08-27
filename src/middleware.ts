@@ -25,6 +25,7 @@ export const config = {
         "/history/:step",
         "/profile",
         "/security",
+        "/management",
         "/faq",
         "/chat",],
 };
