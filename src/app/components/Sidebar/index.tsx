@@ -126,11 +126,11 @@ export default function Sidebar(props: SidebarInterface) {
     };
 
     return (
-        <div className={isMobileView ? '' : 'bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
+        <div className={isMobileView ? '' : 'rounded-xl bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
 
             {
                 props.isSidebarOpen ?
-                    <div className={'flex flex-col flex-1 fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
+                    <div className={'rounded-xl flex flex-col flex-1 fixed z-40 w-80 bg-white overflow-y-scroll scrollable-content hide-scrollbar'
                     }>
                         <div className={`h-full ${isMobileView ?
                             'relative'
@@ -228,7 +228,7 @@ export default function Sidebar(props: SidebarInterface) {
                     </div>
             }
             <div className={!isMobileView ?
-                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full" : 'w-full self-end flex flex-1'
+                props.isSidebarOpen ? "sm:w-screen-390 flex flex-1 self-end w-full flex-col" : 'w-full pl-10 self-end flex flex-1 flex-col'
                 : 'w-full'}>
                 {props.children}
             </div>

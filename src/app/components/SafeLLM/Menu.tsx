@@ -28,7 +28,7 @@ const Menu = ({ currentPath, setShowInnerComponent }:
 
     }, []);
 
-    function handleChatClick(path: string) {
+    function handleClick(path: string) {
         if (currentPath as any == path)
             setShowInnerComponent(true);
         else
@@ -60,30 +60,37 @@ const Menu = ({ currentPath, setShowInnerComponent }:
             <div className={'w-full h-3 bg-secondary-02'} />
             <ul>
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleChatClick('/profile')}>
+                    <a className={'flex flex-1'} onClick={() => handleClick('/chat')}>
+                        <Icons name={'profile-faq'} />
+                        <p className={'ml-3'}>chat</p>
+                    </a>
+                    <Icons name={'direction-left-gray'} />
+                </li>
+                <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                    <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
+                        <Icons name={'management'} />
+                        <p className={'ml-3'}>management</p>
+                    </a>
+                    <Icons name={'direction-left-gray'} />
+                </li>
+                <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                    <a className={'flex flex-1'} onClick={() => handleClick('/profile')}>
                         <Icons name={'profile-account'} />
                         <p className={'ml-3'}>Profle</p>
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleChatClick('/security')}>
+                    <a className={'flex flex-1'} onClick={() => handleClick('/security')}>
                         <Icons name={'profile-security'} />
                         <p className={'ml-3'}>Security</p>
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleChatClick('/support')}>
+                    <a className={'flex flex-1'} onClick={() => handleClick('/support')}>
                         <Icons name={'profile-support'} />
                         <p className={'ml-3'}>Support</p>
-                    </a>
-                    <Icons name={'direction-left-gray'} />
-                </li>
-                <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleChatClick('/chat')}>
-                        <Icons name={'profile-faq'} />
-                        <p className={'ml-3'}>chat</p>
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>

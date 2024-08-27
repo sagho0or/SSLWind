@@ -1,4 +1,4 @@
-export interface OredrHistoryInterface {
+export interface OrderHistoryInterface {
     offset: number,
     limit: number,
     from_date?: string,

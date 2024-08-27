@@ -16,6 +16,9 @@ import refreshTokenSaga from "@/store/auth/refreshToken/saga";
 import loginSaga from './auth/login/form/saga';
 import chatSaga from './chat/new/saga';
 import chatHisotrySaga from './chat/history/saga';
+import userManagementSaga from './userManagement/new/saga';
+import updateUserSaga from './userManagement/update/saga';
+import UserListSaga from './userManagement/list/saga';
 
 function* rootSaga() {
     yield all([
@@ -28,6 +31,9 @@ function* rootSaga() {
         
         chatSaga(),
         chatHisotrySaga(),
+        userManagementSaga(),
+        updateUserSaga(),
+        UserListSaga(),
         // resendOtpSmsSaga(),
 
         // registerMobileSaga(),

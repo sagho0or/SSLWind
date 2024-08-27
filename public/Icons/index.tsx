@@ -1096,6 +1096,23 @@ export default function Icons(props: IconsProps) {
                     <path d="M9 12H7V14H9V12ZM17 12H15V14H17V12Z" fill="#FFFFFF" />
                 </svg>
             )
+        case 'active':
+            return (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#4CAF50" stroke-width="2" fill="#4CAF50" />
+                    <path d="M8 12.5L11 15.5L16 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            )
+        case 'inactive':
+            return (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#FF5722" stroke-width="2" fill="#FF5722" />
+                    <path d="M8 8L16 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M16 8L8 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            )
         case 'card':
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

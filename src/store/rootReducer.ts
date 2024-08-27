@@ -5,6 +5,9 @@ import registerMobileReducer from '@/store/auth/register/registerMobile/reducer'
 import LoginOtpReducer from '@/store/auth/login/otp/slice';
 import ChatReducer from '@/store/chat/new/slice';
 import chathistoryReducer from '@/store/chat/history/slice';
+import userManagementReducer from '@/store/userManagement/new/slice';
+import updateUserReducer from '@/store/userManagement/update/slice';
+import userListReducer from '@/store/userManagement/list/slice';
 import registerOtpReducer from './auth/register/registerOtp/reducer';
 import registerIdentityReducer from './auth/register/registerIdentity/reducer';
 import registerPasswordReducer from "@/store/auth/register/registerPassword/reducer";
@@ -27,7 +30,10 @@ const rootReducer = combineReducers({
     login: loginReducer,
     loginOtp: LoginOtpReducer,
     chat: ChatReducer,
-    chathistory: chathistoryReducer
+    chathistory: chathistoryReducer,
+    userManagement: userManagementReducer,
+    updateUser: updateUserReducer,
+    userList: userListReducer,
     // resendOtpSms:resendOtpSmsReducer,
 
     // registerMobile: registerMobileReducer,
