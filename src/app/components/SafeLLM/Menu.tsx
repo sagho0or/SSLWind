@@ -5,18 +5,22 @@ import Icons from '../../../../public/Icons';
 import getUserProfileService from '@/app/services/getUserProfile.service';
 import { UserProfileResponseInterface } from '@/store/userProfile/interface';
 import logout from '@/app/services/logout';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import { fetchChatHistoryListRequest } from '@/store/chat/history/list/slice';
 
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
-const Menu = ({ currentPath, setShowInnerComponent }:
-    { currentPath: string, setShowInnerComponent: any }) => {
+const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, setShowInnerComponent: any }) => {
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
     const userProfileState = useSelector((state: RootState) => state.userProfile.data);
     const Router = useRouter();
-    const [role, setRole]  = useState<string>('user');
-    
+    const [role, setRole] = useState<string>('user');
+    const dispatch = useDispatch();
+    const chatHistory = useSelector((state: any) => state.chatHistoryList.items);
+    const hasMore = useSelector((state: any) => state.chatHistoryList.hasMore);
+    const isLoading = useSelector((state: any) => state.chatHistoryList.isLoading);
+    const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
     useEffect(() => {
         if (!userProfileState) {
@@ -32,23 +36,31 @@ const Menu = ({ currentPath, setShowInnerComponent }:
 
         getUserProfileService(true).then((res: any) => {
             setRole(res.role);
-        })
-    }, []);
-    
+        });
+
+        // Fetch chat history
+        dispatch(fetchChatHistoryListRequest());
+    }, [dispatch]);
 
     function handleClick(path: string) {
-        if (currentPath as any == path)
+        if (currentPath as any === path)
             setShowInnerComponent(true);
         else
             setShowInnerComponent(true);
-            Router.push(path);
+        Router.push(path);
     }
 
     function logoutFuc() {
-        
         logout();
         Router.push('/')
     }
+
+    const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
+        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+        if (bottom && hasMore && !isLoading) {
+            dispatch(fetchChatHistoryListRequest());
+        }
+    };
 
     return (
         <>
@@ -74,17 +86,42 @@ const Menu = ({ currentPath, setShowInnerComponent }:
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
-                { allowedRolesManagement.includes(role) ?
+
+                {chatHistory.length > 0 &&
                     <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
-                        <Icons name={'management'} />
-                        <p className={'ml-3'}>management</p>
-                    </a>
-                    <Icons name={'direction-left-gray'} />
-                </li>
-                : ''
+                        <a onClick={() => setIsHistoryOpen(!isHistoryOpen)} className={'flex flex-1'}>
+                            <Icons name={'history'} />
+                            <p className={'ml-3'}>History</p>
+                        </a>
+                        <Icons name={isHistoryOpen ? 'direction-up-gray' : 'direction-down-gray'} />
+                    </li>
                 }
-                
+
+                {isHistoryOpen && (
+                    <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto" onScroll={handleScroll}>
+                        {chatHistory.map((chat: any) => (
+                            <li key={chat.id}>
+                                <a
+                                    href={`/chat/history/${chat.id}`}
+                                    className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${currentPath.includes(chat.id) ? 'bg-primary-01 text-primary' : ''}`}
+                                >
+                                    {chat.title} - {new Date(chat.date).toLocaleDateString()}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+                {allowedRolesManagement.includes(role) ?
+                    <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                        <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
+                            <Icons name={'management'} />
+                            <p className={'ml-3'}>management</p>
+                        </a>
+                        <Icons name={'direction-left-gray'} />
+                    </li>
+                    : ''
+                }
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                     <a className={'flex flex-1'} onClick={() => handleClick('/profile')}>
                         <Icons name={'profile-account'} />

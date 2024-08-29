@@ -44,7 +44,6 @@ export default function Sidebar(props: SidebarInterface) {
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
         })
-        debugger;
         dispatch(fetchChatHistoryListRequest());
 
     }, [dispatch]);
@@ -112,7 +111,7 @@ export default function Sidebar(props: SidebarInterface) {
     ]
 
     if (chatHistory.length > 0) {
-        (items as any).unshift({
+        (items as any).splice(1,0,{
             label: 'History',
             path: null,
             iconName: 'history',
@@ -173,7 +172,7 @@ export default function Sidebar(props: SidebarInterface) {
                                                             </a> :
                                                             <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
                                                                 className={itemsStyle + ' ' +
-                                                                    ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : 'cursor-pointer'}`}>
+                                                                    ` ${pathname === item.path ? 'relative bg-primary-01 text-primary border-r-2 border-primary ' : 'relative cursor-pointer'}`}>
                                                                 <div className={'group-hover:hidden'}>
                                                                     <Icons name={item.iconName} />
                                                                 </div>
@@ -183,7 +182,7 @@ export default function Sidebar(props: SidebarInterface) {
                                                                 <span className="ms-3 group-hover:font-semibold">{item.label}</span>
 
                                                                 <div
-                                                                    className={'absolute top-8 right-2 cursor-pointer'}>
+                                                                    className={'absolute top-4 right-2 cursor-pointer'}>
                                                                     <Icons name={'direction-down'} />
                                                                 </div>
 
