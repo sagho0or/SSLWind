@@ -10,7 +10,6 @@ axiosInterceptorInstance.interceptors.response.use(
     response => response,
     error => {
         
-        debugger;
         const status = error.response ? error.response.status : null;
         const cookies = new Cookies();
         const originalRequest = error.config;

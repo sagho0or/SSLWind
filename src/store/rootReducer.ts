@@ -8,6 +8,7 @@ import chathistoryReducer from '@/store/chat/history/slice';
 import userManagementReducer from '@/store/userManagement/new/slice';
 import updateUserReducer from '@/store/userManagement/update/slice';
 import userListReducer from '@/store/userManagement/list/slice';
+import chatHistoryListReducer from '@/store/chat/history/list/slice';
 import registerOtpReducer from './auth/register/registerOtp/reducer';
 import registerIdentityReducer from './auth/register/registerIdentity/reducer';
 import registerPasswordReducer from "@/store/auth/register/registerPassword/reducer";
@@ -19,7 +20,6 @@ import activeGAReducer
 import editPasswordReducer from "@/store/security/editPassword/reducer";
 import getAuthHistoryReducer from "@/store/security/authHistory/reducer";
 import change2FAReducer from "@/store/security/change2FA/reducer";
-import getOrderHistoryReducer from "@/store/history/reducer";
 import refreshTokenReducer from "@/store/auth/refreshToken/reducer";
 
 const rootReducer = combineReducers({
@@ -31,6 +31,7 @@ const rootReducer = combineReducers({
     loginOtp: LoginOtpReducer,
     chat: ChatReducer,
     chathistory: chathistoryReducer,
+    chatHistoryList: chatHistoryListReducer,
     userManagement: userManagementReducer,
     updateUser: updateUserReducer,
     userList: userListReducer,

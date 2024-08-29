@@ -8,6 +8,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { UserProfileResponseInterface } from "@/store/userProfile/interface";
 import getUserProfileService from "@/app/services/getUserProfile.service";
 import logout from "@/app/services/logout";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchChatHistoryListRequest } from "@/store/chat/history/list/slice";
+import { useParams } from "next/navigation";
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
 export default function Sidebar(props: SidebarInterface) {
@@ -20,6 +23,12 @@ export default function Sidebar(props: SidebarInterface) {
     const Router = useRouter();
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const [role, setRole] = useState<string>('user');
+    const dispatch = useDispatch();
+    const chatHistory = useSelector((state: any) => state.chatHistoryList.items);
+    const hasMore = useSelector((state: any) => state.chatHistoryList.hasMore);
+    const isLoading = useSelector((state: any) => state.chatHistoryList.isLoading);
+    const params = useParams();
+    const id = params.id;
 
     const itemsStyle: string = 'flex items-center px-6 py-4 ' +
         'hover:bg-primary-01 hover:text-primary hover:border-r hover:border-r-2 hover:border-primary group ' +
@@ -35,57 +44,31 @@ export default function Sidebar(props: SidebarInterface) {
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
         })
-    }, []);
+        debugger;
+        dispatch(fetchChatHistoryListRequest());
 
+    }, [dispatch]);
+
+    useEffect(() => {
+        if(chatHistory){
+            if(id) setIsHistoryOpen(true);
+        }
+
+    }, [chatHistory]);
+    
     function logoutFunc() {
         logout();
         Router.push('/')
     }
-    const chatHistory = [
-        {
-            "id": "chat1",
-            "date": "2024-08-12T12:00:00Z",
-            "title": "Chat on JavaScript Basics"
-        },
-        {
-            "id": "chat2",
-            "date": "2024-08-11T15:30:00Z",
-            "title": "Chat on React Best Practices"
-        },
-        {
-            "id": "chat2",
-            "date": "2024-09-11T15:30:00Z",
-            "title": "Cactices"
-        },
-        {
-            "id": "chat2",
-            "date": "2024-08-11T15:30:00Z",
-            "title": "Chat on React Best Practices"
-        },
-        {
-            "id": "chat2",
-            "date": "2024-10-11T15:30:00Z",
-            "title": "Chat  Best Practices"
-        },
-        {
-            "id": "chat2",
-            "date": "2024-11-11T15:30:00Z",
-            "title": "Chat on React Best Practices"
+
+    const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
+        const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
+        if (bottom && hasMore && !isLoading) {
+            dispatch(fetchChatHistoryListRequest());
         }
-    ]
+    };
+
     const items = [
-        {
-            label: 'History',
-            path: null,
-            iconName: 'history',
-            hoverIconName: 'history-filled',
-            hasDivider: true,
-            badge: null,
-            subItems: chatHistory.map(chat => ({
-                label: `${chat.title} - ${new Date(chat.date).toLocaleDateString()}`,
-                path: `/chat/history/${chat.id}`
-            }))
-        },
         {
             label: 'chatbot',
             path: '/chat',
@@ -128,9 +111,25 @@ export default function Sidebar(props: SidebarInterface) {
         }
     ]
 
+    if (chatHistory.length > 0) {
+        (items as any).unshift({
+            label: 'History',
+            path: null,
+            iconName: 'history',
+            hoverIconName: 'history-filled',
+            hasDivider: true,
+            badge: null,
+            subItems: chatHistory.map((chat: any) => ({
+                label: `${chat.title} - ${new Date(chat.date).toLocaleDateString()}`,
+                path: `/chat/history/${chat.id}`,
+                chatId: chat.id
+            }))
+        });
+    }
     const handleModalOverlayClick = (val: boolean) => {
         props.setIsSidebarOpen(val);
     };
+  
 
     return (
         <div className={isMobileView ? '' : 'rounded-xl bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
@@ -171,14 +170,6 @@ export default function Sidebar(props: SidebarInterface) {
                                                                     <Icons name={item.hoverIconName} />
                                                                 </div>
                                                                 <span className="ms-3 group-hover:font-semibold">{item.label}</span>
-
-                                                                {item.label === 'History' && !isHistoryOpen && (
-                                                                    <div onClick={() => { setIsHistoryOpen(true) }}
-                                                                        className={'absolute top-8 right-2 cursor-pointer'}>
-                                                                        <Icons name={'direction-down'} />
-                                                                    </div>
-                                                                )}
-
                                                             </a> :
                                                             <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
                                                                 className={itemsStyle + ' ' +
@@ -201,10 +192,11 @@ export default function Sidebar(props: SidebarInterface) {
                                                         }
 
                                                         {item.label === 'History' && isHistoryOpen && (
-                                                            <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto">
-                                                                {item.subItems && item.subItems.map(subItem => (
+                                                            <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto" onScroll={handleScroll}>
+                                                                {(item as any).subItems && (item as any).subItems.map((subItem: any) => (
                                                                     <li key={subItem.label} >
-                                                                        <a href={subItem.path} className="block px-4 py-2 hover:bg-primary-02 hover:text-primary">
+                                                                        <a href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
+                                                                            }`}>
                                                                             {subItem.label}
                                                                         </a>
                                                                     </li>

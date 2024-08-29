@@ -11,7 +11,6 @@ import verifyTowFactorAuthenticationSaga from "@/store/security/verify/saga";
 import editPasswordSaga from "@/store/security/editPassword/saga";
 import getAuthHistorySaga from "@/store/security/authHistory/saga";
 import change2FASaga from "@/store/security/change2FA/saga";
-import getOrderHistorySaga from "@/store/history/saga";
 import refreshTokenSaga from "@/store/auth/refreshToken/saga";
 import loginSaga from './auth/login/form/saga';
 import chatSaga from './chat/new/saga';
@@ -19,6 +18,7 @@ import chatHisotrySaga from './chat/history/saga';
 import userManagementSaga from './userManagement/new/saga';
 import updateUserSaga from './userManagement/update/saga';
 import UserListSaga from './userManagement/list/saga';
+import chatHistoryListSaga from './chat/history/list/saga';
 
 function* rootSaga() {
     yield all([
@@ -31,6 +31,7 @@ function* rootSaga() {
         
         chatSaga(),
         chatHisotrySaga(),
+        chatHistoryListSaga(),
         userManagementSaga(),
         updateUserSaga(),
         UserListSaga(),
