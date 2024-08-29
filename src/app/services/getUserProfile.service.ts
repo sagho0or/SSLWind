@@ -13,7 +13,6 @@ function getUserProfileService(reload:boolean){
 
         function getUserProfileFunc() {
             store.dispatch(getUserProfileLoading());
-      debugger;
             const unsubscribe = store.subscribe(() => {
               const value = store.getState().userProfile;
               if (value.isDone) {

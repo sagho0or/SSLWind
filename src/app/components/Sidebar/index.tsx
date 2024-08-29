@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { UserProfileResponseInterface } from "@/store/userProfile/interface";
 import getUserProfileService from "@/app/services/getUserProfile.service";
 import logout from "@/app/services/logout";
+const allowedRolesManagement = ['admin', 'developer', 'management'];
 
 export default function Sidebar(props: SidebarInterface) {
 
@@ -18,6 +19,7 @@ export default function Sidebar(props: SidebarInterface) {
     const isLogin = !!cookie['auth-token'];
     const Router = useRouter();
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+    const [role, setRole] = useState<string>('user');
 
     const itemsStyle: string = 'flex items-center px-6 py-4 ' +
         'hover:bg-primary-01 hover:text-primary hover:border-r hover:border-r-2 hover:border-primary group ' +
@@ -25,6 +27,11 @@ export default function Sidebar(props: SidebarInterface) {
     const borderBottomStyle: string = 'border-b-2 border-b-secondary-02';
 
     useEffect(() => {
+
+        getUserProfileService(true).then((res: any) => {
+            setRole(res.role);
+        })
+
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
         })
@@ -150,61 +157,63 @@ export default function Sidebar(props: SidebarInterface) {
                                         isMobileView ? '' : 'scrollbar-hide"'}>
                                         {
                                             items.map(item => (
-                                                <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
-                                                    key={item.label}>
-                                                    {item.path ?
-                                                        <a href={`${item.path}`}
-                                                            className={itemsStyle + ' ' +
-                                                                ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
-                                                            <div className={'group-hover:hidden'}>
-                                                                <Icons name={item.iconName} />
-                                                            </div>
-                                                            <div className={'hidden group-hover:block'}>
-                                                                <Icons name={item.hoverIconName} />
-                                                            </div>
-                                                            <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+                                                (item.label == 'Management' && !allowedRolesManagement.includes(role)) ? '' :
+                                                    <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
+                                                        key={item.label}>
+                                                        {item.path ?
+                                                            <a href={`${item.path}`}
+                                                                className={itemsStyle + ' ' +
+                                                                    ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
+                                                                <div className={'group-hover:hidden'}>
+                                                                    <Icons name={item.iconName} />
+                                                                </div>
+                                                                <div className={'hidden group-hover:block'}>
+                                                                    <Icons name={item.hoverIconName} />
+                                                                </div>
+                                                                <span className="ms-3 group-hover:font-semibold">{item.label}</span>
 
-                                                            {item.label === 'History' && !isHistoryOpen && (
-                                                                <div onClick={() => { setIsHistoryOpen(true) }}
+                                                                {item.label === 'History' && !isHistoryOpen && (
+                                                                    <div onClick={() => { setIsHistoryOpen(true) }}
+                                                                        className={'absolute top-8 right-2 cursor-pointer'}>
+                                                                        <Icons name={'direction-down'} />
+                                                                    </div>
+                                                                )}
+
+                                                            </a> :
+                                                            <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
+                                                                className={itemsStyle + ' ' +
+                                                                    ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : 'cursor-pointer'}`}>
+                                                                <div className={'group-hover:hidden'}>
+                                                                    <Icons name={item.iconName} />
+                                                                </div>
+                                                                <div className={'hidden group-hover:block'}>
+                                                                    <Icons name={item.hoverIconName} />
+                                                                </div>
+                                                                <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+
+                                                                <div
                                                                     className={'absolute top-8 right-2 cursor-pointer'}>
                                                                     <Icons name={'direction-down'} />
                                                                 </div>
-                                                            )}
-
-                                                        </a> :
-                                                        <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
-                                                            className={itemsStyle + ' ' +
-                                                                ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : 'cursor-pointer'}`}>
-                                                            <div className={'group-hover:hidden'}>
-                                                                <Icons name={item.iconName} />
-                                                            </div>
-                                                            <div className={'hidden group-hover:block'}>
-                                                                <Icons name={item.hoverIconName} />
-                                                            </div>
-                                                            <span className="ms-3 group-hover:font-semibold">{item.label}</span>
-
-                                                            <div
-                                                                className={'absolute top-8 right-2 cursor-pointer'}>
-                                                                <Icons name={'direction-down'} />
-                                                            </div>
 
 
-                                                        </a>
-                                                    }
+                                                            </a>
+                                                        }
 
-                                                    {item.label === 'History' && isHistoryOpen && (
-                                                        <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto">
-                                                            {item.subItems && item.subItems.map(subItem => (
-                                                                <li key={subItem.label} >
-                                                                    <a href={subItem.path} className="block px-4 py-2 hover:bg-primary-02 hover:text-primary">
-                                                                        {subItem.label}
-                                                                    </a>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    )}
+                                                        {item.label === 'History' && isHistoryOpen && (
+                                                            <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto">
+                                                                {item.subItems && item.subItems.map(subItem => (
+                                                                    <li key={subItem.label} >
+                                                                        <a href={subItem.path} className="block px-4 py-2 hover:bg-primary-02 hover:text-primary">
+                                                                            {subItem.label}
+                                                                        </a>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
 
-                                                </li>
+                                                    </li>
+
                                             ))
                                         }
 

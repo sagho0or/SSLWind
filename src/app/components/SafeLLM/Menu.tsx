@@ -8,11 +8,15 @@ import logout from '@/app/services/logout';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
+const allowedRolesManagement = ['admin', 'developer', 'management'];
+
 const Menu = ({ currentPath, setShowInnerComponent }:
     { currentPath: string, setShowInnerComponent: any }) => {
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
     const userProfileState = useSelector((state: RootState) => state.userProfile.data);
     const Router = useRouter();
+    const [role, setRole]  = useState<string>('user');
+    
 
     useEffect(() => {
         if (!userProfileState) {
@@ -26,7 +30,11 @@ const Menu = ({ currentPath, setShowInnerComponent }:
             setUserProfile(userProfileState);
         }
 
+        getUserProfileService(true).then((res: any) => {
+            setRole(res.role);
+        })
     }, []);
+    
 
     function handleClick(path: string) {
         if (currentPath as any == path)
@@ -66,13 +74,17 @@ const Menu = ({ currentPath, setShowInnerComponent }:
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
-                <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                { allowedRolesManagement.includes(role) ?
+                    <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                     <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
                         <Icons name={'management'} />
                         <p className={'ml-3'}>management</p>
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
+                : ''
+                }
+                
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                     <a className={'flex flex-1'} onClick={() => handleClick('/profile')}>
                         <Icons name={'profile-account'} />
