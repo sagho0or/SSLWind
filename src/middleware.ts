@@ -26,6 +26,7 @@ export const config = {
         "/profile",
         "/security",
         "/management",
+        "/alerts",
         "/faq",
         "/chat",],
 };

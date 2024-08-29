@@ -27,7 +27,7 @@ interface ChatHistoryItem {
 function* ApiCall(): Generator<any, void, AxiosResponse<ChatHistoryApiResponse>> {
     const cookies = new Cookies();
     const page = yield select((state: State) => state.chatHistoryList.page);
-debugger;    try {
+    try {
         const response = yield call(
             axiosInterceptorInstance.get,
             `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/list?page=${page}`,
@@ -37,7 +37,6 @@ debugger;    try {
             }
         );
 
-debugger;
         yield put(fetchChatHistoryListSuccess(response.data.items));
         yield put(incrementPage());
     } catch (error) {

@@ -93,11 +93,19 @@ export default function Sidebar(props: SidebarInterface) {
             badge: null
         },
         {
+            label: 'Alerts',
+            path: '/alerts',
+            iconName: 'alert',
+            hoverIconName: 'alert-filled',
+            hasDivider: true,
+            badge: null
+        },
+        {
             label: 'Secutiry',
             path: '/security',
             iconName: 'lock',
             hoverIconName: 'lock-filled',
-            hasDivider: true,
+            hasDivider: false,
             badge: null
         },
         {
@@ -155,7 +163,7 @@ export default function Sidebar(props: SidebarInterface) {
                                         isMobileView ? '' : 'scrollbar-hide"'}>
                                         {
                                             items.map(item => (
-                                                (item.label == 'Management' && !allowedRolesManagement.includes(role)) ? '' :
+                                                ((item.label == 'Management' || item.label == 'Alerts' ) && !allowedRolesManagement.includes(role)) ? '' :
                                                     <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
                                                         key={item.label}>
                                                         {item.path ?

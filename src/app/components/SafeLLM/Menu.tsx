@@ -116,7 +116,17 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
                     <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
                         <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
                             <Icons name={'management'} />
-                            <p className={'ml-3'}>management</p>
+                            <p className={'ml-3'}>Management</p>
+                        </a>
+                        <Icons name={'direction-left-gray'} />
+                    </li>
+                    : ''
+                }
+                {allowedRolesManagement.includes(role) ?
+                    <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                        <a className={'flex flex-1'} onClick={() => handleClick('/alerts')}>
+                            <Icons name={'alert'} />
+                            <p className={'ml-3'}>Alerts</p>
                         </a>
                         <Icons name={'direction-left-gray'} />
                     </li>
