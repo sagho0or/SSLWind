@@ -19,6 +19,7 @@ import userManagementSaga from './userManagement/new/saga';
 import updateUserSaga from './userManagement/update/saga';
 import UserListSaga from './userManagement/list/saga';
 import chatHistoryListSaga from './chat/history/list/saga';
+import alertListSaga from './alerts/saga';
 
 function* rootSaga() {
     yield all([
@@ -35,6 +36,7 @@ function* rootSaga() {
         userManagementSaga(),
         updateUserSaga(),
         UserListSaga(),
+        alertListSaga(),
         // resendOtpSmsSaga(),
 
         // registerMobileSaga(),

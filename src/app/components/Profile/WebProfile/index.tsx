@@ -19,6 +19,7 @@ export default function WebProfileComponent() {
     const additionalData = [
         {title: "Postal Code", desc: `${userProfile?.postalCode ? userProfile?.postalCode : "------------"}`},
         {title: "Address", desc: `${userProfile?.address ? userProfile?.address : "------------"}`},
+        {title: "Role", desc: userProfile?.role}
     ]
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export default function WebProfileComponent() {
                     </ul>
                 </div>
                 <div className={"mt-4 flex "}>
-                    <div className={'bg-secondary-01 rounded-xl px-8 pt-8 w-2/3'}>
+                    <div className={'bg-secondary-01 rounded-xl px-8 pt-8 w-full'}>
                         <h3 className={"font-semibold text-xl"}>More Information</h3>
                         <table className={"table-auto w-full"}>
                             <tbody>
@@ -66,16 +67,6 @@ export default function WebProfileComponent() {
                             }
                             </tbody>
                         </table>
-                    </div>
-                    <div className={"ml-4 w-1/3"}>
-                        <div className={"bg-secondary-01 rounded-xl  p-8"}>
-                            
-                                <h3 className={"font-semibold text-xl"}>Role</h3>
-                                <div
-                                    className={"inline-flex items-center justify-center px-2 py-1.5 ms-3 text-error bg-error-01 rounded-lg font-semibold text-sm"}>
-                                    {`Access Level`}
-                                </div>
-                        </div>
                     </div>
 
                 </div>
