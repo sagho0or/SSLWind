@@ -12,12 +12,12 @@ import {
 function* fetchAlertListSaga(action: any): Generator<any, void, any> {
   const cookies = new Cookies();
   const state = yield select((state) => state.alertList);
-  const { page, filterTitle, filterStartDate, filterEndtDate, filterScore } = state;
+  const { page, filterTitle, filterDate } = state;
 
   try {
     const response = yield call(
       axiosInterceptorInstance.get,
-      `${process.env.NEXT_PUBLIC_BASE_URL}alert/list?page=${page}&title=${filterTitle}&startDate=${filterStartDate}&endDate=${filterEndtDate}&score=${filterScore}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}alert/list?page=${page}&title=${filterTitle}&date=${filterDate}`,
       {
         headers: { authorization: `Bearer ${cookies.get('auth-token')}` },
       }

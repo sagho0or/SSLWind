@@ -4,7 +4,6 @@ interface ListItem {
   id: string;
   title: string;
   date: string;
-  score: number;
 }
 
 interface AlertListState {
@@ -15,9 +14,7 @@ interface AlertListState {
   hasMore: boolean;
   page: number;
   filterTitle: string;
-  filterStartDate: string;
-  filterEndDate: string;
-  filterScore: string;
+  filterDate: string;
 }
 
 const initialState: AlertListState = {
@@ -28,21 +25,17 @@ const initialState: AlertListState = {
   hasMore: true,
   page: 1,
   filterTitle: '',
-  filterStartDate: '',
-  filterEndDate: '',
-  filterScore: 'all',
+  filterDate: '',
 };
 
 const alertListSlice = createSlice({
   name: 'alertList',
   initialState,
   reducers: {
-    fetchAlertListRequest(state, action: PayloadAction<{ title: string; startDate: string; endDate: string; score: string }>) {
+    fetchAlertListRequest(state, action: PayloadAction<{ title: string; date: string }>) {
       state.isLoading = true;
       state.filterTitle = action.payload.title;
-      state.filterStartDate = action.payload.startDate;
-      state.filterEndDate = action.payload.endDate;
-      state.filterScore = action.payload.score;
+      state.filterDate = action.payload.date;
       state.isDone = false;
     },
     fetchAlertListSuccess(state, action: PayloadAction<ListItem[]>) {

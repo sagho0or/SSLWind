@@ -95,14 +95,6 @@ export default function Sidebar(props: SidebarInterface) {
         {
             label: 'Alerts',
             path: '/alerts',
-            iconName: 'alert',
-            hoverIconName: 'alert-filled',
-            hasDivider: true,
-            badge: null
-        },
-        {
-            label: 'Live Data',
-            path: '/liveData',
             iconName: 'chart-live',
             hoverIconName: 'chart-live-filled',
             hasDivider: true,

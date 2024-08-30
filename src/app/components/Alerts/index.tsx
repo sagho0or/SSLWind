@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import getUserProfileService from "@/app/services/getUserProfile.service";
 import DataTable from "./DataTable";
+import LiveChart from "./LiveChart";
 
 const allowedRoles = ['admin', 'developer', 'management'];
 
@@ -19,6 +20,14 @@ export default function Alerts() {
 
     }, []);
     return (
-        <DataTable />
+        <>
+            <div className="bg-secondary-01 rounded-xl p-3">
+                <LiveChart />
+                <br/>
+                <br/>
+                <br/>
+                <DataTable />
+            </div>
+        </>
     )
 }

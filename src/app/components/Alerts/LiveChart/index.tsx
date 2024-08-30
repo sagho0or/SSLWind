@@ -11,7 +11,6 @@ import {
 import { Line } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 
-// Register the necessary components
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, CategoryScale);
 
 interface DataPoint {
@@ -79,7 +78,7 @@ function LiveChart() {
 
   return (
     <div>
-      <h2>Live Safety Score Chart</h2>
+      <h2 className='pb-4 pl-2 font-semibold text-xl'>Live Safety Score Chart</h2>
       <Line data={chartData} options={options} />
     </div>
   );
