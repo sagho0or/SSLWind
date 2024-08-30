@@ -1030,6 +1030,44 @@ export default function Icons(props: IconsProps) {
                 </svg>
 
             )
+        case 'chart-live':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M3 3V21H21V3"
+                        stroke="#191919" strokeWidth="1.5" />
+                    <path
+                        d="M7 14L10 11L13 15L17 10"
+                        stroke="#191919" strokeWidth="1.5" />
+                    <circle
+                        cx="18"
+                        cy="6"
+                        r="2"
+                        fill="none"
+                        stroke="#191919"
+                        strokeWidth="1.5" />
+                </svg>
+
+            )
+        case 'chart-live-filled':
+            return (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M3 3V21H21V3"
+                        stroke="#00B4FF" strokeWidth="1.5" />
+                    <path
+                        d="M7 14L10 11L13 15L17 10"
+                        stroke="#00B4FF" strokeWidth="1.5" />
+                    <circle
+                        cx="18"
+                        cy="6"
+                        r="2"
+                        fill="#D1F1FF"
+                        stroke="#00B4FF"
+                        strokeWidth="1.5" />
+                </svg>
+
+            )
         case 'headphones':
             return (
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

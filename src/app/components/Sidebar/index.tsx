@@ -101,6 +101,14 @@ export default function Sidebar(props: SidebarInterface) {
             badge: null
         },
         {
+            label: 'Live Data',
+            path: '/liveData',
+            iconName: 'chart-live',
+            hoverIconName: 'chart-live-filled',
+            hasDivider: true,
+            badge: null
+        },
+        {
             label: 'Secutiry',
             path: '/security',
             iconName: 'lock',
