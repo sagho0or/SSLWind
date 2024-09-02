@@ -6,7 +6,6 @@ import {useState} from "react";
 import Sidebar from "@/app/components/Sidebar";
 import defaultSidebarStatus from "@/app/utils/defaultSidebarStatus";
 import EditPassword from "@/app/components/Security/EditPassword";
-import AuthHistory from "@/app/components/Security/AuthHistory";
 
 export default function Security() {
 
@@ -33,8 +32,6 @@ export default function Security() {
 
                          <EditPassword setIsEditPasswordOpen={setIsEditPasswordOpen} isEditPasswordOpen={isEditPasswordOpen} />
 
-                         {/*last part*/}
-                         <AuthHistory />
                      </div>
 
 

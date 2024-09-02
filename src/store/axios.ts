@@ -16,7 +16,6 @@ axiosInterceptorInstance.interceptors.response.use(
         const isLogged =  cookies.get('auth-refresh')
         if (status === 401 && !originalRequest._retry && isLogged) {
             
-            debugger;
             // Handle unauthorized access
             originalRequest._retry = true;
             cookies.remove('auth-token')
@@ -38,7 +37,6 @@ axiosInterceptorInstance.interceptors.response.use(
         } else if (status === 404) {
             // Handle not found errors
         } else if(status!== 401) {
-            debugger;
             // Handle other errors
             errorHandling(error)
         }
