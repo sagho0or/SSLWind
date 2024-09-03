@@ -30,7 +30,7 @@ export default function DataTable() {
         dispatch(resetList());
         dispatch(fetchAlertListRequest({ title, startDate, endDate, score }));
     };
-    
+
     const reset = () => {
         dispatch(resetList());
         setTitle('');
@@ -95,14 +95,16 @@ export default function DataTable() {
                 <ul>
                     {items.map((item: any) => (
                         <li key={item.id} className="border p-2 mb-2">
-                            <p>{item.title}</p>
-                            <p>{item.date}</p>
-                            <p>
-                                {item.score >= 0.5 ? (
-                                    <span className="text-green-500 font-semibold">Safe ({item.score})</span>
-                                ) : (
-                                    <span className="text-red-500 font-semibold">Unsafe ({item.score})</span>
-                                )}</p>
+                            <a href={`/alerts/${item.id}`}>
+                                <p>{item.title}</p>
+                                <p>{item.date}</p>
+                                <p>
+                                    {item.score >= 0.5 ? (
+                                        <span className="text-green-500 font-semibold">Safe ({item.score})</span>
+                                    ) : (
+                                        <span className="text-red-500 font-semibold">Unsafe ({item.score})</span>
+                                    )}</p>
+                            </a>
                         </li>
                     ))}
                 </ul>

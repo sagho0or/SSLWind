@@ -9,6 +9,8 @@ import updateUserSaga from './userManagement/update/saga';
 import UserListSaga from './userManagement/list/saga';
 import chatHistoryListSaga from './chat/history/list/saga';
 import alertListSaga from './alerts/saga';
+import alertSaga from './alerts/details/saga';
+import notificationSaga from './alerts/notificationCount/saga';
 
 function* rootSaga() {
     yield all([
@@ -22,6 +24,8 @@ function* rootSaga() {
         updateUserSaga(),
         UserListSaga(),
         alertListSaga(),
+        alertSaga(),
+        notificationSaga(),
 
     ]);
 }

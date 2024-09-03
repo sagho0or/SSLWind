@@ -1,0 +1,53 @@
+'use client'
+import Alerts from "@/app/components/Alerts";
+import Sidebar from "@/app/components/Sidebar";
+import { useShowInnerComponent } from "@/app/ShowInnerComponentContext";
+import isMobileView from "@/app/utils/isMobileView";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import defaultSidebarStatus from "@/app/utils/defaultSidebarStatus";
+import Icons from "../../../../../public/Icons";
+import AlertItem from "@/app/components/Alerts/details";
+
+export default function AlertDetailsPage() {
+    const { setShowInnerComponent } = useShowInnerComponent();
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(defaultSidebarStatus);
+    const router = useRouter();
+
+    return (
+        <>
+        {isMobileView ? (
+            <div className={'text-secondary-17 bg-secondary-02' + `${isMobileView ? ' w-screen h-screen' : ''}`}>
+            <div className={'bg-secondary-01 px-3 py-9' + ` ${isMobileView ? 'space-y-3' : 'hidden'}`}>
+                {isMobileView &&
+                    <div className={'mb-8'}>
+                        <button 
+                        className={'absolute'}
+                        onClick={() => { setShowInnerComponent(false)}}
+                        >
+                            <Icons name={'right-arrow-key'} />
+                        </button>
+                        <h1 className={'font-bold w-fit m-auto'}>Alert Item</h1>
+                    </div>
+                }
+
+            </div>
+
+            <AlertItem/>
+
+        </div>
+          
+        ) : (
+            <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}
+            children={<>
+                
+                <AlertItem/>
+
+            </>} />
+        )}
+      </>
+
+        
+        
+    )
+}

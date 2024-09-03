@@ -11,6 +11,7 @@ import logout from "@/app/services/logout";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChatHistoryListRequest } from "@/store/chat/history/list/slice";
 import { useParams } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
 export default function Sidebar(props: SidebarInterface) {
@@ -28,6 +29,8 @@ export default function Sidebar(props: SidebarInterface) {
     const hasMore = useSelector((state: any) => state.chatHistoryList.hasMore);
     const isLoading = useSelector((state: any) => state.chatHistoryList.isLoading);
     const params = useParams();
+    const notificationCount = useSelector((state: any) => state.notifications.count);
+    const lastNotification = useSelector((state: any) => state.notifications.lastNotification);
     const id = params.id;
 
     const itemsStyle: string = 'flex items-center px-6 py-4 ' +
@@ -44,17 +47,43 @@ export default function Sidebar(props: SidebarInterface) {
         getUserProfileService(false).then((res: any) => {
             setUserProfile(res);
         })
+
         dispatch(fetchChatHistoryListRequest());
 
     }, [dispatch]);
+    useEffect(() => {
+
+
+        if (lastNotification) {
+            toast(
+                <div className="flex items-center text-white bg-red-600">
+                    <Icons name="warning" />
+                    <div className="ml-2">
+                        <p className="font-semibold">Alert: Unsafe Response Detected!</p>
+                        <p>{lastNotification.message}</p>
+                        <a href={`/alerts/${lastNotification.id}`} className="text-white underline">View More</a>
+                    </div>
+                </div>,
+                {
+                    position: 'top-left',
+                    duration: 5000,
+                    style: {
+                        background: '#dc2626', // Red background for danger alert
+                        color: '#ffffff',
+                    },
+                }
+            );
+        }
+
+    }, [dispatch, lastNotification]);
 
     useEffect(() => {
-        if(chatHistory){
-            if(id) setIsHistoryOpen(true);
+        if (chatHistory) {
+            if (id) setIsHistoryOpen(true);
         }
 
     }, [chatHistory]);
-    
+
     function logoutFunc() {
         logout();
         Router.push('/')
@@ -98,7 +127,7 @@ export default function Sidebar(props: SidebarInterface) {
             iconName: 'chart-live',
             hoverIconName: 'chart-live-filled',
             hasDivider: true,
-            badge: null
+            badge: notificationCount > 0 ? notificationCount.toString() : null,
         },
         {
             label: 'Secutiry',
@@ -119,7 +148,7 @@ export default function Sidebar(props: SidebarInterface) {
     ]
 
     if (chatHistory.length > 0) {
-        (items as any).splice(1,0,{
+        (items as any).splice(1, 0, {
             label: 'History',
             path: null,
             iconName: 'history',
@@ -136,7 +165,7 @@ export default function Sidebar(props: SidebarInterface) {
     const handleModalOverlayClick = (val: boolean) => {
         props.setIsSidebarOpen(val);
     };
-  
+
 
     return (
         <div className={isMobileView ? '' : 'rounded-xl bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
@@ -149,22 +178,23 @@ export default function Sidebar(props: SidebarInterface) {
                             'relative'
                             : 'bg-secondary-01 rounded-xl'}`}
                         >
-                            <div className={`w-8 h-8 cursor-pointer text-primary border border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500`}
+                            <div className={`w-full h-8 cursor-pointer text-primary border-bottom border-black hover:bg-primary hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm p-1.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500`}
                                 onClick={() => handleModalOverlayClick(false)}>
                                 <Icons name='close' />
+                                <span>Hide SideBar</span>
                             </div>
 
-                            <aside id="separator-sidebar"
+                            <aside id="separator-sidebar "
                                 className={`h-full z-40 transition-transform sm:translate-x-0 
                            ${isMobileView ? 'bg-secondary-01 overflow-scroll w-7/12 min-w-60 max-w-80' : ' '}`}
                                 aria-label="Sidebar">
-                                <div className="py-4 overflow-y-auto text-secondary-17 divide-y-2">
-                                    <ul className={"h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" + ' ' +
-                                        isMobileView ? '' : 'scrollbar-hide"'}>
+                                <div className="pb-4 overflow-y-auto text-secondary-17 divide-y-2">
+                                    <ul className={"h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" +
+                                        (isMobileView ? '' : ' scrollbar-hide')}>
                                         {
                                             items.map(item => (
-                                                ((item.label == 'Management' || item.label == 'Alerts' ) && !allowedRolesManagement.includes(role)) ? '' :
-                                                    <li className={`group ${item.hasDivider ? borderBottomStyle : ''}`}
+                                                ((item.label == 'Management' || item.label == 'Alerts') && !allowedRolesManagement.includes(role)) ? '' :
+                                                    <li className={`relative group ${item.hasDivider ? borderBottomStyle : ''}`}
                                                         key={item.label}>
                                                         {item.path ?
                                                             <a href={`${item.path}`}
@@ -177,6 +207,9 @@ export default function Sidebar(props: SidebarInterface) {
                                                                     <Icons name={item.hoverIconName} />
                                                                 </div>
                                                                 <span className="ms-3 group-hover:font-semibold">{item.label}</span>
+                                                                {item.badge && (
+                                                                    <span className="absolute top-4 right-3 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{item.badge}</span>
+                                                                )}
                                                             </a> :
                                                             <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
                                                                 className={itemsStyle + ' ' +
@@ -205,6 +238,9 @@ export default function Sidebar(props: SidebarInterface) {
                                                                         <a href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
                                                                             }`}>
                                                                             {subItem.label}
+                                                                            {item.badge && (
+                                                                                <span className="absolute top-4 right-3 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{item.badge}</span>
+                                                                            )}
                                                                         </a>
                                                                     </li>
                                                                 ))}
