@@ -6,10 +6,10 @@ import IInput from '@/app/components/Common/Input';
 import IButton from '@/app/components/Common/Button';
 import {useDispatch} from 'react-redux';
 import isMobileView from "@/app/utils/isMobileView";
-import {resendOtpSmsLoading} from "@/store/auth/otp/resendOtpSms/action";
 import {useReCaptcha} from "next-recaptcha-v3";
 import { encode } from 'base-64';
 import { loginOtpLoading } from '@/store/auth/login/otp/slice';
+import { loginLoading } from '@/store/auth/login/form/slice';
 
 export default function MobileOtpForm(props: OTPFormProps) {
     const [otpCode, setOtpCode] = useState<string>('');
@@ -32,7 +32,7 @@ export default function MobileOtpForm(props: OTPFormProps) {
 
     async function resendOtp() {
         //resend otp api
-        dispatch(resendOtpSmsLoading({
+        dispatch(loginLoading({
             email: props.email,
             password:encode(props.password)
             //TODO
