@@ -68,7 +68,7 @@ export default function Sidebar(props: SidebarInterface) {
                     position: 'top-left',
                     duration: 5000,
                     style: {
-                        background: '#dc2626', // Red background for danger alert
+                        background: '#dc2626',
                         color: '#ffffff',
                     },
                 }

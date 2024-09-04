@@ -10,13 +10,15 @@ const pages = {
   '/dashboard': 'Dashboard',
   '/profile': 'Profile',
   '/chat': 'Chat',
-  '/settings': 'Settings'
+  '/settings': 'Settings',
+  '/management': 'Management',
+  '/alerts': 'Alerts',
 };
 
 export default function ClientWrapper({ children }: { children: React.ReactNode }) {
   const [load, setLoad] = useState<boolean>(false);
   const currentPath = usePathname();
-  const pageTitle = pages[currentPath as keyof typeof pages] || 'SSLM Dashboard';
+  const pageTitle = pages[currentPath as keyof typeof pages] || 'SSLM Application';
   const { showInnerComponent, setShowInnerComponent } = useShowInnerComponent();
 
   useEffect(() => {
