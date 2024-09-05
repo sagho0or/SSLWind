@@ -10,18 +10,19 @@ import {Cookies} from 'react-cookie';
 function* ApiCall(action: SagaInputActionInterface): Generator<any> {
 
   const cookies = new Cookies();
-  const { chatId } = action.payload;
+  const { chatId, page } = action.payload;
   
   try {
     const response: any = yield call(
         axiosInterceptorInstance.get,
-      `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}?page=${page}`,
       {
         timeout: Number(process.env.API_TIME_OUT),
         headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
       },
     );
-
+    
+    
     yield put(fetchChatHistorySuccess(response?.data));
   } catch (error: any) {
     yield errorHandling(error, fetchChatHistoryFailure);

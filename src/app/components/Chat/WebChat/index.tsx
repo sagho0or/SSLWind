@@ -4,13 +4,13 @@ import ReactMarkdown from "react-markdown";
 import { useChat } from "../useChat";
 
 export default function WebChatComponent({ initialChatId }: any) {
-    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef } = useChat(initialChatId);
+    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef, chatBoxRef } = useChat(initialChatId);
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true);
     
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}>
             <div className="flex flex-col w-full">
-                <div className="flex-grow p-4 overflow-y-auto">
+                <div className="flex-grow p-4 overflow-y-auto"  ref={chatBoxRef}>
                     {messages.map((message, index) => (
                         <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
                             {message.sender === "user" ? (

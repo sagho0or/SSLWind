@@ -14,14 +14,42 @@ export const useChat = (initialChatId: string | null) => {
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const [isHistoryLoaded, setIsHistoryLoaded] = useState<boolean>(false);
     const isHistoryMode = !!chatId;
+    const [page, setPage] = useState(0);
+    const [goEndFlag, setgoEndFlag] = useState(true);
+    const [firstView, setFirstView] = useState(true);
+
+
+    const chatBoxRef = useRef<HTMLDivElement>(null);
+    const previousScrollHeightRef = useRef<number | null>(null);
 
     useEffect(() => {
         if (isHistoryMode && chatId && !isHistoryLoaded) {
             // Fetch chat history if chatId is provided
-            dispatch(fetchChatHistory({ chatId }));
+            dispatch(fetchChatHistory({ chatId, page: 0 }));
             setIsHistoryLoaded(true);
         }
     }, [isHistoryMode, chatId, isHistoryLoaded, dispatch]);
+
+    const handleScroll = () => {
+        const chatBoxPosition = chatBoxRef.current?.getBoundingClientRect();
+        if (chatBoxPosition && chatBoxPosition?.top >= -100
+            && chatBoxPosition?.top <= window.innerHeight
+            && chathistoryState.hasMore
+            && !chathistoryState.isLoading) {
+
+            dispatch(fetchChatHistory({ chatId: chatId || '', page: page }));
+            setgoEndFlag(false);
+        }
+    };
+
+    useEffect(() => {
+        if (chathistoryState.hasMore && !firstView) {
+            window.addEventListener('scroll', handleScroll);
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, [chathistoryState.hasMore, firstView, page, chathistoryState.isLoading]);
 
     useEffect(() => {
         if (chatState.isDone && chatState.response) {
@@ -30,19 +58,40 @@ export const useChat = (initialChatId: string | null) => {
                 if (chatState.response.chatId) {
                     setChatId(chatState.response.chatId);
                     setIsHistoryLoaded(true);
+                    setgoEndFlag(true);
                     window.history.pushState({}, '', `/chat/history/${chatState.response.chatId}`);
                 }
-            }else{
+            } else {
                 setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.content, isSafe: chatState.response.response.isSafe }]);
+                setgoEndFlag(true);
             }
         }
     }, [chatState.isDone, chatState.response, isHistoryMode]);
 
     useEffect(() => {
+        if (chathistoryState.isLoading && chatBoxRef.current) {
+            previousScrollHeightRef.current = chatBoxRef.current.scrollHeight;
+        }
+    }, [chathistoryState.isLoading]);
+
+    useEffect(() => {
         if (chathistoryState.isDone && chathistoryState.response) {
             if (isHistoryMode) {
-                setMessages(chathistoryState.response.list);
+                setMessages((prevMessages) => [
+                    ...chathistoryState.response.list,
+                    ...prevMessages,
+                ]);
+
+                if (chatBoxRef.current && previousScrollHeightRef.current) {
+                    // const newScrollTop = chatBoxRef.current.scrollHeight - previousScrollHeightRef.current;
+                    // chatBoxRef.current.scrollTop = -200;
+                    window.scrollTo({ top: previousScrollHeightRef.current })
+                }
+
+
             }
+            const newPage = page + 1;
+            setPage(newPage);
         }
     }, [chathistoryState.isDone, chathistoryState.response, isHistoryMode]);
 
@@ -51,16 +100,27 @@ export const useChat = (initialChatId: string | null) => {
             setMessages((prevMessages) => [...prevMessages, { sender: "user", content: userInput }]);
             if (isHistoryMode) {
                 dispatch(fetchChatResponse({ userInput, chatId }));
+                setgoEndFlag(true);
             } else {
                 dispatch(fetchChatResponse({ userInput }));
+                setgoEndFlag(true);
             }
             setUserInput("");
         }
     };
 
-    useEffect(() => {
+    const goEnd = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    useEffect(() => {
+        if (goEndFlag && messages.length > 0) {
+            goEnd();
+            setTimeout(() => {
+                setFirstView(false);
+            }, 500)
+        }
     }, [messages]);
 
-    return { userInput, setUserInput, messages, handleSendMessage, messagesEndRef };
+    return { userInput, setUserInput, messages, handleSendMessage, messagesEndRef, chatBoxRef };
 };

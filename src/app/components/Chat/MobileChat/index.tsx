@@ -6,7 +6,7 @@ import { useChat } from "../useChat";
 export default function MobileChatComponent({ initialChatId, setShowInnerComponent }:
     { initialChatId: string | null, setShowInnerComponent: (a: boolean) => void }) {
 
-    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef } = useChat(initialChatId);
+    const { userInput, setUserInput, messages, handleSendMessage, messagesEndRef, chatBoxRef } = useChat(initialChatId);
 
     return (
         <>
@@ -20,7 +20,7 @@ export default function MobileChatComponent({ initialChatId, setShowInnerCompone
             </div>
             <div className={"pt-8 h-full flex flex-1 flex-col"}>
                 <div className="flex flex-col flex-1 ">
-                    <div className="flex-grow p-4 overflow-y-auto">
+                    <div className="flex-grow p-4 overflow-y-auto"  ref={chatBoxRef}>
                         {messages.map((message, index) => (
                             <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
                                 {message.sender === "user" ? (

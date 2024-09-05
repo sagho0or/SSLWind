@@ -6,6 +6,7 @@ interface ChathistoryState {
   isLoading: boolean;
   isDone: boolean;
   hasError: boolean;
+  hasMore : boolean;
   response: ChatHistoryResponseInterface  | null;
 }
 
@@ -13,6 +14,7 @@ const initialState: ChathistoryState = {
   isLoading: false,
   isDone: false,
   hasError: false,
+  hasMore: false,
   response: null,
 };
 
@@ -20,7 +22,7 @@ const chathistorySlice = createSlice({
   name: 'chathistory',
   initialState,
   reducers: {
-    fetchChatHistory(state, action: PayloadAction<{ chatId: string }>) {
+    fetchChatHistory(state, action: PayloadAction<{ chatId: string, page: number }>) {
       state.isLoading = true;
       state.isDone = false;
       state.hasError = false;
@@ -28,7 +30,13 @@ const chathistorySlice = createSlice({
     fetchChatHistorySuccess(state, action: PayloadAction<ChatHistoryResponseInterface>) {
       state.isLoading = false;
       state.isDone = true;
-      state.response = action.payload;
+      
+      state.response = {
+        list: [...action.payload.list, ...state.response?.list || []],
+        id: action.payload.id,
+        date: action.payload.date
+      };
+      state.hasMore = action.payload.list?.length == 10;
     },
     fetchChatHistoryFailure(state) {
       state.isLoading = false;

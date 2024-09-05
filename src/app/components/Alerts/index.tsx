@@ -2,8 +2,17 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import getUserProfileService from "@/app/services/getUserProfile.service";
-import DataTable from "./DataTable";
-import LiveChart from "./LiveChart";
+import dynamic from 'next/dynamic';
+
+// Dynamic imports
+const DataTable = dynamic(() => import("./DataTable"), {
+    ssr: false,
+    loading: () => <p>Loading Data Table...</p>, 
+  });
+  const LiveChart = dynamic(() => import("./LiveChart"), {
+    ssr: false,
+    loading: () => <p>Loading Live Chart...</p>, 
+  });
 
 const allowedRoles = ['admin', 'developer', 'management'];
 
