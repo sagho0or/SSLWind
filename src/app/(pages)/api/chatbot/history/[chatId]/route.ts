@@ -229,9 +229,6 @@ export async function POST(req: NextRequest, { params }: { params: { chatId: str
         chatId: chatId,
         response: botReply
     }
-    console.log('dsssssssssssss', data)
     return NextResponse.json(data, { status: 200 });
-    // } else {
-    //     return NextResponse.json({ message: 'Chat not found' }, { status: 404 });
-    // }
+
 }

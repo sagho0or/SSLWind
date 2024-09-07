@@ -83,8 +83,6 @@ export const useChat = (initialChatId: string | null) => {
                 ]);
 
                 if (chatBoxRef.current && previousScrollHeightRef.current) {
-                    // const newScrollTop = chatBoxRef.current.scrollHeight - previousScrollHeightRef.current;
-                    // chatBoxRef.current.scrollTop = -200;
                     window.scrollTo({ top: previousScrollHeightRef.current })
                 }
 

@@ -25,11 +25,11 @@ function createWebSocketChannel(url: string): EventChannel<any> {
 function* handleNotificationWebSocket(): Generator<any, void, any> {
     const notificationChannel: EventChannel<any> = yield call(createWebSocketChannel, 'ws://localhost:8081');
 
-    // while (true) {
-    //     const notification = yield take(notificationChannel);
-    //     yield put(incrementCount());
-    //     yield put(setLastNotification(notification));
-    // }
+    while (true) {
+        const notification = yield take(notificationChannel);
+        yield put(incrementCount());
+        yield put(setLastNotification(notification));
+    }
 }
 
 function* handleAlertCountWebSocket(): Generator<any, void, any> {

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
-import { ChatResponseInterface } from './chat.interface';
 
 interface ChatState {
   isLoading: boolean;
