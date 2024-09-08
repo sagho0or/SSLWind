@@ -15,10 +15,7 @@ function* fetchAlertSaga(action: any): Generator<any, void, any> {
   try {
     const response = yield call(
       axiosInterceptorInstance.get,
-      `${process.env.NEXT_PUBLIC_BASE_URL}alert/${id}`,
-      {
-        headers: { authorization: `Bearer ${cookies.get('auth-token')}` },
-      }
+      `${process.env.NEXT_PUBLIC_BASE_URL}alert/${id}`
     );
 
     yield put(fetchAlertSuccess(response.data.data));

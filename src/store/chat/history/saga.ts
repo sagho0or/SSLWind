@@ -16,10 +16,6 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
     const response: any = yield call(
         axiosInterceptorInstance.get,
       `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}?page=${page}`,
-      {
-        timeout: Number(process.env.API_TIME_OUT),
-        headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
-      },
     );
     
     

@@ -5,6 +5,7 @@ export function middleware(request: NextRequest) {
     const isPublicPath = path === "/login" || path === "/forgotPassword" || path === "/faq";
     
     const token = request.cookies.get("auth-token")?.value || ""; // check if the token exists
+    
     debugger;
     if (isPublicPath && token.length > 0) {
         // redirect them to their chatbot page

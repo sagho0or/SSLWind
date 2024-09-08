@@ -22,6 +22,8 @@ export default function RootLayout({
     return (
         <html lang="en" dir={'rtl'}>
             <head>
+                <meta charSet="UTF-8" />
+
                 <meta name="theme-color" content="#000000" />
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
                 <link rel="icon" href="/favicon.ico" />
@@ -32,6 +34,17 @@ export default function RootLayout({
                 <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
                 <meta name="msapplication-TileColor" content="#2b5797" />
                 <meta name="theme-color" content="#ffffff" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta property="og:title" content="Your Website Title" />
+                <meta property="og:description" content="It is Boilerplate for LLM products" />
+                {/* <meta property="og:image" content="https://yourwebsite.com/image.jpg" />
+                <meta property="og:url" content="https://yourwebsite.com" /> */}
+                <meta name="twitter:card" content="summary_large_image" />
+                {/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; object-src 'none';" /> */}
+                <meta name="referrer" content="no-referrer" />
+                <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+                <meta name="description" content="It is Boilerplate for LLM products" />
+                <meta name="robots" content="index, follow" />
 
                 <link rel="manifest" href="/manifest.webmanifest" />
 

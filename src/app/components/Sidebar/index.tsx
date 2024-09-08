@@ -2,7 +2,6 @@
 import Icons from "../../../../public/Icons";
 import isMobileView from "@/app/utils/isMobileView";
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { SidebarInterface } from "@/app/components/Sidebar/sidebar.interface";
 import { usePathname, useRouter } from "next/navigation";
 import { UserProfileResponseInterface } from "@/store/userProfile/interface";
@@ -14,13 +13,11 @@ import { useParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
+
 export default function Sidebar(props: SidebarInterface) {
 
     const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>()
-
-    const [cookie, setCookie, removeCookie] = useCookies(['auth-token', 'auth-refresh']);
     const pathname = usePathname();
-    const isLogin = !!cookie['auth-token'];
     const Router = useRouter();
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const [role, setRole] = useState<string>('user');
@@ -244,13 +241,11 @@ export default function Sidebar(props: SidebarInterface) {
                                             ))
                                         }
 
-                                        {isLogin &&
-                                            <li className={`mt-auto bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
-                                                onClick={() => logoutFunc()}>
-                                                <Icons name={'logout'} />
-                                                <span className="ms-3">Logout</span>
-                                            </li>
-                                        }
+                                        <li className={`mt-auto bottom-0 w-full pb-8 cursor-pointer ${itemsStyle}`}
+                                            onClick={() => logoutFunc()}>
+                                            <Icons name={'logout'} />
+                                            <span className="ms-3">Logout</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </aside>
@@ -273,3 +268,5 @@ export default function Sidebar(props: SidebarInterface) {
 
     )
 }
+
+

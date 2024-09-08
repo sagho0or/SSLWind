@@ -15,8 +15,7 @@ function* ApiCall(action: any): Generator<any> {
             `${process.env.NEXT_PUBLIC_BASE_URL}/auth/google/authenticator/verify/`,
             {code: action.data},
             {
-                timeout: Number(process.env.API_TIME_OUT),
-                headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
+                timeout: Number(process.env.API_TIME_OUT)
             });
         yield put(verifyTowFactorAuthenticationSuccess(response));
     } catch (error: any) {

@@ -22,7 +22,6 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
       { userInput },
       {
         timeout: Number(process.env.API_TIME_OUT),
-        headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
       },
     );
     

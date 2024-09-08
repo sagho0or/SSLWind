@@ -1,14 +1,13 @@
-import {Cookies} from "react-cookie";
+import axios from "axios";
 
-export default function logout(){
-    const cookies = new Cookies();
-    var b = cookies.get("auth-token");
-    debugger;
+export default async function logout() {
+    try {
+        // await axios.post('/api/logout');
 
-    cookies.remove("auth-token")
-    cookies.remove("auth-refresh")
-    localStorage.removeItem("userProfile");
+        await axios.post('/api/remove-tockens'); 
 
-    var a = cookies.get("auth-token");
-
+        console.log("Logged out successfully");
+    } catch (error) {
+        console.error("Logout failed", error);
+    }
 }

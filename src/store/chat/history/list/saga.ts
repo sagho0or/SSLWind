@@ -30,11 +30,7 @@ function* ApiCall(): Generator<any, void, AxiosResponse<ChatHistoryApiResponse>>
     try {
         const response = yield call(
             axiosInterceptorInstance.get,
-            `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/list?page=${page}`,
-            {
-                timeout: Number(process.env.API_TIME_OUT),
-                headers: { authorization: `Bearer ${cookies.get('auth-token')}` }
-            }
+            `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/list?page=${page}`
         );
 
         yield put(fetchChatHistoryListSuccess(response.data.items));

@@ -1,22 +1,33 @@
-"use client";
-import SafeLLM from '@/app/components/SafeLLM';
+'use client'
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useCookies } from 'react-cookie';
 
-export default async function Home() {
-  const [cookie] = useCookies();
-  const isLogin = !!cookie['auth-token'];
-    const router = useRouter();
-    
+export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const router = useRouter();
 
-    return <>
-    {
-      isLogin ?
-        router.push('/chat')
-    :
-        router.push('/login')
-    
+  useEffect(() => {
+    async function checkLoginStatus() {
+      try {
+        const response = await fetch("/api/auth/checkLogin");
+        const data = await response.json();
+
+        if (data.isLogin) {
+          setIsLoggedIn(true);
+          router.push("/chat");
+        } else {
+          setIsLoggedIn(false);
+          router.push("/login");
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+        setIsLoggedIn(false);
+        router.push("/login");
+      }
     }
-    </>;
-}
 
+    checkLoginStatus();
+  }, []);
+
+  return <>{isLoggedIn === null ? <p>Checking login status...</p> : null}</>;
+}

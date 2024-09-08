@@ -17,8 +17,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
       `${process.env.NEXT_PUBLIC_BASE_URL}user/add/`,
       action.payload,
     {
-      timeout: Number(process.env.API_TIME_OUT),
-      headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
+      timeout: Number(process.env.API_TIME_OUT)
     },
   );
     

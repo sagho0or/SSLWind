@@ -13,8 +13,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
         axiosInterceptorInstance.get,
       `${process.env.NEXT_PUBLIC_BASE_URL}user/list`,
       {
-        timeout: Number(process.env.API_TIME_OUT),
-        headers: {authorization: `Bearer ${cookies.get('auth-token')}`}
+        timeout: Number(process.env.API_TIME_OUT)
       },
     );
 

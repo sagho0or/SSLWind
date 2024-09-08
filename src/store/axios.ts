@@ -2,23 +2,47 @@ import axios from "axios";
 import {Cookies} from 'react-cookie';
 import errorHandling from "@/store/_utils/errorHandling";
 
+
 const axiosInterceptorInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
+let tokenCache: any = null;
 
+axiosInterceptorInstance.interceptors.request.use(
+    async (config) => {
+        if (!tokenCache as any) {
+            debugger;
+            const response = await fetch("/api/auth/checkToken");
+            const data = await response.json();
+            tokenCache = data.token?.value;  // Save the token in cache
+        }
+
+        if (tokenCache) {
+            config.headers['Authorization'] = `Bearer ${tokenCache}`;
+        }
+        
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 axiosInterceptorInstance.interceptors.response.use(
     response => response,
-    error => {
+    async error => {
         
         const status = error.response ? error.response.status : null;
         const cookies = new Cookies();
         const originalRequest = error.config;
-        const isLogged =  cookies.get('auth-refresh')
-        if (status === 401 && !originalRequest._retry && isLogged) {
+        
+        const response = await fetch("/api/auth/checkLogin");
+        const data = await response.json();
+        
+        if (status === 401 && !originalRequest._retry && data.isLogin) {
             
             // Handle unauthorized access
             originalRequest._retry = true;
-            cookies.remove('auth-token')
+            
             try {
                 axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/login/refresh/token/`,
                     {
@@ -27,8 +51,10 @@ axiosInterceptorInstance.interceptors.response.use(
                     {
                         timeout: Number(process.env.API_TIME_OUT)
                     }).then((response) => {
-                    cookies.set('auth-token', response?.data?.message?.token)
-                    cookies.set('auth-refresh', response?.data?.message?.refresh_token);
+                        axios.post("/api/set-tokens", {
+                            token: response?.data?.message?.token,
+                            refreshToken: response?.data?.message?.refresh_token
+                          });
                     originalRequest.headers['Authorization'] = 'Bearer ' + response?.data?.message?.token;
                     return axios(originalRequest)
                 })

@@ -12,15 +12,14 @@ import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
 import { loginLoading } from '@/store/auth/login/form/slice';
 import { LoginResponse } from './Forms/OtpForm/OTPFormProps.interface';
-import { RootState } from '@/store/store';
 import { UserProfileResponseInterface } from '@/store/userProfile/interface';
+import axios from 'axios';
 
 export default function LoginComponent() {
   const [step, setStep] = useState<number>(0);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginResponse, setLoginResponse] = useState<LoginResponse>();
-  const [cookies, setCookie, removeCookie] = useCookies(['auth-token', 'auth-refresh']);
 
   const loginStates = useSelector((state: any) => state.login);
   const loginOtpStates = useSelector((state: any) => state.loginOtp);
@@ -40,8 +39,10 @@ export default function LoginComponent() {
   useEffect(() => {
     if (loginOtpStates.isDone) {
       setUserProfile(loginOtpStates.response.data);
-      setCookie("auth-token", loginOtpStates.response.data.token);
-      setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
+      axios.post("/api/set-tokens", {
+        token: loginOtpStates.response.data.token,
+        refreshToken: loginOtpStates.response.data.refresh_token
+      });
       if (loginOtpStates.response.data.lastLogin == null) {
         router.push('/security'); 
       } else {
