@@ -11,7 +11,7 @@ import { encode } from 'base-64';
 import { loginOtpLoading } from '@/store/auth/login/otp/slice';
 import { loginLoading } from '@/store/auth/login/form/slice';
 
-export default function MobileOtpForm(props: OTPFormProps) {
+export default function OtpForm(props: OTPFormProps) {
     const [otpCode, setOtpCode] = useState<string>('');
     const [timerCompleted, setTimerCompleted] = useState<boolean>(false);
     let timer = Date.now() + 120000;

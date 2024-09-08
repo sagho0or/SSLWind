@@ -46,7 +46,7 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
 
     return (
         <>
-            <div className={'bg-secondary-01 px-3 pb-9' + ` ${isMobileView ? 'space-y-3' : 'rounded-xl'}`}>
+            <div className={'bg-secondary-01 px-3 pb-9 pt-4 !mt-0' + ` ${isMobileView ? 'space-y-3' : 'rounded-xl'}`}>
                 <h4 className={'font-semibold'}>Password</h4>
                 <div className={'flex w-full flex-wrap items-end gap-5'}>
                     <p className={'font-medium text-sm text-secondary w-162'}>You can change your password by clicking the edit button.</p>
@@ -61,7 +61,7 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
                 <IModal setIsModalOpen={setIsEditPasswordOpen}
                     hasCloseButton={true}
                     backGroundStyle={"bg-secondary-17 bg-opacity-40"}
-                    customStyle={"relative w-screen p-4 m-auto py-7" + ' ' + `${isMobileView ? 'bottom-0 !absolute ' : 'rounded-b-2xl top-1/4'}`}>
+                    customStyle={"relative w-screen p-4 m-auto py-7" + ' ' + `${isMobileView ? 'bottom-0 !absolute ' : 'rounded-b-2xl top-1/8'}`}>
                     <div className={'font-semibold space-y-5'}>
                         <div className={'bg-secondary-02 w-fit mx-auto p-3 rounded-xl'}>
                             <Icons name={'lock'} />
@@ -72,7 +72,10 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
                                 <IInput label={'Current Password'}
                                     inputId={'currentPassword'}
                                     type={passwordType}
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => setCurrentPassword(e.target.value)}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        console.log('Current Password:', e.target.value);
+                                        setCurrentPassword(e.target.value);
+                                    }}
                                     suffix={
                                         <div className={'cursor-pointer'}
                                             onClick={() => setPasswordType(passwordType == 'password' ? 'text' : 'password')}>
@@ -148,7 +151,7 @@ export default function EditPassword({ setIsEditPasswordOpen, isEditPasswordOpen
                                     <IButton style={'primaryOutline'}
                                         customStyle={'flex-1 border-secondary-02 min-w-32'}
                                         onClick={() => setStep(step - 1)}>
-                                        <p className={"text-sm"}>Previuse step</p>
+                                        <p className={"text-sm"}>Previuse</p>
                                     </IButton>
                                     <IButton customStyle={'flex-2'}
                                         disabled={!isAcceptable()}

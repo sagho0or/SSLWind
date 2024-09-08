@@ -11,6 +11,7 @@ import chatHistoryListSaga from './chat/history/list/saga';
 import alertListSaga from './alerts/saga';
 import alertSaga from './alerts/details/saga';
 import notificationSaga from './alerts/notificationCount/saga';
+import editPasswordSaga from './security/editPassword/saga';
 
 function* rootSaga() {
     yield all([
@@ -26,6 +27,7 @@ function* rootSaga() {
         alertListSaga(),
         alertSaga(),
         notificationSaga(),
+        editPasswordSaga()
 
     ]);
 }

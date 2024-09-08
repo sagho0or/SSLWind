@@ -106,19 +106,11 @@ export default function Sidebar(props: SidebarInterface) {
             badge: null
         },
         {
-            label: 'Support',
-            path: '/',
-            iconName: 'headphones',
-            hoverIconName: 'headphones-filled',
-            hasDivider: false,
-            badge: null
-        },
-        {
             label: 'Management',
             path: '/management',
             iconName: 'management',
             hoverIconName: 'management-filled',
-            hasDivider: true,
+            hasDivider: false,
             badge: null
         },
         {

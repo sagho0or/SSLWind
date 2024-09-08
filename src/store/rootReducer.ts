@@ -11,6 +11,7 @@ import alertReducer from '@/store/alerts/details/slice';
 import notificationsReducer from '@/store/alerts/notificationCount/slice';
 import userListReducer from '@/store/userManagement/list/slice';
 import chatHistoryListReducer from '@/store/chat/history/list/slice';
+import editPasswordReducer from './security/editPassword/reducer';
 
 const rootReducer = combineReducers({
     userProfile: getUserProfileReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     alertList: alertListReducer,
     alert: alertReducer,
     notifications: notificationsReducer,
+    editPassword: editPasswordReducer,
 
 });
 

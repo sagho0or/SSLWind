@@ -146,13 +146,7 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
                     </a>
                     <Icons name={'direction-left-gray'} />
                 </li>
-                <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleClick('/support')}>
-                        <Icons name={'profile-support'} />
-                        <p className={'ml-3'}>Support</p>
-                    </a>
-                    <Icons name={'direction-left-gray'} />
-                </li>
+                
                 <li className={'flex p-4 cursor-pointer'} onClick={logoutFuc}>
                     <Icons name={'profile-logout'} />
                     <p className={'ml-3'}>Logout</p>

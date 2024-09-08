@@ -3,27 +3,21 @@ export default function HeaderItems() {
     const menuItems : { key: number, title: string, route: string }[] = [
         {
             key: 1,
-            title: 'Menu 1',
-            route: '/',
+            title: 'FAQ',
+            route: '/faq',
         },
         {
 
             key: 3,
-            title: 'Menu 2',
+            title: 'About Us',
             route: '/wallet',
         },
         {
 
             key: 4,
-            title: 'Menu 3',
+            title: 'Menu sample',
             route: '/faq',
-        },
-        {
-
-            key: 5,
-            title: 'Menu 4',
-            route: '/',
-        },
+        }
     ];
 
     return (

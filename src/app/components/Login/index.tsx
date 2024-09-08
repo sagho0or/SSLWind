@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import isMobileView from '@/app/utils/isMobileView';
 import MobileLoginForm from '@/app/components/Login/Forms/LoginForm';
-import MobileOtpForm from '@/app/components/Login/Forms/OtpForm';
+import OtpForm from '@/app/components/Login/Forms/OtpForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { useReCaptcha } from 'next-recaptcha-v3';
 import { encode } from 'base-64';
@@ -39,11 +39,14 @@ export default function LoginComponent() {
 
   useEffect(() => {
     if (loginOtpStates.isDone) {
-      debugger;
       setUserProfile(loginOtpStates.response.data);
       setCookie("auth-token", loginOtpStates.response.data.token);
       setCookie("auth-refresh", loginOtpStates.response.data.refresh_token);
-      router.push('/');
+      if (loginOtpStates.response.data.lastLogin == null) {
+        router.push('/security'); 
+      } else {
+        router.push('/'); 
+      }
     }
   }, [loginOtpStates.isDone]);
 
@@ -76,7 +79,7 @@ export default function LoginComponent() {
           step == 0 ?
             <MobileLoginForm confirmFunction={acceptMobileForm} /> :
             step == 1 && loginResponse ?
-              <MobileOtpForm email={email}
+              <OtpForm email={email}
                 backFunc={backFunc}
                 password={password}
                 loginResponse={loginResponse} /> :
