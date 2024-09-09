@@ -69,7 +69,7 @@ export default function OtpForm(props: OTPFormProps) {
                                    className={'ml-2'}
                                    onComplete={() => setTimerCompleted(true)}
                                    renderer={counterProps =>
-                                       <div> {counterProps.seconds} : {counterProps.minutes} </div>}/>
+                                       <div> {counterProps.minutes} :  {counterProps.seconds}</div>}/>
                         <span> {' Seconds '} )</span>
                     </div>
                 }

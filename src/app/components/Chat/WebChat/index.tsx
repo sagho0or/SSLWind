@@ -9,7 +9,7 @@ export default function WebChatComponent({ initialChatId }: any) {
     
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}>
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full flex-1">
                 <div className="flex-grow p-4 overflow-y-auto"  ref={chatBoxRef}>
                     {messages.map((message, index) => (
                         <div key={index} className={`my-2 ${message.sender === "user" ? "text-right" : "text-left"}`}>
@@ -33,7 +33,7 @@ export default function WebChatComponent({ initialChatId }: any) {
                     ))}
                     <div ref={messagesEndRef} />
                 </div>
-                <div className="p-4 border-t border-gray-300">
+                <div className="p-4 border-t border-gray-300 mt-auto">
                     <input
                         type="text"
                         value={userInput}

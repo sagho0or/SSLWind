@@ -36,20 +36,35 @@ export default function LoginComponent() {
     }
   }, [loginStates.isDone]);
 
+
   useEffect(() => {
-    if (loginOtpStates.isDone) {
-      setUserProfile(loginOtpStates.response.data);
-      axios.post("/api/set-tokens", {
-        token: loginOtpStates.response.data.token,
-        refreshToken: loginOtpStates.response.data.refresh_token
-      });
-      if (loginOtpStates.response.data.lastLogin == null) {
-        router.push('/security'); 
-      } else {
-        router.push('/'); 
+    const handleLogin = async () => {
+      if (loginOtpStates.isDone) {
+        try {
+  
+          await axios.post("/api/set-tokens", {
+            token: loginOtpStates.response.data.token,
+            refreshToken: loginOtpStates.response.data.refresh_token
+          });
+  
+          setUserProfile(loginOtpStates.response.data);
+          debugger;
+          localStorage.setItem('isLogin', loginOtpStates.response.data.token);
+  
+          if (loginOtpStates.response.data.lastLogin == null) {
+            router.push('/security');
+          } else {
+            router.push('/');
+          }
+        } catch (error) {
+          console.error("Error setting tokens or during redirect:", error);
+        }
       }
-    }
+    };
+  
+    handleLogin();
   }, [loginOtpStates.isDone]);
+  
 
   async function acceptMobileForm(email: string, password: string) {
     //api call for mobile number & password

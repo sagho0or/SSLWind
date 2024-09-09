@@ -4,10 +4,9 @@ import { getUserProfileLoading } from "@/store/userProfile/slice";
 function getUserProfileService(reload: boolean) {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch("/api/auth/checkLogin");
-            const loginData = await response.json();
+            const isLogin = localStorage.getItem('isLogin');
 
-            if (!loginData.isLogin) {
+            if (!isLogin) {
                 reject('User is not logged in');
                 return;
             }

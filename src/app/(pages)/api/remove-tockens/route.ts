@@ -21,6 +21,7 @@ export async function POST() {
     secure: true,
     sameSite: 'strict'
   });
+  
 
   return response;
 }

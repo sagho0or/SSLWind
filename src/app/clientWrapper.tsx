@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import isMobileView from "@/app/utils/isMobileView";
 import Header from "@/app/components/Header/webHeader";
 import { usePathname } from "next/navigation";
-import Menu from "./components/SafeLLM/Menu";
 import { useShowInnerComponent } from "./ShowInnerComponentContext";
+import Menu from "./components/SafeLLM/Menu";
 
 const pages = {
   '/dashboard': 'Dashboard',

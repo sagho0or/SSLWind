@@ -2,31 +2,25 @@ import axios from "axios";
 import {Cookies} from 'react-cookie';
 import errorHandling from "@/store/_utils/errorHandling";
 
-
 const axiosInterceptorInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
-let tokenCache: any = null;
 
 axiosInterceptorInstance.interceptors.request.use(
     async (config) => {
-        if (!tokenCache as any) {
-            debugger;
-            const response = await fetch("/api/auth/checkToken");
-            const data = await response.json();
-            tokenCache = data.token?.value;  // Save the token in cache
-        }
-
-        if (tokenCache) {
-            config.headers['Authorization'] = `Bearer ${tokenCache}`;
-        }
-        
-        return config;
+      const token = localStorage.getItem('isLogin');
+      
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      
+      return config;
     },
     (error) => {
-        return Promise.reject(error);
+      return Promise.reject(error);
     }
-);
+  );
+
 axiosInterceptorInstance.interceptors.response.use(
     response => response,
     async error => {
@@ -35,11 +29,10 @@ axiosInterceptorInstance.interceptors.response.use(
         const cookies = new Cookies();
         const originalRequest = error.config;
         
-        const response = await fetch("/api/auth/checkLogin");
-        const data = await response.json();
+        const isLogin = localStorage.getItem('isLogin');
         
-        if (status === 401 && !originalRequest._retry && data.isLogin) {
-            
+        if (status === 401 && !originalRequest._retry && isLogin) {
+            localStorage.removeItem('isLogin');
             // Handle unauthorized access
             originalRequest._retry = true;
             
@@ -55,7 +48,7 @@ axiosInterceptorInstance.interceptors.response.use(
                             token: response?.data?.message?.token,
                             refreshToken: response?.data?.message?.refresh_token
                           });
-                    originalRequest.headers['Authorization'] = 'Bearer ' + response?.data?.message?.token;
+                    localStorage.setItem('isLogin', response?.data?.message?.token);
                     return axios(originalRequest)
                 })
             } catch (error) {

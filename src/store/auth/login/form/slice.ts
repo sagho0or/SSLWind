@@ -40,6 +40,13 @@ const loginSlice = createSlice({
       state.isDone = false;
       state.hasError = true;
     },
+    loginReset(state) {
+      state.isLoading = false;
+      state.isDone = false;
+      state.hasError = false;
+      state.response = '';
+      state.data= null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state, action: any) => {
@@ -51,5 +58,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { loginLoading, loginSuccess, loginFailure } = loginSlice.actions;
+export const { loginLoading, loginSuccess, loginFailure, loginReset} = loginSlice.actions;
 export default loginSlice.reducer;

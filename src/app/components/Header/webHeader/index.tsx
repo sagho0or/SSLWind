@@ -1,44 +1,35 @@
-import { GetServerSideProps } from 'next';
-import { parseCookies } from 'nookies';
+"use client"
 import HeaderItems from "@/app/components/Header/webHeader/headerItems";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IButton from "@/app/components/Common/Button";
 import { UserProfileResponseInterface } from "@/store/userProfile/interface";
 import getUserProfileService from "@/app/services/getUserProfile.service";
 
-// SSR function to check login status
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const cookies = parseCookies(ctx);
-    const token = cookies['auth-token']; // Get the auth-token from cookies
-    
-    if (!token) {
-        // If the user is not logged in, redirect to login page
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            },
-        };
-    }
+export default function Header() {
 
-    // Fetch user profile if token exists
-    const userProfile = await getUserProfileService(false);
+    const [userProfile, setUserProfile] = useState<UserProfileResponseInterface>();
 
-    return {
-        props: { userProfile },
-    };
-}
+    const isLogin = localStorage.getItem('isLogin');
 
-export default function Header({ userProfile }: { userProfile: UserProfileResponseInterface }) {
+    useEffect(() => {
+        
+        if (isLogin) {
+            getUserProfileService(false).then((res: any) => {
+                setUserProfile(res)
+            })
+        }
+    }, []);
+
     return (
         <div className={"fixed w-full z-50"}>
             <div className={"flex justify-between items-center h-18 bg-white px-16"}>
-                <Link href={"/"} className={'h-full flex'}>
+                <Link href={"/"} className={'h-full flex'} >
                     <img src={"/safellm.svg"} alt={"SafeLLM"} />
+
                 </Link>
                 <HeaderItems />
-                {userProfile ?
+                {isLogin ?
                     <div className={'flex gap-6 items-center justify-center'}>
                         <Link href={"/profile"}>
                             <h5>Profile</h5>
@@ -62,4 +53,5 @@ export default function Header({ userProfile }: { userProfile: UserProfileRespon
             </div>
         </div>
     );
+
 }

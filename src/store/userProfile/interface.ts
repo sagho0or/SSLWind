@@ -1,10 +1,10 @@
 export interface UserProfileResponseInterface {
     role: UserRole,
     lastLogin: Date,
-    token: string,
+    token?: string,
     email: string,
     userId: number,
-    refreshToken: string,
+    refreshToken?: string,
     firstName : string,
     lastName: string,
     mobileNumber: string,

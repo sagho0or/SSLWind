@@ -8,6 +8,8 @@ import logout from '@/app/services/logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { fetchChatHistoryListRequest } from '@/store/chat/history/list/slice';
+import { resetLoginOtpState } from '@/store/auth/login/otp/slice';
+import { loginReset } from '@/store/auth/login/form/slice';
 
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
@@ -50,9 +52,14 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
         Router.push(path);
     }
 
-    function logoutFuc() {
-        logout();
-        Router.push('/')
+    
+    const logoutFuc = async () => {
+        await logout();
+        dispatch(resetLoginOtpState());
+        dispatch(loginReset());
+        localStorage.removeItem('isLogin');
+        localStorage.removeItem('userProfile');
+        Router.push('/');
     }
 
     const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {

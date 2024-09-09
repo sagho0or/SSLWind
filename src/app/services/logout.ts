@@ -6,6 +6,8 @@ export default async function logout() {
 
         await axios.post('/api/remove-tockens'); 
 
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("userProfile");
         console.log("Logged out successfully");
     } catch (error) {
         console.error("Logout failed", error);

@@ -40,6 +40,13 @@ const loginOtpSlice = createSlice({
       state.isDone = false;
       state.hasError = true;
     },
+    resetLoginOtpState(state) {
+      state.isLoading = false;
+      state.isDone = false;
+      state.hasError = false;
+      state.response = null;
+      state.data= null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state, action: any) => {
@@ -51,5 +58,5 @@ const loginOtpSlice = createSlice({
   },
 });
 
-export const { loginOtpLoading, loginOtpSuccess, loginOtpFailure } = loginOtpSlice.actions;
+export const { loginOtpLoading, loginOtpSuccess, loginOtpFailure, resetLoginOtpState } = loginOtpSlice.actions;
 export default loginOtpSlice.reducer;

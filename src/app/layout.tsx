@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import ReduxProvider from './reduxProvider';
@@ -7,6 +7,7 @@ import IToastNotif from '@/app/utils/toast-notif';
 import ClientWrapper from "./clientWrapper";
 import 'react-tooltip/dist/react-tooltip.css'
 import { ShowInnerComponentProvider } from "./ShowInnerComponentContext";
+import Loading from '@/app/loading';
 
 export const metadata: Metadata = {
     title: 'SafeLLM Wind',
@@ -42,7 +43,7 @@ export default function RootLayout({
                 <meta name="twitter:card" content="summary_large_image" />
                 {/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; object-src 'none';" /> */}
                 <meta name="referrer" content="no-referrer" />
-                <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+                {/* <meta http-equiv="X-Content-Type-Options" content="nosniff" /> */}
                 <meta name="description" content="It is Boilerplate for LLM products" />
                 <meta name="robots" content="index, follow" />
 
@@ -54,7 +55,9 @@ export default function RootLayout({
                     <ReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}>
                         <IToastNotif />
                         <ShowInnerComponentProvider>
-                            <ClientWrapper>{children}</ClientWrapper>
+                            <Suspense fallback={<Loading />}>
+                                <ClientWrapper>{children}</ClientWrapper>
+                            </Suspense>إ
                         </ShowInnerComponentProvider>
                     </ReCaptchaProvider>
                 </ReduxProvider>

@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchChatHistoryListRequest } from "@/store/chat/history/list/slice";
 import { useParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import { resetLoginOtpState } from "@/store/auth/login/otp/slice";
+import { loginReset } from "@/store/auth/login/form/slice";
 const allowedRolesManagement = ['admin', 'developer', 'management'];
 
 
@@ -81,11 +83,16 @@ export default function Sidebar(props: SidebarInterface) {
 
     }, [chatHistory]);
 
-    function logoutFunc() {
-        logout();
-        Router.push('/')
+    const logoutFunc = async () => {
+        await logout();
+        dispatch(resetLoginOtpState());
+        dispatch(loginReset());
+        
+        localStorage.removeItem('isLogin');
+        localStorage.removeItem('userProfile');
+        Router.push('/');
     }
-
+      
     const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
         const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
         if (bottom && hasMore && !isLoading) {

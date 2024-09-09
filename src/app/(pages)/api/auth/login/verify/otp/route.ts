@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         firstName: 'Saghar',
         role: UserRole.Admin,
         lastLogin: new Date(),
-        token: 'mockAuthToken',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNhZ2hhciBmYWRhZWkiLCJpYXQiOjE1MTYyMzkwMjJ9.B5SGLT-b7aweYbaUMVD7gjivCQTM9atFeKUlW8Fo2yU',
         refreshToken: 'mockRefreshAuthToken'
         
     }
