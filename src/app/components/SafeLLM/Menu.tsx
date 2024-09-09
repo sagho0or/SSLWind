@@ -28,7 +28,6 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
         if (!userProfileState) {
             getUserProfileService(false).then((res: any) => {
                 setUserProfile(res);
-                console.log("User Profile:", userProfile);
             }).catch((error) => {
                 console.error("Error fetching user profile:", error);
             });
@@ -44,15 +43,12 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
         dispatch(fetchChatHistoryListRequest());
     }, [dispatch]);
 
+
     function handleClick(path: string) {
-        if (currentPath as any === path)
-            setShowInnerComponent(true);
-        else
-            setShowInnerComponent(true);
+        setShowInnerComponent(true);
         Router.push(path);
     }
 
-    
     const logoutFuc = async () => {
         await logout();
         dispatch(resetLoginOtpState());
@@ -87,10 +83,19 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
             <div className={'w-full h-3 bg-secondary-02'} />
             <ul>
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleClick('/chat')}>
-                        <Icons name={'profile-faq'} />
-                        <p className={'ml-3'}>chat</p>
-                    </a>
+                    {currentPath === '/chat' ?
+                        <a className={'flex flex-1'} onClick={() => handleClick('/chat')}>
+                            <Icons name={'profile-faq'} />
+                            <p className={'ml-3'}>Chat</p>
+                        </a>
+                        :
+                        <Link href="/chat">
+                            <span className={'flex flex-1'}>
+                                <Icons name={'profile-faq'} />
+                                <p className={'ml-3'}>Chat</p>
+                            </span>
+                        </Link>
+                    }
                     <Icons name={'direction-left-gray'} />
                 </li>
 
@@ -108,52 +113,94 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
                     <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto" onScroll={handleScroll}>
                         {chatHistory.map((chat: any) => (
                             <li key={chat.id}>
+
                                 <a
                                     href={`/chat/history/${chat.id}`}
                                     className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${currentPath.includes(chat.id) ? 'bg-primary-01 text-primary' : ''}`}
                                 >
                                     {chat.title} - {new Date(chat.date).toLocaleDateString()}
                                 </a>
+
                             </li>
                         ))}
                     </ul>
                 )}
 
-                {allowedRolesManagement.includes(role) ?
-                    <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                        <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
-                            <Icons name={'management'} />
-                            <p className={'ml-3'}>Management</p>
-                        </a>
-                        <Icons name={'direction-left-gray'} />
-                    </li>
-                    : ''
-                }
-                {allowedRolesManagement.includes(role) ?
-                    <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                        <a className={'flex flex-1'} onClick={() => handleClick('/alerts')}>
-                            <Icons name={'chart-live'} />
-                            <p className={'ml-3'}>Alerts</p>
-                        </a>
-                        <Icons name={'direction-left-gray'} />
-                    </li>
-                    : ''
-                }
+                {allowedRolesManagement.includes(role) && (
+                    <>
+                        <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+                            {currentPath === '/management' ?
+                                <a className={'flex flex-1'} onClick={() => handleClick('/management')}>
+                                    <Icons name={'management'} />
+                                    <p className={'ml-3'}>Management</p>
+                                </a>
+                                :
+                                <Link href="/management">
+                                    <span className={'flex flex-1'}>
+                                        <Icons name={'management'} />
+                                        <p className={'ml-3'}>Management</p>
+                                    </span>
+                                </Link>
+                            }
+
+                            <Icons name={'direction-left-gray'} />
+                        </li>
+                        <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
+
+                            {currentPath === '/alerts' ?
+                                <a className={'flex flex-1'} onClick={() => handleClick('/alerts')}>
+                                    <Icons name={'chart-live'} />
+                                    <p className={'ml-3'}>Alerts</p>
+                                </a>
+                                :
+                                <Link href="/alerts">
+                                    <span className={'flex flex-1'}>
+                                        <Icons name={'chart-live'} />
+                                        <p className={'ml-3'}>Alerts</p>
+                                    </span>
+                                </Link>
+                            }
+                            <Icons name={'direction-left-gray'} />
+                        </li>
+                    </>
+                )}
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleClick('/profile')}>
-                        <Icons name={'profile-account'} />
-                        <p className={'ml-3'}>Profle</p>
-                    </a>
+
+
+                    {currentPath === '/profile' ?
+                        <a className={'flex flex-1'} onClick={() => handleClick('/profile')}>
+                            <Icons name={'profile-account'} />
+                            <p className={'ml-3'}>Profle</p>
+                        </a>
+                        :
+                        <Link href="/profile">
+                            <span className={'flex flex-1'}>
+                                <Icons name={'profile-account'} />
+                                <p className={'ml-3'}>Profile</p>
+                            </span>
+                        </Link>
+                    }
                     <Icons name={'direction-left-gray'} />
                 </li>
                 <li className={'flex justify-between p-4 border-b-2 border-secondary-02 cursor-pointer'}>
-                    <a className={'flex flex-1'} onClick={() => handleClick('/security')}>
-                        <Icons name={'profile-security'} />
-                        <p className={'ml-3'}>Security</p>
-                    </a>
+
+
+                    {currentPath === '/security' ?
+                        <a className={'flex flex-1'} onClick={() => handleClick('/security')}>
+                            <Icons name={'profile-security'} />
+                            <p className={'ml-3'}>Security</p>
+                        </a>
+                        :
+                        <Link href="/security">
+                            <span className={'flex flex-1'}>
+                                <Icons name={'profile-security'} />
+                                <p className={'ml-3'}>Security</p>
+                            </span>
+                        </Link>
+                    }
                     <Icons name={'direction-left-gray'} />
                 </li>
-                
+
                 <li className={'flex p-4 cursor-pointer'} onClick={logoutFuc}>
                     <Icons name={'profile-logout'} />
                     <p className={'ml-3'}>Logout</p>

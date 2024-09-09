@@ -13,7 +13,9 @@ import { useParams } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { resetLoginOtpState } from "@/store/auth/login/otp/slice";
 import { loginReset } from "@/store/auth/login/form/slice";
+import Link from 'next/link';
 const allowedRolesManagement = ['admin', 'developer', 'management'];
+
 
 
 export default function Sidebar(props: SidebarInterface) {
@@ -193,7 +195,7 @@ export default function Sidebar(props: SidebarInterface) {
                                                     <li className={`relative group ${item.hasDivider ? borderBottomStyle : ''}`}
                                                         key={item.label}>
                                                         {item.path ?
-                                                            <a href={`${item.path}`}
+                                                            <Link  href={`${item.path}`}
                                                                 className={itemsStyle + ' ' +
                                                                     ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
                                                                 <div className={'group-hover:hidden'}>
@@ -206,8 +208,8 @@ export default function Sidebar(props: SidebarInterface) {
                                                                 {item.badge && (
                                                                     <span className="absolute top-4 right-3 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{item.badge}</span>
                                                                 )}
-                                                            </a> :
-                                                            <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
+                                                            </Link > :
+                                                            <a  onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
                                                                 className={itemsStyle + ' ' +
                                                                     ` ${pathname === item.path ? 'relative bg-primary-01 text-primary border-r-2 border-primary ' : 'relative cursor-pointer'}`}>
                                                                 <div className={'group-hover:hidden'}>
@@ -231,13 +233,13 @@ export default function Sidebar(props: SidebarInterface) {
                                                             <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto" onScroll={handleScroll}>
                                                                 {(item as any).subItems && (item as any).subItems.map((subItem: any) => (
                                                                     <li key={subItem.label} >
-                                                                        <a href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
+                                                                        <Link  href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
                                                                             }`}>
                                                                             {subItem.label}
                                                                             {item.badge && (
                                                                                 <span className="absolute top-4 right-3 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{item.badge}</span>
                                                                             )}
-                                                                        </a>
+                                                                        </Link >
                                                                     </li>
                                                                 ))}
                                                             </ul>
