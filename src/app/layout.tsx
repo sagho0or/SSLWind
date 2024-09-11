@@ -57,7 +57,7 @@ export default function RootLayout({
                         <ShowInnerComponentProvider>
                             <Suspense fallback={<Loading />}>
                                 <ClientWrapper>{children}</ClientWrapper>
-                            </Suspense>إ
+                            </Suspense>
                         </ShowInnerComponentProvider>
                     </ReCaptchaProvider>
                 </ReduxProvider>

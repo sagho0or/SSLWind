@@ -1,5 +1,5 @@
 'use client'
-import Icons from "../../../../public/Icons";
+import Icons from "../../../../../public/Icons";
 import {useRouter} from "next/navigation";
 import isMobileView from "@/app/utils/isMobileView";
 import {useState} from "react";
@@ -7,13 +7,12 @@ import Sidebar from "@/app/components/Sidebar";
 import defaultSidebarStatus from "@/app/utils/defaultSidebarStatus";
 import EditPassword from "@/app/components/Security/EditPassword";
 
-export default function Security() {
+export default function WebSecurityComponent() {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(defaultSidebarStatus);
     const [isEditPasswordOpen, setIsEditPasswordOpen] = useState<boolean>(false);
     const router = useRouter();
-
-
+    
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}
                  children={<>

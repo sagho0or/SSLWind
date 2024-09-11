@@ -3,11 +3,12 @@ import { UserRole } from '@/store/userProfile/interface';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
+    const { email } = await req.json();
     const data : UserDtoResponse = { 
-        email: 'Connor@gmail.com',
+        email: email,
         isActive: false,
         role: UserRole.User,
-        userId: 2
+        userId: 10
     }
     
     return NextResponse.json({ message: 'Add user successfully', data }, { status: 200 });

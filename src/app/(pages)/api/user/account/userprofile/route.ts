@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
         address: 'Leeds',
         lastName: 'Fadaei',
         firstName: 'Saghar',
-        role: UserRole.Admin,
+        role: UserRole.User,
         lastLogin: new Date()
         
     }
