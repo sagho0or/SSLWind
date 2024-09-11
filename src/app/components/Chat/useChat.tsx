@@ -54,7 +54,6 @@ export const useChat = (initialChatId: string | null) => {
     useEffect(() => {
         if (chatState.isDone && chatState.response) {
             if (!isHistoryMode && chatState.response.chatId) {
-                setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.content, isSafe: chatState.response.response.isSafe }]);
                 if (chatState.response.chatId) {
                     setChatId(chatState.response.chatId);
                     setIsHistoryLoaded(true);

@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
         lastName: 'Fadaei',
         firstName: 'Saghar',
         role: UserRole.Admin,
-        lastLogin: new Date()
+        lastLogin: new Date(),
         
     }
     return NextResponse.json({ message: 'get user information successfully', data }, { status: 200 });
