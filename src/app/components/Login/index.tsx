@@ -48,7 +48,6 @@ export default function LoginComponent() {
           });
   
           setUserProfile(loginOtpStates.response.data);
-          debugger;
           localStorage.setItem('isLogin', loginOtpStates.response.data.token);
   
           if (loginOtpStates.response.data.lastLogin == null) {

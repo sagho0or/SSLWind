@@ -13,7 +13,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
   const { userInput, chatId } = action.payload;
   const url = chatId
   ? `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/history/${chatId}`
-  : `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/new/`;
+  : `${process.env.NEXT_PUBLIC_BASE_URL}chatbot/new`;
 
   try {
     const response: any = yield call(

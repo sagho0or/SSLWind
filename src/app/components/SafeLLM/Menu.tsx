@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
@@ -23,25 +24,28 @@ const Menu = ({ currentPath, setShowInnerComponent }: { currentPath: string, set
     const hasMore = useSelector((state: any) => state.chatHistoryList.hasMore);
     const isLoading = useSelector((state: any) => state.chatHistoryList.isLoading);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+    const chathistoryState = useSelector((state: RootState) => state.chatHistoryList.items);
 
     useEffect(() => {
         if (!userProfileState) {
             getUserProfileService(false).then((res: any) => {
                 setUserProfile(res);
+                setRole(res.role);
             }).catch((error) => {
                 console.error("Error fetching user profile:", error);
             });
         } else {
             setUserProfile(userProfileState);
+            setRole(userProfileState.role);
         }
 
-        getUserProfileService(true).then((res: any) => {
-            setRole(res.role);
-        });
-
-        // Fetch chat history
-        dispatch(fetchChatHistoryListRequest());
     }, [dispatch]);
+
+    useEffect(() => {
+        if(chathistoryState.length == 0){
+            dispatch(fetchChatHistoryListRequest());
+        }
+    }, []);
 
     function handleClick(path: string) {
         setTimeout(() => {

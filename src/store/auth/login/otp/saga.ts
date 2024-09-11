@@ -10,7 +10,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
   const dataForm = action.payload;
   try {
     const response: any = yield call(axiosInterceptorInstance.post,
-      `${process.env.NEXT_PUBLIC_BASE_URL}auth/login/verify/otp/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}auth/login/verify/otp`,
       dataForm,
       {
         timeout: Number(process.env.API_TIME_OUT),

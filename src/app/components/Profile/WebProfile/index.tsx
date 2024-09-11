@@ -23,11 +23,19 @@ export default function WebProfileComponent() {
     ]
 
     useEffect(() => {
-        getUserProfileService(true).then((res: any) => {
-            setUserProfile(res);
-        })
+        
+        let userProfile = JSON.parse(localStorage.getItem('userProfile') as string);
+        if(!userProfile){
+
+            getUserProfileService(true).then((res: any) => {
+                setUserProfile(res);
+            })
+        }else{
+            setUserProfile(userProfile);
+        }
 
     }, []);
+
 
     return (
         <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}>

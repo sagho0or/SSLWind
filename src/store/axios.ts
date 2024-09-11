@@ -37,7 +37,7 @@ axiosInterceptorInstance.interceptors.response.use(
             originalRequest._retry = true;
             
             try {
-                axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/login/refresh/token/`,
+                axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/login/refresh/token`,
                     {
                         refresh_token: cookies.get('auth-refresh')
                     },

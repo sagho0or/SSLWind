@@ -6,8 +6,6 @@ import axiosInterceptorInstance from "@/store/axios";
 import { Cookies } from 'react-cookie';
 
 function* ApiCall(action: SagaInputActionInterface): Generator<any> {
-debugger;
-  const cookies = new Cookies();
   const { email, password, role, userId } = action.payload;
 
   try {

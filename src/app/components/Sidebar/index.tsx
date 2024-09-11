@@ -14,8 +14,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { resetLoginOtpState } from "@/store/auth/login/otp/slice";
 import { loginReset } from "@/store/auth/login/form/slice";
 import Link from 'next/link';
+import { RootState } from '@/store/store';
 const allowedRolesManagement = ['admin', 'developer', 'management'];
-
 
 
 export default function Sidebar(props: SidebarInterface) {
@@ -33,25 +33,36 @@ export default function Sidebar(props: SidebarInterface) {
     const notificationCount = useSelector((state: any) => state.notifications.count);
     const lastNotification = useSelector((state: any) => state.notifications.lastNotification);
     const id = params.id;
+    const userProfileState = useSelector((state: RootState) => state.userProfile.data);
+    const chathistoryState = useSelector((state: RootState) => state.chatHistoryList.items);
 
     const itemsStyle: string = 'flex items-center px-6 py-4 ' +
         'hover:bg-primary-01 hover:text-primary hover:border-r hover:border-r-2 hover:border-primary group ' +
         'active:text-primary active:border-r active:border-r-2 active:border-primary';
     const borderBottomStyle: string = 'border-b-2 border-b-secondary-02';
 
+
     useEffect(() => {
-
-        getUserProfileService(true).then((res: any) => {
-            setRole(res.role);
-        })
-
-        getUserProfileService(false).then((res: any) => {
-            setUserProfile(res);
-        })
-
-        dispatch(fetchChatHistoryListRequest());
+        if (!userProfileState) {
+            getUserProfileService(false).then((res: any) => {
+                setUserProfile(res);
+                setRole(res.role);
+            }).catch((error) => {
+                console.error("Error fetching user profile:", error);
+            });
+        } else {
+            setUserProfile(userProfileState);
+            setRole(userProfileState.role);
+        }
 
     }, [dispatch]);
+    
+    useEffect(() => {
+        if(chathistoryState.length == 0){
+            dispatch(fetchChatHistoryListRequest());
+        }
+    }, []);
+
     useEffect(() => {
 
 

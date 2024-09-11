@@ -73,7 +73,6 @@ export default function RoleManagement() {
     };
 
     const handleUserEditSubmit = (index: number) => {
-        debugger;
         const user = users[index];
         dispatch(updateUserRequest(user));
 

@@ -13,7 +13,7 @@ function* ApiCall(action: any): Generator<any> {
     const cookies = new Cookies();
     try {
         const response: any = yield call(axiosInterceptorInstance.post,
-            `${process.env.NEXT_PUBLIC_BASE_URL}auth/password/change/`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}auth/password/change`,
             {...dataForm},
             {
                 timeout: Number(process.env.API_TIME_OUT)

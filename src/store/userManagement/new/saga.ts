@@ -14,7 +14,7 @@ function* ApiCall(action: SagaInputActionInterface): Generator<any> {
   try {
     let response: any = yield call(
       axiosInterceptorInstance.post,
-      `${process.env.NEXT_PUBLIC_BASE_URL}user/add/`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}user/add`,
       action.payload,
     {
       timeout: Number(process.env.API_TIME_OUT)

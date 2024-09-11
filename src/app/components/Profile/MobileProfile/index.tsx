@@ -12,13 +12,18 @@ export default function MobileProfileComponent({ setShowInnerComponent }:
     const [error, setError] = useState<string | null>(null);
     
     useEffect(() => {
-        getUserProfileService(false).then((res: any) => {
-            setUserProfile(res);
-            console.log(userProfile);
-        }).catch((error) => {
-            console.error("Error fetching user profile:", error);
-        });
+        let userProfile = JSON.parse(localStorage.getItem('userProfile') as string);
+        if(!userProfile){
+            getUserProfileService(true).then((res: any) => {
+                setUserProfile(res);
+            })
+        }else{
+            
+            setUserProfile(userProfile);
+        }
+       
     }, []);
+
     
     const personalData = useMemo(() => [
         { title: "Full name", desc: `${userProfile?.firstName} ${userProfile?.lastName}` },
