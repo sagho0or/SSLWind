@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChatResponse } from "@/store/chat/new/slice";
-import { fetchChatHistory } from "@/store/chat/history/slice";
+import { fetchChatHistory, resetChatState } from "@/store/chat/history/slice";
 import { ChatResponseInterface } from "@/store/chat/new/chat.interface";
 
 export const useChat = (initialChatId: string | null) => {
@@ -17,10 +17,28 @@ export const useChat = (initialChatId: string | null) => {
     const [page, setPage] = useState(0);
     const [goEndFlag, setgoEndFlag] = useState(true);
     const [firstView, setFirstView] = useState(true);
+    const [chatNew, setChatNew] = useState(false);
 
 
     const chatBoxRef = useRef<HTMLDivElement>(null);
     const previousScrollHeightRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        if (!chatNew) {
+            dispatch(resetChatState());
+            setIsHistoryLoaded(false);
+            setPage(0);
+            setMessages([]);
+            setChatNew(false);
+        }
+        if (chatId == '') {
+            setMessages([]);
+            setIsHistoryLoaded(false);
+            setPage(0);
+            setChatNew(false);
+        }
+    }, [chatId]);
+
 
     useEffect(() => {
         if (isHistoryMode && chatId && !isHistoryLoaded) {
@@ -28,7 +46,7 @@ export const useChat = (initialChatId: string | null) => {
             dispatch(fetchChatHistory({ chatId, page: 0 }));
             setIsHistoryLoaded(true);
         }
-    }, [isHistoryMode, chatId, isHistoryLoaded, dispatch]);
+    }, [isHistoryMode, chatId, isHistoryLoaded]);
 
     const handleScroll = () => {
         const chatBoxPosition = chatBoxRef.current?.getBoundingClientRect();
@@ -51,21 +69,6 @@ export const useChat = (initialChatId: string | null) => {
         }
     }, [chathistoryState.hasMore, firstView, page, chathistoryState.isLoading]);
 
-    useEffect(() => {
-        if (chatState.isDone && chatState.response) {
-            if (!isHistoryMode && chatState.response.chatId) {
-                if (chatState.response.chatId) {
-                    setChatId(chatState.response.chatId);
-                    setIsHistoryLoaded(true);
-                    setgoEndFlag(true);
-                    window.history.pushState({}, '', `/chat/history/${chatState.response.chatId}`);
-                }
-            } else {
-                setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.content, isSafe: chatState.response.response.isSafe }]);
-                setgoEndFlag(true);
-            }
-        }
-    }, [chatState.isDone, chatState.response, isHistoryMode]);
 
     useEffect(() => {
         if (chathistoryState.isLoading && chatBoxRef.current) {
@@ -74,31 +77,59 @@ export const useChat = (initialChatId: string | null) => {
     }, [chathistoryState.isLoading]);
 
     useEffect(() => {
+
         if (chathistoryState.isDone && chathistoryState.response) {
-            if (isHistoryMode) {
-                setMessages((prevMessages) => [
-                    ...chathistoryState.response.list,
-                    ...prevMessages,
-                ]);
+            if (chathistoryState.response?.id == chatId) {
+                if (isHistoryMode) {
+                    setMessages((prevMessages) => [
+                        ...chathistoryState.response.list,
+                        ...prevMessages,
+                    ]);
 
-                if (chatBoxRef.current && previousScrollHeightRef.current) {
-                    window.scrollTo({ top: previousScrollHeightRef.current })
+                    if (chatBoxRef.current && previousScrollHeightRef.current) {
+                        window.scrollTo({ top: previousScrollHeightRef.current })
+                    }
+
+
                 }
-
+                const newPage = page + 1;
+                setPage(newPage);
 
             }
-            const newPage = page + 1;
-            setPage(newPage);
         }
+
     }, [chathistoryState.isDone, chathistoryState.response, isHistoryMode]);
+
+    useEffect(() => {
+
+        if (chatState.isDone && chatState.response) {
+            if (chatState.response.chatId == chatId || chatNew) {
+                if (!isHistoryMode && chatState.response.chatId ) {
+
+                    setChatId(chatState.response.chatId);
+                    setIsHistoryLoaded(true);
+                    setgoEndFlag(true);
+                    window.history.pushState({}, '', `/chat/history/${chatState.response.chatId}`);
+
+                } else {
+                    setMessages((prevMessages) => [...prevMessages, { sender: "bot", content: chatState.response.response.content, isSafe: chatState.response.response.isSafe }]);
+                    setgoEndFlag(true);
+                }
+            }
+
+        }
+    }, [chatState.isDone, chatState.response, isHistoryMode]);
 
     const handleSendMessage = () => {
         if (userInput.trim()) {
             setMessages((prevMessages) => [...prevMessages, { sender: "user", content: userInput }]);
             if (isHistoryMode) {
-                dispatch(fetchChatResponse({ userInput, chatId }));
+                dispatch(fetchChatResponse({ userInput, chatId }))
+
                 setgoEndFlag(true);
             } else {
+
+                setChatNew(true);
                 dispatch(fetchChatResponse({ userInput }));
                 setgoEndFlag(true);
             }

@@ -43,6 +43,12 @@ const chathistorySlice = createSlice({
       state.isDone = false;
       state.hasError = true;
     },
+    resetChatState(state) {
+      state.isLoading = false;
+      state.isDone = false;
+      state.hasError = false;
+      state.response = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state, action: any) => {
@@ -54,5 +60,5 @@ const chathistorySlice = createSlice({
   },
 });
 
-export const { fetchChatHistory, fetchChatHistorySuccess, fetchChatHistoryFailure } = chathistorySlice.actions;
+export const { fetchChatHistory, fetchChatHistorySuccess, fetchChatHistoryFailure, resetChatState } = chathistorySlice.actions;
 export default chathistorySlice.reducer;

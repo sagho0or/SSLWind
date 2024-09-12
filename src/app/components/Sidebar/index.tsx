@@ -56,9 +56,9 @@ export default function Sidebar(props: SidebarInterface) {
         }
 
     }, [dispatch]);
-    
+
     useEffect(() => {
-        if(chathistoryState.length == 0){
+        if (chathistoryState.length == 0) {
             dispatch(fetchChatHistoryListRequest());
         }
     }, []);
@@ -100,12 +100,12 @@ export default function Sidebar(props: SidebarInterface) {
         await logout();
         dispatch(resetLoginOtpState());
         dispatch(loginReset());
-        
+
         localStorage.removeItem('isLogin');
         localStorage.removeItem('userProfile');
         Router.push('/');
     }
-      
+
     const handleScroll = (e: React.UIEvent<HTMLUListElement>) => {
         const bottom = e.currentTarget.scrollHeight - e.currentTarget.scrollTop === e.currentTarget.clientHeight;
         if (bottom && hasMore && !isLoading) {
@@ -114,14 +114,6 @@ export default function Sidebar(props: SidebarInterface) {
     };
 
     const items = [
-        {
-            label: 'chatbot',
-            path: '/chat',
-            iconName: 'chat',
-            hoverIconName: 'chat-filled',
-            hasDivider: false,
-            badge: null
-        },
         {
             label: 'Management',
             path: '/management',
@@ -157,7 +149,7 @@ export default function Sidebar(props: SidebarInterface) {
     ]
 
     if (chatHistory.length > 0) {
-        (items as any).splice(1, 0, {
+        (items as any).splice(0, 0, {
             label: 'History',
             path: null,
             iconName: 'history',
@@ -175,6 +167,9 @@ export default function Sidebar(props: SidebarInterface) {
         props.setIsSidebarOpen(val);
     };
 
+    const handleChatNew = ()=>{
+        Router.push('/chat');
+    }
 
     return (
         <div className={isMobileView ? '' : 'rounded-xl bg-secondary-02 p-5 min-h-full w-full relative flex flex-col'}>
@@ -200,13 +195,27 @@ export default function Sidebar(props: SidebarInterface) {
                                 <div className="pb-4 overflow-y-auto text-secondary-17 divide-y-2">
                                     <ul className={"h-screen-120 space-y-2 font-medium snap-start snap-y touch-pan-y overflow-y-scroll" +
                                         (isMobileView ? '' : ' scrollbar-hide')}>
+
+                                        <li className={`relative group`}>
+                                            <a onClick={() => { handleChatNew() }}
+                                                className={ itemsStyle + ' ' +
+                                                    ` ${pathname === '/chat' ? 'relative bg-primary-01 text-primary border-r-2 border-primary ' : 'relative cursor-pointer'}`}>
+                                                <div className={'group-hover:hidden'}>
+                                                    <Icons name={'chat'} />
+                                                </div>
+                                                <div className={'hidden group-hover:block'}>
+                                                    <Icons name={'chat-filled'} />
+                                                </div>
+                                                <span className="ms-3 group-hover:font-semibold">{'chatbot'}</span>
+                                            </a>
+                                        </li>
                                         {
                                             items.map(item => (
                                                 ((item.label == 'Management' || item.label == 'Alerts') && !allowedRolesManagement.includes(role)) ? '' :
                                                     <li className={`relative group ${item.hasDivider ? borderBottomStyle : ''}`}
                                                         key={item.label}>
                                                         {item.path ?
-                                                            <Link  href={`${item.path}`}
+                                                            <Link href={`${item.path}`}
                                                                 className={itemsStyle + ' ' +
                                                                     ` ${pathname === item.path ? 'bg-primary-01 text-primary border-r-2 border-primary ' : ''}`}>
                                                                 <div className={'group-hover:hidden'}>
@@ -220,7 +229,7 @@ export default function Sidebar(props: SidebarInterface) {
                                                                     <span className="absolute top-4 right-3 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{item.badge}</span>
                                                                 )}
                                                             </Link > :
-                                                            <a  onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
+                                                            <a onClick={() => { setIsHistoryOpen(!isHistoryOpen) }}
                                                                 className={itemsStyle + ' ' +
                                                                     ` ${pathname === item.path ? 'relative bg-primary-01 text-primary border-r-2 border-primary ' : 'relative cursor-pointer'}`}>
                                                                 <div className={'group-hover:hidden'}>
@@ -244,7 +253,7 @@ export default function Sidebar(props: SidebarInterface) {
                                                             <ul className="pl-8 space-y-1 max-h-40 overflow-y-auto" onScroll={handleScroll}>
                                                                 {(item as any).subItems && (item as any).subItems.map((subItem: any) => (
                                                                     <li key={subItem.label} >
-                                                                        <Link  href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
+                                                                        <Link href={subItem.path} className={`block px-4 py-2 hover:bg-primary-02 hover:text-primary ${id && id == subItem.chatId ? 'bg-primary-01 text-primary' : ''
                                                                             }`}>
                                                                             {subItem.label}
                                                                             {item.badge && (

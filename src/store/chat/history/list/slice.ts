@@ -46,7 +46,7 @@ const chatHistoryListSlice = createSlice({
     },
     incrementPage(state) {
       state.page += 1;
-    },
+    }
   },
 });
 

@@ -184,7 +184,7 @@ export async function GET(request: any,
     const page =  Number(searchParams.get('page')) || 0;
     const chatId = params.chatId;
     console.log('Extracted chatId:', chatId);
-
+    mockChatHistory.id = params.chatId;
     let lastIndexofRange = mockChatHistory.list.length - (page * 10);
     let firstIndexofRange = Math.max(lastIndexofRange - 10, 0);
 
@@ -195,11 +195,11 @@ export async function GET(request: any,
 
     return NextResponse.json(slicedChatHistory, { status: 200 });
 
-    // if (chatId === mockChatHistory.id) {
-    //     return NextResponse.json(mockChatHistory, { status: 200 });
-    // } else {
-    //     return NextResponse.json({ message: 'Chat history not found' }, { status: 404 });
-    // }
+    if (chatId === mockChatHistory.id) {
+        return NextResponse.json(mockChatHistory, { status: 200 });
+    } else {
+        return NextResponse.json({ message: 'Chat history not found' }, { status: 404 });
+    }
 }
 
 export async function POST(req: NextRequest, { params }: { params: { chatId: string } }) {
