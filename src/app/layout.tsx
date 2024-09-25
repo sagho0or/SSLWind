@@ -36,15 +36,17 @@ export default function RootLayout({
                 <meta name="msapplication-TileColor" content="#2b5797" />
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <meta property="og:title" content="Your Website Title" />
-                <meta property="og:description" content="It is Boilerplate for LLM products" />
-                {/* <meta property="og:image" content="https://yourwebsite.com/image.jpg" />
-                <meta property="og:url" content="https://yourwebsite.com" /> */}
-                <meta name="twitter:card" content="summary_large_image" />
+
+                <meta name="description" content="SafeLLM Interaction System is a secure and scalable interface for interacting with large language models (LLMs) in high-risk environments like wind turbine maintenance and healthcare. Built with Next.js, Redux, and JWT for secure communication." />
+                <meta name="keywords" content="AI, LLM, SafeLLM, Next.js, Redux, secure login, real-time AI monitoring, JWT authentication, wind turbine maintenance, healthcare, chat interface, WebSocket, API" />
+                <meta name="author" content="Saghar Fadaei" />
+                <meta property="og:title" content="SafeLLM Interaction System" />
+                <meta property="og:description" content="A secure, scalable system for interacting with large language models in high-risk environments, built using Next.js, Redux, and JWT." />
+                <meta property="og:url" content="https://github.com/sagho0or/SSLWind" />
+                {/* <meta name="twitter:card" content="summary_large_image" /> */}
                 {/* <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://apis.google.com; object-src 'none';" /> */}
                 <meta name="referrer" content="no-referrer" />
                 {/* <meta http-equiv="X-Content-Type-Options" content="nosniff" /> */}
-                <meta name="description" content="It is Boilerplate for LLM products" />
                 <meta name="robots" content="index, follow" />
 
                 <link rel="manifest" href="/manifest.webmanifest" />
