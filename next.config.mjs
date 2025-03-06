@@ -4,11 +4,12 @@ import bundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig = {
   output: 'standalone',
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
-  async headers() {
+  async rewrites() {
     return [
       {
         // matching all API routes
         source: '/api/:path*',
+        destination: 'https://ssl-chat.vercel.app/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },
