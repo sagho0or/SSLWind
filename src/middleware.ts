@@ -1,5 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 
+
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
     const isPublicPath = path === "/login" || path === "/forgotPassword" || path === "/faq";
@@ -14,7 +15,21 @@ export function middleware(request: NextRequest) {
         // redirect them to the login page
         return NextResponse.redirect(new URL("/login", request.nextUrl));
     }
-    return NextResponse.next();
+
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set('x-hello-from-middleware1', 'hello')
+  
+    // You can also set request headers in NextResponse.rewrite
+    const response = NextResponse.next({
+      request: {
+        // New request headers
+        headers: requestHeaders,
+      },
+    })
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Credentials', 'true')
+
+    return response;
 }
 
 export const config = {
