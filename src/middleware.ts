@@ -17,12 +17,12 @@ export function middleware(request: NextRequest) {
     }
 
     const requestHeaders = new Headers(request.headers)
-    requestHeaders.set('x-hello-from-middleware1', 'hello')
+    requestHeaders.set('Access-Control-Allow-Origin', '*')
+    requestHeaders.set('Access-Control-Allow-Credentials', 'true')
   
     // You can also set request headers in NextResponse.rewrite
     const response = NextResponse.next({
       request: {
-        // New request headers
         headers: requestHeaders,
       },
     })
