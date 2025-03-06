@@ -27,6 +27,5 @@ export const config = {
         "/management",
         "/alerts",
         "/faq",
-        "/chat",
-        "/api/:path*"],
+        "/chat"],
 };
