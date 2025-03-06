@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { applyCors } from '@/app/utils/cors';
 
 const mockList = [
     { id: "1", title: "Item 1", date: "2024-08-01", score: 0.8, userName: "John Doe", lastMessage: "This is the last message", userId: "user1" },
@@ -34,7 +35,9 @@ const mockList = [
 ];
 
 export async function GET(request: Request, { params }: { params: { id: string }}) {
-
+  const corsResponse = applyCors(request);
+  if (corsResponse) return corsResponse;
+  
   const item = mockList.find(item => item.id === params.id);
 
   if (item) {

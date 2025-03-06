@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { applyCors } from '@/app/utils/cors';
 
 const mockList = [
     { id: "1", title: "Item 1", date: "2024-08-01", score: 0.8 },
@@ -34,6 +35,9 @@ const mockList = [
   ];
 
 export async function GET(request: Request) {
+  const corsResponse = applyCors(request);
+  if (corsResponse) return corsResponse;
+  
   const { searchParams } = new URL(request.url);
   const page = parseInt(searchParams.get('page') || '1');
   const title = searchParams.get('title') || '';
